@@ -49,6 +49,12 @@
         <button onclick="getMeaning()" class="contact-btn" style="width: 100%;">Get Meaning</button>
         
         <div id="result" style="display:none; margin-top: 30px; padding: 20px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); font-weight: 500;"></div>
+        <!-- Share Button -->
+        <div class="share-container" style="text-align: center; margin-top: 30px;">
+            <button onclick="shareTool()" class="share-btn">
+                <span class="icon">📤</span> Share this Tool
+            </button>
+        </div>
     </div>
 </div>
 
@@ -65,6 +71,7 @@
 
 <script src="../assets/js/particles.js"></script>
 <script src="../assets/js/language.js"></script>
+<script src="../assets/js/share.js"></script>
 <script>
 const meanings_en = {
     "111": "A new beginning is unfolding. Your thoughts are manifesting fast — stay positive.",
