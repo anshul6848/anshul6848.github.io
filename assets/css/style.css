@@ -525,22 +525,83 @@ footer:before {
 
 /* Language Toggle Button */
 .lang-btn {
-    background: transparent;
-    border: 2px solid #7c3aed;
-    color: #7c3aed;
-    padding: 5px 15px;
-    border-radius: 20px;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    border: none;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 50px;
     margin-left: 20px;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .lang-btn:hover {
-    background: #7c3aed;
-    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
 }
+
+.lang-btn:active {
+    transform: translateY(0);
+}
+
+/* Custom Date Input Styling */
+input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+    background: white;
+    color: #4b5563;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    padding: 12px 15px;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 12px;
+    width: 100%;
+    outline: none;
+    box-shadow: 0 2px 10px rgba(139, 92, 246, 0.05);
+    transition: border-color 0.3s;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+input[type="date"]:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+/* Mobile Friendly Navigation */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+    }
+    header h1 {
+        font-size: 20px;
+    }
+    nav a {
+        display: none; /* Hide confusing links on mobile for now, or just show lang button */
+    }
+    /* Show "Tools" link on mobile? Or maybe a hamburger later. For now, let's keep it simple or user might complain. 
+       Actually, hiding links might be bad if user wants to go back.
+       Let's keep links but make them smaller or hide less important ones.
+    */
+    nav a {
+        display: inline-block;
+        margin-left: 15px;
+        font-size: 13px;
+    }
+    .lang-btn {
+        padding: 5px 12px;
+        font-size: 12px;
+        margin-left: 10px;
+    }
+}
+
 
 nav {
     display: flex;
