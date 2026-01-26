@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Compatibility Calculator • Divine Destiny</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<header>
+    <h1>Divine Destiny <span>by Qbytex</span></h1>
+    <nav>
+        <a href="../index.html" data-i18n="nav_home">Home</a>
+        <a href="../blog.html" data-i18n="nav_blog">Blog</a>
+        <a href="../index.html#tools" data-i18n="nav_tools">Tools</a>
+        <a href="../index.html#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+</header>
+
+<div class="hero" style="padding: 100px 20px 40px; border: none; background: transparent;">
+    <h2 data-i18n="love_title">Love Calculator</h2>
+    <p data-i18n="love_desc">Check the compatibility between you and your partner.</p>
+</div>
+
+<div class="why-section" style="margin: 20px auto; max-width: 600px;">
+    <div class="why-box" style="text-align: left;">
+        <label for="name1" style="display:block; margin-bottom:10px; font-weight:600; color:#4c1d95;" data-i18n="label_your_name">Your Name</label>
+        <input type="text" id="name1" data-i18n="ph_your_name" placeholder="Enter your name"
+               style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 20px; font-family: 'Poppins', sans-serif;">
+
+        <label for="name2" style="display:block; margin-bottom:10px; font-weight:600; color:#4c1d95;" data-i18n="label_partner_name">Partner's Name</label>
+        <input type="text" id="name2" data-i18n="ph_partner_name" placeholder="Enter partner's name"
+               style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 20px; font-family: 'Poppins', sans-serif;">
+        
+        <button onclick="calculateLove()" class="contact-btn" style="width: 100%;" data-i18n="btn_calculate">Calculate Compatibility</button>
+        
+        <div id="result" style="display:none; margin-top: 30px; padding: 25px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); text-align: center;"></div>
+    </div>
+</div>
+
+<footer>
+    <span data-i18n="footer_text">© 2026 Divine Destiny by Qbytex</span>
+</footer>
+
+<script src="../assets/js/particles.js"></script>
+<script src="../assets/js/language.js"></script>
+<script>
+function calculateLove() {
+    const name1 = document.getElementById("name1").value.trim().toLowerCase();
+    const name2 = document.getElementById("name2").value.trim().toLowerCase();
+    const resultBox = document.getElementById("result");
+
+    if (!name1 || !name2) {
+        alert("Please enter both names.");
+        return;
+    }
+
+    // Simple pseudo-random logic based on character codes to make it consistent for same pairs
+    let sum = 0;
+    const combined = name1 + name2;
+    for (let i = 0; i < combined.length; i++) {
+        sum += combined.charCodeAt(i);
+    }
+    
+    // Calculate percentage (pseudo-random consistent)
+    const percentage = (sum % 100) + 1;
+    
+    let message = "";
+    if (percentage > 90) message = "A Match Made in Heaven! ❤️";
+    else if (percentage > 70) message = "Great Compatibility! 💞";
+    else if (percentage > 50) message = "Good Potential. 🤝";
+    else if (percentage > 30) message = "Needs Work, but possible. 🌱";
+    else message = "Not the best match... but love finds a way! 💔";
+
+    resultBox.innerHTML = `
+        <h3 style='margin-top:0; color:#db2777; font-size:42px;'>${percentage}%</h3>
+        <p style='font-size:18px; line-height:1.6; color:#4b5563; font-weight:600;'>${message}</p>
+    `;
+    resultBox.style.display = "block";
+}
+</script>
+
+</body>
+</html>

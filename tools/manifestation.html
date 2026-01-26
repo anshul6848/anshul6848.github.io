@@ -15,33 +15,35 @@
 <header>
     <h1>Divine Destiny <span>by Qbytex</span></h1>
     <nav>
-        <a href="../index.html">Home</a>
-        <a href="../index.html#tools">Tools</a>
-        <a href="../index.html#contact">Contact</a>
+        <a href="../index.html" data-i18n="nav_home">Home</a>
+        <a href="../blog.html" data-i18n="nav_blog">Blog</a>
+        <a href="../index.html#tools" data-i18n="nav_tools">Tools</a>
+        <a href="../index.html#contact" data-i18n="nav_contact">Contact</a>
     </nav>
 </header>
 
 <div class="hero" style="padding: 100px 20px 40px; border: none; background: transparent;">
-    <h2>Manifestation Message</h2>
-    <p>Click the button and receive a powerful manifestation message.</p>
+    <h2 data-i18n="tool_manifest_title">Manifestation Message</h2>
+    <p data-i18n="manifestation_hero_desc">Click the button and receive a powerful manifestation message.</p>
 </div>
 
 <div class="why-section" style="margin: 20px auto; max-width: 600px;">
     <div class="why-box" style="text-align: center;">
         
-        <button onclick="generateMessage()" class="contact-btn" style="width: 100%; margin-top: 20px;">Reveal Message</button>
+        <button onclick="generateMessage()" class="contact-btn" style="width: 100%; margin-top: 20px;" data-i18n="btn_reveal_message">Reveal Message</button>
 
         <div id="result" style="display:none; margin-top: 30px; padding: 20px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); font-weight: 500; font-size: 20px;"></div>
     </div>
 </div>
 
 <footer>
-    © 2026 Divine Destiny by Qbytex
+    <span data-i18n="footer_text">© 2026 Divine Destiny by Qbytex</span>
 </footer>
 
 <script src="../assets/js/particles.js"></script>
+<script src="../assets/js/language.js"></script>
 <script>
-const messages = [
+const messages_en = [
     "Money is flowing to you in unexpected beautiful ways.",
     "Your desire is closer than you think. Keep your energy high.",
     "You are entering a lucky phase — the universe is supporting you.",
@@ -58,9 +60,28 @@ const messages = [
     "You are becoming the best version of yourself — keep going.",
     "Your emotional, financial and spiritual life is rising beautifully."
 ];
+const messages_hi = [
+    "धन अप्रत्याशित सुंदर तरीकों से आपकी ओर प्रवाहित हो रहा है।",
+    "आपकी इच्छा आपकी सोच से भी करीब है। अपनी ऊर्जा उच्च रखें।",
+    "आप एक भाग्यशाली चरण में प्रवेश कर रहे हैं - ब्रह्मांड आपका समर्थन कर रहा है।",
+    "आपकी मैनिफेस्टेशन पहले से ही आपकी है। विश्वास करें और प्राप्त करें।",
+    "एक सुंदर बदलाव हो रहा है - दैवीय समय पर भरोसा करें।",
+    "कोई शुद्ध इरादे से आपके बारे में सोच रहा है।",
+    "आपके सपने हकीकत के साथ जुड़ रहे हैं। आप शक्तिशाली हैं।",
+    "एक अवसर आ रहा है - तैयार रहें।",
+    "आपकी ऊर्जा चुंबकीय है। आप जो चाहते हैं वह आपकी ओर बढ़ रहा है।",
+    "आज आपके जीवन में एक आशीर्वाद प्रवेश कर रहा है - इसके लिए खुले रहें।",
+    "आपकी इच्छा सुनी जा रही है - सकारात्मक परिवर्तन हो रहा है।",
+    "आपको प्रचुरता और आनंद की ओर निर्देशित किया जा रहा है।",
+    "कुछ ऐसा जिसके लिए आपने प्रार्थना की है वह पहले से ही रास्ते में है।",
+    "आप अपना सर्वश्रेष्ठ संस्करण बन रहे हैं - चलते रहें।",
+    "आपका भावनात्मक, वित्तीय और आध्यात्मिक जीवन खूबसूरती से बढ़ रहा है।"
+];
 
 function generateMessage() {
     const result = document.getElementById("result");
+    const lang = localStorage.getItem('divine_lang') || 'en';
+    const messages = lang === 'en' ? messages_en : messages_hi;
     const random = messages[Math.floor(Math.random() * messages.length)];
 
     result.innerHTML = random;

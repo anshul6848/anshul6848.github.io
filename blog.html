@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divine Wisdom Blog • Divine Destiny</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#7c3aed">
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<header>
+    <h1>Divine Destiny <span>by Qbytex</span></h1>
+    <nav>
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="blog.html" data-i18n="nav_blog">Blog</a>
+        <a href="index.html#tools" data-i18n="nav_tools">Tools</a>
+        <a href="index.html#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+</header>
+
+<div class="hero" style="padding: 120px 20px 80px;">
+    <div class="aura-ring r1"></div>
+    <div class="aura-ring r2"></div>
+    <h2 data-i18n="blog_hero_title">Spiritual Wisdom</h2>
+    <p data-i18n="blog_hero_desc">explore the deeper meanings of the universe, angel numbers, and your soul's journey.</p>
+</div>
+
+<div class="blog-wrapper">
+    <!-- Blog Post 1 -->
+    <div class="blog-card">
+        <div class="blog-image">
+            ✦
+        </div>
+        <div class="blog-content">
+            <div class="blog-date">Oct 12 • Angel Numbers</div>
+            <h3 data-i18n="blog_1_title">The Meaning of seeing 11:11 Everywhere</h3>
+            <p data-i18n="blog_1_desc">Why do you keep seeing 11:11 on the clock? Discover the portal of manifestation opening for you.</p>
+            <a href="#" class="read-more" data-i18n="read_more">Read Article →</a>
+        </div>
+    </div>
+
+    <!-- Blog Post 2 -->
+    <div class="blog-card">
+        <div class="blog-image">
+            ☾
+        </div>
+        <div class="blog-content">
+            <div class="blog-date">Oct 10 • Moon Energy</div>
+            <h3 data-i18n="blog_2_title">Harnessing the Power of the Full Moon</h3>
+            <p data-i18n="blog_2_desc">The full moon is a time of release. Learn a simple ritual to let go of what no longer serves you.</p>
+            <a href="#" class="read-more" data-i18n="read_more">Read Article →</a>
+        </div>
+    </div>
+
+    <!-- Blog Post 3 -->
+    <div class="blog-card">
+        <div class="blog-image">
+            ∞
+        </div>
+        <div class="blog-content">
+            <div class="blog-date">Oct 05 • Soul Growth</div>
+            <h3 data-i18n="blog_3_title">5 Signs You Are Going Through a Spiritual Awakening</h3>
+            <p data-i18n="blog_3_desc">Feeling lost or disconnected? You might be upgrading your soul's frequency. Here are the signs.</p>
+            <a href="#" class="read-more" data-i18n="read_more">Read Article →</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <span data-i18n="footer_text">© 2026 Divine Destiny by Qbytex</span>
+</footer>
+
+<script src="assets/js/particles.js"></script>
+<script src="assets/js/language.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js');
+        });
+    }
+</script>
+
+</body>
+</html>

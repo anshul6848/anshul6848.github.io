@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zodiac Sign Calculator • Divine Destiny</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<header>
+    <h1>Divine Destiny <span>by Qbytex</span></h1>
+    <nav>
+        <a href="../index.html" data-i18n="nav_home">Home</a>
+        <a href="../blog.html" data-i18n="nav_blog">Blog</a>
+        <a href="../index.html#tools" data-i18n="nav_tools">Tools</a>
+        <a href="../index.html#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+</header>
+
+<div class="hero" style="padding: 100px 20px 40px; border: none; background: transparent;">
+    <h2 data-i18n="zodiac_title">Find Your Zodiac Sign</h2>
+    <p data-i18n="zodiac_desc">Enter your birth date to discover your Rashi (Sun Sign).</p>
+</div>
+
+<div class="why-section" style="margin: 20px auto; max-width: 600px;">
+    <div class="why-box" style="text-align: left;">
+        <label for="dob" style="display:block; margin-bottom:10px; font-weight:600; color:#4c1d95;" data-i18n="label_dob">Date of Birth</label>
+        <input type="date" id="dob" 
+               style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 20px; font-family: 'Poppins', sans-serif;">
+        <button onclick="findZodiac()" class="contact-btn" style="width: 100%;" data-i18n="btn_find_zodiac">Find Zodiac</button>
+        
+        <div id="result" style="display:none; margin-top: 30px; padding: 25px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); text-align: center;"></div>
+    </div>
+</div>
+
+<footer>
+    <span data-i18n="footer_text">© 2026 Divine Destiny by Qbytex</span>
+</footer>
+
+<script src="../assets/js/particles.js"></script>
+<script src="../assets/js/language.js"></script>
+<script>
+function findZodiac() {
+    const dateInput = document.getElementById("dob").value;
+    if (!dateInput) {
+        alert("Please select a date.");
+        return;
+    }
+
+    const date = new Date(dateInput);
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // 1-12
+
+    let sign = "";
+    let icon = "";
+    
+    // Simple Western Zodiac Logic
+    if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) { sign = "Aries (Mesh)"; icon = "♈"; }
+    else if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) { sign = "Taurus (Vrishabha)"; icon = "♉"; }
+    else if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) { sign = "Gemini (Mithuna)"; icon = "♊"; }
+    else if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) { sign = "Cancer (Karka)"; icon = "♋"; }
+    else if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) { sign = "Leo (Simha)"; icon = "♌"; }
+    else if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) { sign = "Virgo (Kanya)"; icon = "♍"; }
+    else if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) { sign = "Libra (Tula)"; icon = "♎"; }
+    else if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) { sign = "Scorpio (Vrishchika)"; icon = "♏"; }
+    else if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) { sign = "Sagittarius (Dhanu)"; icon = "♐"; }
+    else if ((month == 12 && day >= 22) || (month == 1 && day <= 19)) { sign = "Capricorn (Makara)"; icon = "♑"; }
+    else if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) { sign = "Aquarius (Kumbha)"; icon = "♒"; }
+    else { sign = "Pisces (Meena)"; icon = "♓"; }
+
+    const resultBox = document.getElementById("result");
+    resultBox.innerHTML = `
+        <div style="font-size: 60px; margin-bottom: 15px;">${icon}</div>
+        <h3 style='margin-top:0; color:#6d28d9; font-size:32px;'>${sign}</h3>
+    `;
+    resultBox.style.display = "block";
+}
+</script>
+
+</body>
+</html>
