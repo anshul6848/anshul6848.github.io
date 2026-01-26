@@ -15,15 +15,16 @@
 <header>
     <h1>Divine Destiny <span>by Qbytex</span></h1>
     <nav>
-        <a href="../index.html">Home</a>
-        <a href="../index.html#tools">Tools</a>
-        <a href="../index.html#contact">Contact</a>
+        <a href="../index.html" data-i18n="nav_home">Home</a>
+        <a href="../blog.html" data-i18n="nav_blog">Blog</a>
+        <a href="../index.html#tools" data-i18n="nav_tools">Tools</a>
+        <a href="../index.html#contact" data-i18n="nav_contact">Contact</a>
     </nav>
 </header>
 
 <div class="hero" style="padding: 100px 20px 40px; border: none; background: transparent;">
-    <h2>Angel Number Meaning</h2>
-    <p>Discover the hidden messages from the universe.</p>
+    <h2 data-i18n="tool_angel_title">Angel Number Meaning</h2>
+    <p data-i18n="tool_angel_desc_full">Discover the hidden messages from the universe.</p>
 </div>
 
 <div class="why-section" style="margin: 20px auto; max-width: 600px;">
@@ -41,8 +42,9 @@
 </footer>
 
 <script src="../assets/js/particles.js"></script>
+<script src="../assets/js/language.js"></script>
 <script>
-const meanings = {
+const meanings_en = {
     "111": "A new beginning is unfolding. Your thoughts are manifesting fast — stay positive.",
     "222": "You are aligned with divine timing. Balance and harmony are entering your life.",
     "333": "Ascended masters are guiding you. Trust your intuition and inner voice.",
@@ -60,14 +62,37 @@ const meanings = {
     "1919": "You are completing a soul cycle. Embrace the next stage of your destiny."
 };
 
+const meanings_hi = {
+    "111": "एक नई शुरुआत हो रही है। आप जो सोच रहे हैं वह तेजी से प्रकट हो रहा है - सकारात्मक रहें।",
+    "222": "आप दैवीय समय के साथ संरेखित हैं। संतुलन और सद्भाव आपके जीवन में प्रवेश कर रहा है।",
+    "333": "आरोही गुरु आपका मार्गदर्शन कर रहे हैं। अपनी अंतर्ज्ञान और आंतरिक आवाज पर भरोसा करें।",
+    "444": "आप सुरक्षित हैं। स्वर्गदूत आपको शक्ति और स्थिरता के साथ घेर रहे हैं।",
+    "555": "बड़ा बदलाव आ रहा है। पुराने को जाने दें और परिवर्तन का स्वागत करें।",
+    "666": "अपने विचारों को फिर से केंद्रित करें। आप आध्यात्मिक रूप से समर्थित हैं - भय को छोड़ दें।",
+    "777": "चमत्कार आपके जीवन में प्रवेश कर रहे हैं। दैवीय आशीर्वाद आपके लिए संरेखित हो रहे हैं।",
+    "888": "वित्तीय प्रचुरता रास्ते में है। आपकी कड़ी मेहनत रंग ला रही है।",
+    "999": "एक अध्याय बंद हो रहा है। आपके लिए नई आध्यात्मिक वृद्धि शुरू हो रही है।",
+    "1212": "आशावादी रहें - आपकी अभिव्यक्ति बहुत करीब है।",
+    "1234": "आप सही रास्ते पर हैं। आत्मविश्वास के साथ आगे बढ़ते रहें।",
+    "1010": "आप जाग रहे हैं। ब्रह्मांड नए दरवाजे खोल रहा है।",
+    "1111": "एक पोर्टल खुल गया है। एक इच्छा करें - आपकी अभिव्यक्ति अभी शक्तिशाली है।",
+    "2323": "रचनात्मक ऊर्जा प्रवाहित हो रही है। अपने आप को निडर होकर व्यक्त करें।",
+    "1919": "आप एक आत्मा चक्र पूरा कर रहे हैं। अपनी नियति के अगले चरण को गले लगाओ।"
+};
+
 function getMeaning() {
     const num = document.getElementById("numberInput").value.trim();
     const resultBox = document.getElementById("result");
+    const lang = localStorage.getItem('divine_lang') || 'en';
+    const meanings = lang === 'en' ? meanings_en : meanings_hi;
 
     if (meanings[num]) {
         resultBox.innerHTML = `<b>${num}</b> — ${meanings[num]}`;
     } else {
-        resultBox.innerHTML = `No direct meaning found for <b>${num}</b> — but trust this: angels are trying to connect with you. Stay aware of signs.`;
+        const notFoundMsg = lang === 'en' 
+            ? `No direct meaning found for <b>${num}</b> — but trust this: angels are trying to connect with you. Stay aware of signs.`
+            : `<b>${num}</b> के लिए कोई सीधा अर्थ नहीं मिला - लेकिन विश्वास रखें: स्वर्गदूत आपसे जुड़ने की कोशिश कर रहे हैं। संकेतों के प्रति जागरूक रहें।`;
+        resultBox.innerHTML = notFoundMsg;
     }
 
     resultBox.style.display = "block";

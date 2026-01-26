@@ -1,9 +1,10 @@
-const CACHE_NAME = 'anshul-portfolio-v1';
+const CACHE_NAME = 'anshul-portfolio-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './assets/css/style.css',
   './assets/js/particles.js',
+  './assets/js/language.js',
   './manifest.json'
 ];
 

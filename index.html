@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#7c3aed">
+<style>
+</style>
 
 </head>
 
@@ -21,10 +23,10 @@
 <header>
     <h1>Divine Destiny <span>by Qbytex</span></h1>
     <nav>
-        <a href="#home">Home</a>
-        <a href="#guidance">Guidance</a>
-        <a href="#tools">Tools</a>
-        <a href="#contact">Contact</a>
+        <a href="#home" data-i18n="nav_home">Home</a>
+        <a href="blog.html" data-i18n="nav_blog">Blog</a>
+        <a href="#tools" data-i18n="nav_tools">Tools</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
     </nav>
 </header>
 
@@ -32,83 +34,105 @@
     <div class="aura-ring r1"></div>
     <div class="aura-ring r2"></div>
 
-    <h2>Awaken Your Spiritual Power</h2>
-    <p>Your destination for Angel Numbers, Divine Messages, Manifestation Tools, and Spiritual Guidance.</p>
+    <h2 data-i18n="hero_title">Awaken Your Spiritual Power</h2>
+    <p data-i18n="hero_desc">Your destination for Angel Numbers, Divine Messages, Manifestation Tools, and Spiritual Guidance.</p>
 </section>
 
-<h2 class="section-title" id="tools">Spiritual Tools</h2>
+<h2 class="section-title" id="tools" data-i18n="section_tools">Spiritual Tools</h2>
 
 <div class="tools-wrapper">
 
     <div class="tool-card">
         <div class="tool-card-icon">🔮</div>
-        <h3>Angel Number Meaning</h3>
-        <p>Decode divine signs like 111, 444, 777.</p>
-        <a href="tools/angel.html">Open</a>
+        <h3 data-i18n="tool_angel_title">Angel Number Meaning</h3>
+        <p data-i18n="tool_angel_desc">Decode divine signs like 111, 444, 777.</p>
+        <a href="tools/angel.html" data-i18n="tool_angel_btn">Open</a>
     </div>
 
     <div class="tool-card">
         <div class="tool-card-icon">✨</div>
-        <h3>Manifestation Message</h3>
-        <p>Tap once to receive a powerful manifestation message.</p>
-        <a href="tools/manifestation.html">Open</a>
+        <h3 data-i18n="tool_manifest_title">Manifestation Message</h3>
+        <p data-i18n="tool_manifest_desc">Tap once to receive a powerful manifestation message.</p>
+        <a href="tools/manifestation.html" data-i18n="tool_manifest_btn">Open</a>
     </div>
 
     <div class="tool-card">
         <div class="tool-card-icon">🌙</div>
-        <h3>Divine Guidance</h3>
-        <p>A message the Universe wants YOU to hear today.</p>
-        <a href="tools/guidance.html">Open</a>
+        <h3 data-i18n="tool_guidance_title">Divine Guidance</h3>
+        <p data-i18n="tool_guidance_desc">A message the Universe wants YOU to hear today.</p>
+        <a href="tools/guidance.html" data-i18n="tool_guidance_btn">Open</a>
+    </div>
+
+    <div class="tool-card">
+        <div class="tool-card-icon">🔢</div>
+        <h3 data-i18n="tool_lifepath_title">Life Path Number</h3>
+        <p data-i18n="tool_lifepath_desc">Unlock your soul's purpose using your birth date.</p>
+        <a href="tools/lifepath.html" data-i18n="tool_lifepath_btn">Open</a>
+    </div>
+
+    <div class="tool-card">
+        <div class="tool-card-icon">❤️</div>
+        <h3 data-i18n="tool_love_title">Love Calculator</h3>
+        <p data-i18n="tool_love_desc">Check compatibility with your partner.</p>
+        <a href="tools/love.html" data-i18n="tool_love_btn">Open</a>
+    </div>
+
+    <div class="tool-card">
+        <div class="tool-card-icon">♈</div>
+        <h3 data-i18n="tool_zodiac_title">Zodiac Sign Finder</h3>
+        <p data-i18n="tool_zodiac_desc">Find your Rashi (Sun Sign) by birth date.</p>
+        <a href="tools/zodiac.html" data-i18n="tool_zodiac_btn">Open</a>
     </div>
 
 </div>
 
 <div class="why-section">
-    <h3 class="why-title">Why Divine Destiny?</h3>
-    <div class="why-box">
+    <h3 class="why-title" data-i18n="why_title">Why Divine Destiny?</h3>
+    <div class="why-box" data-i18n="why_text">
         Divine Destiny is your sacred space for daily clarity.  
         Our tools help you understand divine signs, calm your energy,  
-        and align your spiritual path — effortlessly and beautifully.  
+        and align your spiritual path — effortlessly and beautifully.
     </div>
 </div>
 
-<h2 class="section-title">Soul Stories</h2>
+<h2 class="section-title" data-i18n="section_stories">Soul Stories</h2>
 
 <div class="testimonials-section">
     <div class="testimonial-grid">
         <div class="testimonial-card">
-            <p class="testimonial-text">"The angel number decoder spot on! I kept seeing 444 and the message gave me exactly the reassurance I needed."</p>
+            <p class="testimonial-text" data-i18n="story_1_text">"The angel number decoder spot on! I kept seeing 444 and the message gave me exactly the reassurance I needed."</p>
             <div class="testimonial-author">Sarah J.</div>
         </div>
         <div class="testimonial-card">
-            <p class="testimonial-text">"I start every morning with the Divine Guidance tool. It's like a daily dose of spiritual vitamin that sets my mood right."</p>
+            <p class="testimonial-text" data-i18n="story_2_text">"I start every morning with the Divine Guidance tool. It's like a daily dose of spiritual vitamin that sets my mood right."</p>
             <div class="testimonial-author">Michael R.</div>
         </div>
         <div class="testimonial-card">
-            <p class="testimonial-text">"Beautiful site with such calm energy. The manifestation messages always seem to pop up exactly when I need a sign."</p>
+            <p class="testimonial-text" data-i18n="story_3_text">"Beautiful site with such calm energy. The manifestation messages always seem to pop up exactly when I need a sign."</p>
             <div class="testimonial-author">Elena K.</div>
         </div>
     </div>
 </div>
 
 <div class="contact-section" id="contact">
-    <h2 class="section-title" style="margin-top: 0;">Get in Touch</h2>
-    <p style="color: #4b5563; margin-bottom: 30px;">Have a question or a spiritual story to share? We'd love to hear from you.</p>
+    <h2 class="section-title" style="margin-top: 0;" data-i18n="contact_title">Get in Touch</h2>
+    <p style="color: #4b5563; margin-bottom: 30px;" data-i18n="contact_desc">Have a question or a spiritual story to share? We'd love to hear from you.</p>
     <form class="contact-form">
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea rows="5" placeholder="Your Message" required></textarea>
-        <button type="submit" class="contact-btn">Send Message</button>
+        <input type="text" placeholder="Your Name" required data-i18n="contact_ph_name">
+        <input type="email" placeholder="Your Email" required data-i18n="contact_ph_email">
+        <textarea rows="5" placeholder="Your Message" required data-i18n="contact_ph_msg"></textarea>
+        <button type="submit" class="contact-btn" data-i18n="contact_btn">Send Message</button>
     </form>
 </div>
 
 
 <footer>
-    © 2026 Divine Destiny by Qbytex
+    <span data-i18n="footer_text">© 2026 Divine Destiny by Qbytex</span>
 </footer>
 
 <!-- PARTICLE SCRIPT -->
 <script src="assets/js/particles.js"></script>
+<script src="assets/js/language.js"></script>
 
 <script>
   if ('serviceWorker' in navigator) {

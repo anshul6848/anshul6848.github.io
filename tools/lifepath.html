@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life Path Number Calculator • Divine Destiny</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<header>
+    <h1>Divine Destiny <span>by Qbytex</span></h1>
+    <nav>
+        <a href="../index.html" data-i18n="nav_home">Home</a>
+        <a href="../blog.html" data-i18n="nav_blog">Blog</a>
+        <a href="../index.html#tools" data-i18n="nav_tools">Tools</a>
+        <a href="../index.html#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+</header>
+
+<div class="hero" style="padding: 100px 20px 40px; border: none; background: transparent;">
+    <h2 data-i18n="lifepath_hero_title">Life Path Calculator</h2>
+    <p data-i18n="lifepath_hero_desc">Unlock your soul's purpose through your birth date.</p>
+</div>
+
+<div class="why-section" style="margin: 20px auto; max-width: 600px;">
+    <div class="why-box" style="text-align: left;">
+        <label for="dob" style="display:block; margin-bottom:10px; font-weight:600; color:#4c1d95;" data-i18n="label_dob_enter">Enter your Date of Birth:</label>
+        <input type="date" id="dob" 
+               style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 20px; font-family: 'Poppins', sans-serif;">
+        <button onclick="calculateLifePath()" class="contact-btn" style="width: 100%;" data-i18n="btn_calculate_simple">Calculate</button>
+        
+        <div id="result" style="display:none; margin-top: 30px; padding: 25px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2);"></div>
+    </div>
+</div>
+
+<footer>
+    <span data-i18n="footer_text">© 2026 Divine Destiny by Qbytex</span>
+</footer>
+
+<script src="../assets/js/particles.js"></script>
+<script src="../assets/js/language.js"></script>
+<script>
+const meanings_en = {
+    1: "The Leader. You are independent, ambitious, and original. Your purpose is to lead and innovate.",
+    2: "The Peacemaker. You are sensitive, cooperative, and intuitive. Your purpose is to bring harmony.",
+    3: "The Creative. You are expressive, artistic, and joyful. Your purpose is to inspire others.",
+    4: "The Builder. You are practical, grounded, and hardworking. Your purpose is to build calm stability.",
+    5: "The Adventurer. You are free-spirited, dynamic, and change-seeking. Your purpose is to explore freedom.",
+    6: "The Nurturer. You are loving, responsible, and caring. Your purpose is to serve and heal family/community.",
+    7: "The Seeker. You are analytical, spiritual, and wise. Your purpose is to seek truth and inner wisdom.",
+    8: "The Powerhouse. You are ambitious, successful, and abundant. Your purpose is to master the material world.",
+    9: "The Humanitarian. You are compassionate, selfless, and wise. Your purpose is to help humanity.",
+    11: "The Master Intuitive. You have high spiritual insight and are here to illuminate the path for others.",
+    22: "The Master Builder. You have the power to turn big dreams into reality on a global scale.",
+    33: "The Master Teacher. You carry pure devotion and love, here to uplift spiritual consciousness."
+};
+
+const meanings_hi = {
+    1: "नेता। आप स्वतंत्र, महत्वाकांक्षी और मौलिक हैं। आपका उद्देश्य नेतृत्व करना और नया करना है。",
+    2: "शांतिदूत। आप संवेदनशील, सहयोगी और सहज ज्ञान युक्त हैं। आपका उद्देश्य सद्भाव लाना है。",
+    3: "रचनात्मक। आप अभिव्यंजक, कलात्मक और आनंदमय हैं। आपका उद्देश्य दूसरों को प्रेरित करना है。",
+    4: "निर्माता। आप व्यावहारिक, जमीनी और मेहनती हैं। आपका उद्देश्य शांत स्थिरता का निर्माण करना है。",
+    5: "साहसी। आप मुक्त-उत्साही, गतिशील और परिवर्तन चाहने वाले हैं। आपका उद्देश्य स्वतंत्रता का पता लगाना है。",
+    6: "पोषणकर्ता। आप प्यार करने वाले, जिम्मेदार और देखभाल करने वाले हैं। आपका उद्देश्य परिवार/समुदाय की सेवा और उपचार करना है。",
+    7: "साधक। आप विश्लेषणात्मक, आध्यात्मिक और बुद्धिमान हैं। आपका उद्देश्य सत्य और आंतरिक ज्ञान की तलाश करना है。",
+    8: "शक्तिशाली। आप महत्वाकांक्षी, सफल और प्रचुर हैं। आपका उद्देश्य भौतिक दुनिया में महारत हासिल करना है。",
+    9: "मानवतावादी। आप दयालु, निस्वार्थ और बुद्धिमान हैं। आपका उद्देश्य मानवता की मदद करना है。",
+    11: "मास्टर इंट्यूटिव। आपके पास उच्च आध्यात्मिक अंतर्दृष्टि है और आप दूसरों के लिए रास्ता रोशन करने के लिए यहां हैं。",
+    22: "मास्टर बिल्डर। आपके पास बड़े सपनों को वैश्विक स्तर पर हकीकत में बदलने की शक्ति है।",
+    33: "मास्टर टीचर। आप शुद्ध भक्ति और प्रेम रखते हैं, जो आध्यात्मिक चेतना को ऊपर उठाने के लिए यहां हैं।"
+};
+
+function calculateLifePath() {
+    const input = document.getElementById("dob").value;
+    if (!input) {
+        alert("Please enter a valid date.");
+        return;
+    }
+
+    // Format YYYY-MM-DD
+    let digits = input.replace(/-/g, '').split('').map(Number);
+    let sum = digits.reduce((a, b) => a + b, 0);
+
+    // Reduce to single digit or master number
+    while (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
+        let tempSum = 0;
+        let strSum = sum.toString();
+        for(let char of strSum) {
+            tempSum += parseInt(char);
+        }
+        sum = tempSum;
+    }
+
+    const resultBox = document.getElementById("result");
+    const lang = localStorage.getItem('divine_lang') || 'en';
+    const meanings = lang === 'en' ? meanings_en : meanings_hi;
+    const meaning = meanings[sum] || "Unknown number";
+
+    resultBox.innerHTML = `
+        <h3 style='margin-top:0; color:#6d28d9; font-size:24px;'>Your Life Path Number: ${sum}</h3>
+        <p style='font-size:16px; line-height:1.6; color:#4b5563;'>${meaning}</p>
+    `;
+    resultBox.style.display = "block";
+}
+</script>
+
+</body>
+</html>
