@@ -1,26 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Divine Wisdom Blog • Divine Destiny</title>
-<meta name="description" content="Explore articles on Angel Numbers, Spiritual Awakening, and Moon Energy. Deepen your understanding of the universe with Divine Destiny.">
-<meta name="keywords" content="spiritual blog, angel numbers meaning, 1111 meaning, full moon rituals, spiritual awakening signs">
-<link rel="canonical" href="https://anshul6848.github.io/blog.html" />
-
-<!-- Open Graph -->
-<meta property="og:title" content="Divine Wisdom Blog • Divine Destiny">
-<meta property="og:description" content="Explore articles on Angel Numbers, Spiritual Awakening, and Moon Energy.">
-<meta property="og:image" content="https://anshul6848.github.io/assets/icons/icon-512x512.png">
-<meta property="og:url" content="https://anshul6848.github.io/blog.html">
+<title>Angel Number Meaning • Divine Destiny</title>
+<meta name="description" content="Decode the meaning of angel numbers like 111, 222, 333, and more. Find out what the universe is trying to tell you.">
+<meta name="keywords" content="angel number calculator, meaning of 111, meaning of 444, numerology, spirit guides">
+<link rel="canonical" href="https://anshul6848.github.io/tools/angel.html" />
 
 <!-- Google AdSense Placeholder -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3753214906000202" crossorigin="anonymous"></script>
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#7c3aed">
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
@@ -29,18 +22,17 @@
 <header>
     <h1>Divine Destiny <span>by Qbytex</span></h1>
     <nav>
-        <a href="index.html" data-i18n="nav_home">Home</a>
-        <a href="blog.html" data-i18n="nav_blog">Blog</a>
-        <a href="index.html#tools" data-i18n="nav_tools">Tools</a>
-        <a href="index.html#contact" data-i18n="nav_contact">Contact</a>
+        <a href="../index.html" data-i18n="nav_home">Home</a>
+        <a href="../blog.html" data-i18n="nav_blog">Blog</a>
+        <a href="../index.html#tools" data-i18n="nav_tools">Tools</a>
+        <a href="../index.html#contact" data-i18n="nav_contact">Contact</a>
     </nav>
 </header>
 
-<div class="hero" style="padding: 120px 20px 80px;">
-    <div class="aura-ring r1"></div>
-    <div class="aura-ring r2"></div>
-    <h2 data-i18n="blog_hero_title">Spiritual Wisdom</h2>
-    <p data-i18n="blog_hero_desc">explore the deeper meanings of the universe, angel numbers, and your soul's journey.</p>
+
+<div class="hero" style="padding: 100px 20px 40px; border: none; background: transparent;">
+    <h2 data-i18n="tool_angel_title">Angel Number Meaning</h2>
+    <p data-i18n="tool_angel_desc_full">Discover the hidden messages from the universe.</p>
 </div>
 
 <!-- ADVERTISEMENT SLOT 1 -->
@@ -50,43 +42,18 @@
     </div>
 </div>
 
-<div class="blog-wrapper">
-    <!-- Blog Post 1 -->
-    <div class="blog-card">
-        <div class="blog-image">
-            ✦
-        </div>
-        <div class="blog-content">
-            <div class="blog-date">Oct 12 • Angel Numbers</div>
-            <h3 data-i18n="blog_1_title">The Meaning of seeing 11:11 Everywhere</h3>
-            <p data-i18n="blog_1_desc">Why do you keep seeing 11:11 on the clock? Discover the portal of manifestation opening for you.</p>
-            <a href="#" class="read-more" data-i18n="read_more">Read Article →</a>
-        </div>
-    </div>
-
-    <!-- Blog Post 2 -->
-    <div class="blog-card">
-        <div class="blog-image">
-            ☾
-        </div>
-        <div class="blog-content">
-            <div class="blog-date">Oct 10 • Moon Energy</div>
-            <h3 data-i18n="blog_2_title">Harnessing the Power of the Full Moon</h3>
-            <p data-i18n="blog_2_desc">The full moon is a time of release. Learn a simple ritual to let go of what no longer serves you.</p>
-            <a href="#" class="read-more" data-i18n="read_more">Read Article →</a>
-        </div>
-    </div>
-
-    <!-- Blog Post 3 -->
-    <div class="blog-card">
-        <div class="blog-image">
-            ∞
-        </div>
-        <div class="blog-content">
-            <div class="blog-date">Oct 05 • Soul Growth</div>
-            <h3 data-i18n="blog_3_title">5 Signs You Are Going Through a Spiritual Awakening</h3>
-            <p data-i18n="blog_3_desc">Feeling lost or disconnected? You might be upgrading your soul's frequency. Here are the signs.</p>
-            <a href="#" class="read-more" data-i18n="read_more">Read Article →</a>
+<div class="why-section" style="margin: 20px auto; max-width: 600px;">
+    <div class="why-box" style="text-align: left;">
+        <input type="text" id="numberInput" placeholder="Enter number (e.g., 111, 444)" 
+               style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 20px; font-family: 'Poppins', sans-serif;">
+        <button onclick="getMeaning()" class="contact-btn" style="width: 100%;">Get Meaning</button>
+        
+        <div id="result" style="display:none; margin-top: 30px; padding: 20px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); font-weight: 500;"></div>
+        <!-- Share Button -->
+        <div class="share-container" style="text-align: center; margin-top: 30px;">
+            <button onclick="shareTool()" class="share-btn">
+                <span class="icon">📤</span> Share this Tool
+            </button>
         </div>
     </div>
 </div>
@@ -99,19 +66,67 @@
 </div>
 
 <footer>
-    <span data-i18n="footer_text">© 2026 Divine Destiny by Qbytex</span>
+    © 2026 Divine Destiny by Qbytex
 </footer>
 
-<script src="assets/js/particles.js"></script>
-<script src="assets/js/language.js"></script>
+<script src="../assets/js/particles.js"></script>
+<script src="../assets/js/language.js"></script>
+<script src="../assets/js/share.js"></script>
 <script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js');
-        });
+const meanings_en = {
+    "111": "A new beginning is unfolding. Your thoughts are manifesting fast — stay positive.",
+    "222": "You are aligned with divine timing. Balance and harmony are entering your life.",
+    "333": "Ascended masters are guiding you. Trust your intuition and inner voice.",
+    "444": "You are protected. Angels are surrounding you with strength and stability.",
+    "555": "Major change is coming. Let go of the old and welcome transformation.",
+    "666": "Refocus your thoughts. You are spiritually supported — release fear.",
+    "777": "Miracles are entering your life. Divine blessings are aligning for you.",
+    "888": "Financial abundance is on the way. Your hard work is paying off.",
+    "999": "A chapter is closing. New spiritual growth is beginning for you.",
+    "1212": "Stay optimistic — your manifestations are very close.",
+    "1234": "You are on the right path. Keep moving forward with confidence.",
+    "1010": "You are awakening. The universe is opening new doors.",
+    "1111": "A portal has opened. Make a wish — your manifestation is powerful right now.",
+    "2323": "Creative energy is flowing. Express yourself fearlessly.",
+    "1919": "You are completing a soul cycle. Embrace the next stage of your destiny."
+};
+
+const meanings_hi = {
+    "111": "एक नई शुरुआत हो रही है। आप जो सोच रहे हैं वह तेजी से प्रकट हो रहा है - सकारात्मक रहें।",
+    "222": "आप दैवीय समय के साथ संरेखित हैं। संतुलन और सद्भाव आपके जीवन में प्रवेश कर रहा है।",
+    "333": "आरोही गुरु आपका मार्गदर्शन कर रहे हैं। अपनी अंतर्ज्ञान और आंतरिक आवाज पर भरोसा करें।",
+    "444": "आप सुरक्षित हैं। स्वर्गदूत आपको शक्ति और स्थिरता के साथ घेर रहे हैं।",
+    "555": "बड़ा बदलाव आ रहा है। पुराने को जाने दें और परिवर्तन का स्वागत करें।",
+    "666": "अपने विचारों को फिर से केंद्रित करें। आप आध्यात्मिक रूप से समर्थित हैं - भय को छोड़ दें।",
+    "777": "चमत्कार आपके जीवन में प्रवेश कर रहे हैं। दैवीय आशीर्वाद आपके लिए संरेखित हो रहे हैं।",
+    "888": "वित्तीय प्रचुरता रास्ते में है। आपकी कड़ी मेहनत रंग ला रही है।",
+    "999": "एक अध्याय बंद हो रहा है। आपके लिए नई आध्यात्मिक वृद्धि शुरू हो रही है।",
+    "1212": "आशावादी रहें - आपकी अभिव्यक्ति बहुत करीब है।",
+    "1234": "आप सही रास्ते पर हैं। आत्मविश्वास के साथ आगे बढ़ते रहें।",
+    "1010": "आप जाग रहे हैं। ब्रह्मांड नए दरवाजे खोल रहा है।",
+    "1111": "एक पोर्टल खुल गया है। एक इच्छा करें - आपकी अभिव्यक्ति अभी शक्तिशाली है।",
+    "2323": "रचनात्मक ऊर्जा प्रवाहित हो रही है। अपने आप को निडर होकर व्यक्त करें।",
+    "1919": "आप एक आत्मा चक्र पूरा कर रहे हैं। अपनी नियति के अगले चरण को गले लगाओ।"
+};
+
+function getMeaning() {
+    const num = document.getElementById("numberInput").value.trim();
+    const resultBox = document.getElementById("result");
+    const lang = localStorage.getItem('divine_lang') || 'en';
+    const meanings = lang === 'en' ? meanings_en : meanings_hi;
+
+    if (meanings[num]) {
+        resultBox.innerHTML = `<b>${num}</b> — ${meanings[num]}`;
+    } else {
+        const notFoundMsg = lang === 'en' 
+            ? `No direct meaning found for <b>${num}</b> — but trust this: angels are trying to connect with you. Stay aware of signs.`
+            : `<b>${num}</b> के लिए कोई सीधा अर्थ नहीं मिला - लेकिन विश्वास रखें: स्वर्गदूत आपसे जुड़ने की कोशिश कर रहे हैं। संकेतों के प्रति जागरूक रहें।`;
+        resultBox.innerHTML = notFoundMsg;
     }
+
+    resultBox.style.display = "block";
+}
 </script>
 
-<script src="../assets/js/cookie-consent.js"></script>
 </body>
 </html>

@@ -1,26 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Divine Wisdom Blog • Divine Destiny</title>
-<meta name="description" content="Explore articles on Angel Numbers, Spiritual Awakening, and Moon Energy. Deepen your understanding of the universe with Divine Destiny.">
-<meta name="keywords" content="spiritual blog, angel numbers meaning, 1111 meaning, full moon rituals, spiritual awakening signs">
-<link rel="canonical" href="https://anshul6848.github.io/blog.html" />
-
-<!-- Open Graph -->
-<meta property="og:title" content="Divine Wisdom Blog • Divine Destiny">
-<meta property="og:description" content="Explore articles on Angel Numbers, Spiritual Awakening, and Moon Energy.">
-<meta property="og:image" content="https://anshul6848.github.io/assets/icons/icon-512x512.png">
-<meta property="og:url" content="https://anshul6848.github.io/blog.html">
+<title>Divine Guidance of the Day • Divine Destiny</title>
+<meta name="description" content="Receive a message of wisdom for your day from the universe. Trust your intuition and find clarity.">
+<meta name="keywords" content="daily guidance, spiritual wisdom, universe message, intuitive reading">
+<link rel="canonical" href="https://anshul6848.github.io/tools/guidance.html" />
 
 <!-- Google AdSense Placeholder -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3753214906000202" crossorigin="anonymous"></script>
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#7c3aed">
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
@@ -29,18 +22,16 @@
 <header>
     <h1>Divine Destiny <span>by Qbytex</span></h1>
     <nav>
-        <a href="index.html" data-i18n="nav_home">Home</a>
-        <a href="blog.html" data-i18n="nav_blog">Blog</a>
-        <a href="index.html#tools" data-i18n="nav_tools">Tools</a>
-        <a href="index.html#contact" data-i18n="nav_contact">Contact</a>
+        <a href="../index.html" data-i18n="nav_home">Home</a>
+        <a href="../blog.html" data-i18n="nav_blog">Blog</a>
+        <a href="../index.html#tools" data-i18n="nav_tools">Tools</a>
+        <a href="../index.html#contact" data-i18n="nav_contact">Contact</a>
     </nav>
 </header>
 
-<div class="hero" style="padding: 120px 20px 80px;">
-    <div class="aura-ring r1"></div>
-    <div class="aura-ring r2"></div>
-    <h2 data-i18n="blog_hero_title">Spiritual Wisdom</h2>
-    <p data-i18n="blog_hero_desc">explore the deeper meanings of the universe, angel numbers, and your soul's journey.</p>
+<div class="hero" style="padding: 100px 20px 40px; border: none; background: transparent;">
+    <h2 data-i18n="guidance_page_title">Divine Guidance</h2>
+    <p data-i18n="guidance_hero_desc">Receive a message of wisdom for your day.</p>
 </div>
 
 <!-- ADVERTISEMENT SLOT 1 -->
@@ -50,43 +41,17 @@
     </div>
 </div>
 
-<div class="blog-wrapper">
-    <!-- Blog Post 1 -->
-    <div class="blog-card">
-        <div class="blog-image">
-            ✦
-        </div>
-        <div class="blog-content">
-            <div class="blog-date">Oct 12 • Angel Numbers</div>
-            <h3 data-i18n="blog_1_title">The Meaning of seeing 11:11 Everywhere</h3>
-            <p data-i18n="blog_1_desc">Why do you keep seeing 11:11 on the clock? Discover the portal of manifestation opening for you.</p>
-            <a href="#" class="read-more" data-i18n="read_more">Read Article →</a>
-        </div>
-    </div>
+<div class="why-section" style="margin: 20px auto; max-width: 600px;">
+    <div class="why-box" style="text-align: center;">
+        
+        <button onclick="getGuidance()" class="contact-btn" style="width: 100%; margin-top: 20px;" data-i18n="btn_receive_guidance">Receive Guidance</button>
 
-    <!-- Blog Post 2 -->
-    <div class="blog-card">
-        <div class="blog-image">
-            ☾
-        </div>
-        <div class="blog-content">
-            <div class="blog-date">Oct 10 • Moon Energy</div>
-            <h3 data-i18n="blog_2_title">Harnessing the Power of the Full Moon</h3>
-            <p data-i18n="blog_2_desc">The full moon is a time of release. Learn a simple ritual to let go of what no longer serves you.</p>
-            <a href="#" class="read-more" data-i18n="read_more">Read Article →</a>
-        </div>
-    </div>
-
-    <!-- Blog Post 3 -->
-    <div class="blog-card">
-        <div class="blog-image">
-            ∞
-        </div>
-        <div class="blog-content">
-            <div class="blog-date">Oct 05 • Soul Growth</div>
-            <h3 data-i18n="blog_3_title">5 Signs You Are Going Through a Spiritual Awakening</h3>
-            <p data-i18n="blog_3_desc">Feeling lost or disconnected? You might be upgrading your soul's frequency. Here are the signs.</p>
-            <a href="#" class="read-more" data-i18n="read_more">Read Article →</a>
+        <div id="result" style="display:none; margin-top: 30px; padding: 20px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); font-weight: 500; font-size: 20px;"></div>
+        <!-- Share Button -->
+        <div class="share-container" style="text-align: center; margin-top: 30px;">
+            <button onclick="shareTool()" class="share-btn">
+                <span class="icon">📤</span> Share this Tool
+            </button>
         </div>
     </div>
 </div>
@@ -102,16 +67,48 @@
     <span data-i18n="footer_text">© 2026 Divine Destiny by Qbytex</span>
 </footer>
 
-<script src="assets/js/particles.js"></script>
-<script src="assets/js/language.js"></script>
+<script src="../assets/js/particles.js"></script>
+<script src="../assets/js/language.js"></script>
+<script src="../assets/js/share.js"></script>
 <script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js');
-        });
-    }
+const messages_en = [
+    "Trust your intuition, it is leading you to your highest good.",
+    "Be patient with yourself. You are growing every day.",
+    "The universe has a plan better than you can imagine.",
+    "Let go of what you cannot control.",
+    "You are exactly where you need to be.",
+    "Breathe. All is well.",
+    "Your potential is limitless.",
+    "Kindness you put out returns to you threefold.",
+    "Today is a gift. Embrace it.",
+    "Listen to the silence; it speaks.",
+    "Your courage is your superpower."
+];
+const messages_hi = [
+    "अपनी अंतरात्मा पर भरोसा करें, यह आपको आपकी सर्वोच्च भलाई की ओर ले जा रही है।",
+    "हौसला रखें। आप हर दिन बढ़ रहे हैं।",
+    "ब्रह्मांड के पास आपकी कल्पना से बेहतर योजना है।",
+    "जिसे आप नियंत्रित नहीं कर सकते उसे जाने दें।",
+    "आप बिल्कुल वहीं हैं जहाँ आपको होना चाहिए।",
+    "साँस लें। सब ठीक है।",
+    "आपकी क्षमता असीमित है।",
+    "जो दया आप देते हैं, वह तीन गुना होकर वापस आती है।",
+    "आज एक उपहार है। इसे गले लगाओ।",
+    "खामोशी को सुनें; यह बोलती है।",
+    "आपका साहस ही आपकी महाशक्ति है।"
+];
+
+function getGuidance() {
+    const result = document.getElementById("result");
+    const lang = localStorage.getItem('divine_lang') || 'en';
+    const messages = lang === 'en' ? messages_en : messages_hi;
+    const random = messages[Math.floor(Math.random() * messages.length)];
+
+    result.innerHTML = random;
+    result.style.display = "block";
+}
 </script>
 
-<script src="../assets/js/cookie-consent.js"></script>
 </body>
 </html>
+
