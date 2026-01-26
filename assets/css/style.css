@@ -601,8 +601,6 @@ input[type="date"]:focus {
         margin-left: 10px;
     }
 }
-
-
 nav {
     display: flex;
     align-items: center;
