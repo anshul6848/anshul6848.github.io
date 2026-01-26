@@ -8,227 +8,10 @@
 <!-- Poppins Font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-<style>
-    body {
-        margin: 0;
-        font-family: "Poppins", sans-serif;
-        background: #f3ecff;
-        color: #222;
-        overflow-x: hidden;
-    }
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#7c3aed">
 
-    /* Particle background canvas */
-    #particles {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -5;
-        pointer-events: none;
-    }
-
-    /* HEADER */
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 18px 40px;
-        background: rgba(255, 255, 255, 0.65);
-        backdrop-filter: blur(14px);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    header h1 {
-        margin: 0;
-        font-size: 22px;
-        font-weight: 600;
-        color: #341865;
-    }
-
-    header h1 span {
-        font-size: 14px;
-        opacity: 0.7;
-        margin-left: 6px;
-        color: #6a4bbf;
-    }
-
-    nav a {
-        margin-left: 25px;
-        text-decoration: none;
-        color: #4b2a8f;
-        font-size: 15px;
-        font-weight: 500;
-        transition: 0.3s;
-    }
-
-    nav a:hover {
-        color: #8250ff;
-    }
-
-    /* HERO SECTION */
-    .hero {
-        text-align: center;
-        padding: 140px 20px 110px;
-        background: linear-gradient(135deg, #d9c2ff, #f4eaff, #ffffff);
-        background-size: 240% 240%;
-        animation: gradientMove 8s ease infinite;
-        border-bottom-left-radius: 60px;
-        border-bottom-right-radius: 60px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    @keyframes gradientMove {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    /* Floating Aura Rings */
-    .aura-ring {
-        width: 320px;
-        height: 320px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(190, 150, 255, 0.55), transparent 60%);
-        position: absolute;
-        filter: blur(60px);
-        animation: floatRing 12s ease-in-out infinite;
-        z-index: -1;
-    }
-
-    @keyframes floatRing {
-        0% { transform: translate(0, 0); }
-        50% { transform: translate(40px, -40px); }
-        100% { transform: translate(0, 0); }
-    }
-
-    .aura-ring.r1 { top: -30px; left: -70px; }
-    .aura-ring.r2 { bottom: 0; right: -80px; animation-duration: 16s; }
-
-    .hero h2 {
-        font-size: 52px;
-        font-weight: 700;
-        color: #2c0f59;
-        margin-bottom: 15px;
-    }
-
-    .hero p {
-        font-size: 20px;
-        max-width: 700px;
-        margin: auto;
-        color: #4b3a86;
-    }
-
-    /* SECTION TITLE */
-    .section-title {
-        text-align: center;
-        font-size: 32px;
-        margin-top: 90px;
-        font-weight: 700;
-        color: #3d2076;
-    }
-
-    /* TOOLS SECTION */
-    .tools-wrapper {
-        max-width: 1150px;
-        margin: auto;
-        padding: 40px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 32px;
-    }
-
-    .tool-card {
-        background: rgba(255, 255, 255, 0.6);
-        backdrop-filter: blur(18px);
-        padding: 32px;
-        border-radius: 26px;
-        text-align: center;
-        border: 1px solid rgba(160, 120, 255, 0.25);
-        box-shadow: 0 15px 40px rgba(100, 0, 180, 0.12);
-        transition: 0.35s;
-    }
-
-    .tool-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 22px 50px rgba(100, 0, 180, 0.2);
-    }
-
-    .tool-card-icon {
-        font-size: 42px;
-        margin-bottom: 12px;
-        color: #7d51f0;
-    }
-
-    .tool-card h3 {
-        font-size: 22px;
-        margin-bottom: 10px;
-        color: #3d2076;
-        font-weight: 600;
-    }
-
-    .tool-card p {
-        font-size: 15px;
-        color: #5f4ba1;
-    }
-
-    .tool-card a {
-        display: inline-block;
-        margin-top: 18px;
-        padding: 10px 24px;
-        background: #7d51f0;
-        color: white;
-        text-decoration: none;
-        border-radius: 12px;
-        font-size: 15px;
-        transition: 0.3s;
-    }
-
-    .tool-card a:hover {
-        background: #5e2fcf;
-        transform: scale(1.06);
-    }
-
-    /* WHY SECTION */
-    .why-section {
-        max-width: 1100px;
-        margin: 100px auto;
-        padding: 40px;
-        text-align: center;
-    }
-
-    .why-title {
-        font-size: 30px;
-        color: #3d2076;
-        font-weight: 700;
-        margin-bottom: 20px;
-    }
-
-    .why-box {
-        background: white;
-        padding: 28px;
-        margin-top: 20px;
-        border-radius: 18px;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-        color: #4b3a86;
-        font-size: 18px;
-        line-height: 1.7;
-    }
-
-    /* FOOTER */
-    footer {
-        text-align: center;
-        padding: 30px;
-        background: #2e0f60;
-        color: white;
-        margin-top: 100px;
-        font-size: 14px;
-    }
-</style>
 </head>
 
 <body>
@@ -289,66 +72,57 @@
     </div>
 </div>
 
+<h2 class="section-title">Soul Stories</h2>
+
+<div class="testimonials-section">
+    <div class="testimonial-grid">
+        <div class="testimonial-card">
+            <p class="testimonial-text">"The angel number decoder spot on! I kept seeing 444 and the message gave me exactly the reassurance I needed."</p>
+            <div class="testimonial-author">Sarah J.</div>
+        </div>
+        <div class="testimonial-card">
+            <p class="testimonial-text">"I start every morning with the Divine Guidance tool. It's like a daily dose of spiritual vitamin that sets my mood right."</p>
+            <div class="testimonial-author">Michael R.</div>
+        </div>
+        <div class="testimonial-card">
+            <p class="testimonial-text">"Beautiful site with such calm energy. The manifestation messages always seem to pop up exactly when I need a sign."</p>
+            <div class="testimonial-author">Elena K.</div>
+        </div>
+    </div>
+</div>
+
+<div class="contact-section" id="contact">
+    <h2 class="section-title" style="margin-top: 0;">Get in Touch</h2>
+    <p style="color: #4b5563; margin-bottom: 30px;">Have a question or a spiritual story to share? We'd love to hear from you.</p>
+    <form class="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit" class="contact-btn">Send Message</button>
+    </form>
+</div>
+
+
 <footer>
     © 2026 Divine Destiny by Qbytex
 </footer>
 
 <!-- PARTICLE SCRIPT -->
+<script src="assets/js/particles.js"></script>
+
 <script>
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-let particles = [];
-
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resize();
-window.onresize = resize;
-
-class Particle {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.alpha = Math.random();
-        this.speedX = (Math.random() - 0.5) * 0.25;
-        this.speedY = (Math.random() - 0.5) * 0.25;
-    }
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-    }
-    draw() {
-        ctx.fillStyle = `rgba(170,130,255,${this.alpha})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-}
-
-function initParticles() {
-    particles = [];
-    for (let i = 0; i < 80; i++) {
-        particles.push(new Particle());
-    }
-}
-initParticles();
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach((p) => {
-        p.update();
-        p.draw();
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then((registration) => {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, (err) => {
+          console.log('ServiceWorker registration failed: ', err);
+        });
     });
-    requestAnimationFrame(animate);
-}
-
-animate();
+  }
 </script>
+
 
 </body>
 </html>

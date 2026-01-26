@@ -1,0 +1,21 @@
+{
+  "name": "Anshul's Portfolio",
+  "short_name": "Anshul",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fdfbff",
+  "theme_color": "#7c3aed",
+  "description": "Portfolio and spiritual tools of Anshul.",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
