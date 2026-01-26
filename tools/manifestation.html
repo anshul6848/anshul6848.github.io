@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manifestation Message</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f8ff;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    h1 {
+        margin-top: 30px;
+        font-size: 32px;
+    }
+
+    .box {
+        background: white;
+        max-width: 450px;
+        margin: 30px auto;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 14px 28px;
+        font-size: 18px;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .result {
+        margin-top: 25px;
+        font-size: 20px;
+        font-weight: 500;
+        padding: 20px;
+        background: #fffbea;
+        border-radius: 10px;
+        border: 1px solid #ffe8a1;
+        display: none;
+    }
+</style>
+
+</head>
+<body>
+
+<h1>Manifestation Message</h1>
+
+<div class="box">
+    <p>Click the button and receive a powerful manifestation message.</p>
+
+    <button onclick="generateMessage()">Reveal Message</button>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+const messages = [
+    "Money is flowing to you in unexpected beautiful ways.",
+    "Your desire is closer than you think. Keep your energy high.",
+    "You are entering a lucky phase — the universe is supporting you.",
+    "Your manifestation is already yours. Believe and receive.",
+    "A beautiful shift is happening — trust divine timing.",
+    "Someone is thinking about you with pure intention.",
+    "Your dreams are aligning with reality. You are powerful.",
+    "An opportunity is coming — stay ready.",
+    "Your energy is magnetic. What you want is moving toward you.",
+    "A blessing is entering your life today — remain open to it.",
+    "Your wish is being heard — positive change is unfolding.",
+    "You are being guided toward abundance and joy.",
+    "Something you have prayed for is already on its way.",
+    "You are becoming the best version of yourself — keep going.",
+    "Your emotional, financial and spiritual life is rising beautifully."
+];
+
+function generateMessage() {
+    const result = document.getElementById("result");
+    const random = messages[Math.floor(Math.random() * messages.length)];
+
+    result.innerHTML = random;
+    result.style.display = "block";
+}
+</script>
+
+</body>
+</html>
