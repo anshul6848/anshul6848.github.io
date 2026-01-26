@@ -1,190 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Divine Destiny by Qbytex • Spiritual Tools & Guidance</title>
+
+<!-- Poppins Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
 <style>
     body {
         margin: 0;
-        font-family: 'Inter', Arial, sans-serif;
-        background: #f5f2ff;
+        font-family: "Poppins", sans-serif;
+        background: #f3ecff;
         color: #222;
         overflow-x: hidden;
-        line-height: 1.6;
     }
 
-    /* LAVENDER GRADIENT BACKGROUND */
-    .hero {
-        text-align: center;
-        padding: 120px 20px 80px;
-        background: linear-gradient(145deg, #dcc7ff, #f4eaff, #ffffff);
-        background-size: 250% 250%;
-        animation: heroGradient 8s ease infinite;
+    /* Particle background canvas */
+    #particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -5;
+        pointer-events: none;
     }
 
-    @keyframes heroGradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    /* Floating Aura Circles */
-    .aura {
-        position: absolute;
-        width: 220px;
-        height: 220px;
-        border-radius: 50%;
-        filter: blur(80px);
-        background: rgba(180, 120, 255, 0.45);
-        animation: floatAura 12s ease-in-out infinite;
-        z-index: -1;
-    }
-
-    @keyframes floatAura {
-        0% { transform: translate(-40px, 0); }
-        50% { transform: translate(40px, -30px); }
-        100% { transform: translate(-40px, 0); }
-    }
-
-    /* Header */
+    /* HEADER */
     header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 18px 40px;
-        background: rgba(255,255,255,0.65);
+        background: rgba(255, 255, 255, 0.65);
         backdrop-filter: blur(14px);
         position: sticky;
         top: 0;
         z-index: 1000;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     header h1 {
         margin: 0;
         font-size: 22px;
         font-weight: 600;
+        color: #341865;
     }
+
     header h1 span {
         font-size: 14px;
         opacity: 0.7;
         margin-left: 6px;
+        color: #6a4bbf;
     }
 
     nav a {
         margin-left: 25px;
         text-decoration: none;
-        color: #3d2076;
+        color: #4b2a8f;
         font-size: 15px;
         font-weight: 500;
         transition: 0.3s;
     }
 
     nav a:hover {
-        color: #7b47d8;
+        color: #8250ff;
     }
 
-    /* Hero Text */
+    /* HERO SECTION */
+    .hero {
+        text-align: center;
+        padding: 140px 20px 110px;
+        background: linear-gradient(135deg, #d9c2ff, #f4eaff, #ffffff);
+        background-size: 240% 240%;
+        animation: gradientMove 8s ease infinite;
+        border-bottom-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    @keyframes gradientMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Floating Aura Rings */
+    .aura-ring {
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(190, 150, 255, 0.55), transparent 60%);
+        position: absolute;
+        filter: blur(60px);
+        animation: floatRing 12s ease-in-out infinite;
+        z-index: -1;
+    }
+
+    @keyframes floatRing {
+        0% { transform: translate(0, 0); }
+        50% { transform: translate(40px, -40px); }
+        100% { transform: translate(0, 0); }
+    }
+
+    .aura-ring.r1 { top: -30px; left: -70px; }
+    .aura-ring.r2 { bottom: 0; right: -80px; animation-duration: 16s; }
+
     .hero h2 {
-        font-size: 46px;
+        font-size: 52px;
         font-weight: 700;
-        margin-bottom: 10px;
-        letter-spacing: -1px;
-        color: #2e0f60;
+        color: #2c0f59;
+        margin-bottom: 15px;
     }
 
     .hero p {
-        font-size: 19px;
-        max-width: 650px;
+        font-size: 20px;
+        max-width: 700px;
         margin: auto;
-        margin-top: 10px;
         color: #4b3a86;
     }
 
-    /* Section Title */
+    /* SECTION TITLE */
     .section-title {
         text-align: center;
         font-size: 32px;
-        margin-top: 80px;
+        margin-top: 90px;
         font-weight: 700;
         color: #3d2076;
     }
 
-    /* Tools Section */
+    /* TOOLS SECTION */
     .tools-wrapper {
         max-width: 1150px;
         margin: auto;
-        padding: 20px;
+        padding: 40px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-        gap: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 32px;
     }
 
     .tool-card {
-        background: #ffffff;
-        padding: 30px;
-        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(18px);
+        padding: 32px;
+        border-radius: 26px;
         text-align: center;
-        box-shadow: 0 15px 40px rgba(80, 0, 150, 0.12);
-        transition: 0.4s ease;
-        border: 1px solid rgba(180, 120, 255, 0.25);
+        border: 1px solid rgba(160, 120, 255, 0.25);
+        box-shadow: 0 15px 40px rgba(100, 0, 180, 0.12);
+        transition: 0.35s;
     }
 
     .tool-card:hover {
         transform: translateY(-10px);
-        box-shadow: 0 25px 50px rgba(80, 0, 150, 0.18);
+        box-shadow: 0 22px 50px rgba(100, 0, 180, 0.2);
+    }
+
+    .tool-card-icon {
+        font-size: 42px;
+        margin-bottom: 12px;
+        color: #7d51f0;
     }
 
     .tool-card h3 {
-        margin: 0;
-        font-size: 21px;
-        font-weight: 600;
+        font-size: 22px;
+        margin-bottom: 10px;
         color: #3d2076;
+        font-weight: 600;
     }
-    
+
     .tool-card p {
         font-size: 15px;
-        margin-top: 8px;
-        color: #5b468e;
+        color: #5f4ba1;
     }
 
     .tool-card a {
         display: inline-block;
         margin-top: 18px;
-        padding: 10px 22px;
-        background: #6c35d9;
+        padding: 10px 24px;
+        background: #7d51f0;
         color: white;
         text-decoration: none;
-        border-radius: 10px;
+        border-radius: 12px;
         font-size: 15px;
         transition: 0.3s;
     }
 
     .tool-card a:hover {
-        background: #5223a5;
+        background: #5e2fcf;
         transform: scale(1.06);
     }
 
-    /* Footer */
-    footer {
+    /* WHY SECTION */
+    .why-section {
+        max-width: 1100px;
+        margin: 100px auto;
+        padding: 40px;
         text-align: center;
-        padding: 25px;
-        background: #2e0f60;
-        color: white;
-        margin-top: 80px;
-        font-size: 14px;
     }
 
-</style>
+    .why-title {
+        font-size: 30px;
+        color: #3d2076;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
 
+    .why-box {
+        background: white;
+        padding: 28px;
+        margin-top: 20px;
+        border-radius: 18px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        color: #4b3a86;
+        font-size: 18px;
+        line-height: 1.7;
+    }
+
+    /* FOOTER */
+    footer {
+        text-align: center;
+        padding: 30px;
+        background: #2e0f60;
+        color: white;
+        margin-top: 100px;
+        font-size: 14px;
+    }
+</style>
 </head>
+
 <body>
 
-<!-- Aura background shapes -->
-<div class="aura" style="top: 150px; left: -100px;"></div>
-<div class="aura" style="top: 400px; right: -120px; background: rgba(130, 90, 255, 0.35);"></div>
+<canvas id="particles"></canvas>
 
 <header>
     <h1>Divine Destiny <span>by Qbytex</span></h1>
@@ -197,27 +246,33 @@
 </header>
 
 <section class="hero" id="home">
+    <div class="aura-ring r1"></div>
+    <div class="aura-ring r2"></div>
+
     <h2>Awaken Your Spiritual Power</h2>
-    <p>Your home for Divine Guidance, Angel Numbers, Manifestation Messages, and Spiritual Tools crafted to uplift your journey.</p>
+    <p>Your destination for Angel Numbers, Divine Messages, Manifestation Tools, and Spiritual Guidance.</p>
 </section>
 
-<h2 class="section-title">Spiritual Tools</h2>
+<h2 class="section-title" id="tools">Spiritual Tools</h2>
 
 <div class="tools-wrapper">
 
     <div class="tool-card">
+        <div class="tool-card-icon">🔮</div>
         <h3>Angel Number Meaning</h3>
         <p>Decode divine signs like 111, 444, 777.</p>
         <a href="tools/angel.html">Open</a>
     </div>
 
     <div class="tool-card">
+        <div class="tool-card-icon">✨</div>
         <h3>Manifestation Message</h3>
-        <p>Tap once & receive a powerful manifestation message.</p>
+        <p>Tap once to receive a powerful manifestation message.</p>
         <a href="tools/manifestation.html">Open</a>
     </div>
 
     <div class="tool-card">
+        <div class="tool-card-icon">🌙</div>
         <h3>Divine Guidance</h3>
         <p>A message the Universe wants YOU to hear today.</p>
         <a href="tools/guidance.html">Open</a>
@@ -225,9 +280,75 @@
 
 </div>
 
+<div class="why-section">
+    <h3 class="why-title">Why Divine Destiny?</h3>
+    <div class="why-box">
+        Divine Destiny is your sacred space for daily clarity.  
+        Our tools help you understand divine signs, calm your energy,  
+        and align your spiritual path — effortlessly and beautifully.  
+    </div>
+</div>
+
 <footer>
     © 2026 Divine Destiny by Qbytex
 </footer>
+
+<!-- PARTICLE SCRIPT -->
+<script>
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+let particles = [];
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resize();
+window.onresize = resize;
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.alpha = Math.random();
+        this.speedX = (Math.random() - 0.5) * 0.25;
+        this.speedY = (Math.random() - 0.5) * 0.25;
+    }
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+    draw() {
+        ctx.fillStyle = `rgba(170,130,255,${this.alpha})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function initParticles() {
+    particles = [];
+    for (let i = 0; i < 80; i++) {
+        particles.push(new Particle());
+    }
+}
+initParticles();
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p) => {
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
 
 </body>
 </html>
