@@ -3,11 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
+    <title>Divine Destiny • Tools + Motivation</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;
+            color: #222;
+        }
+
+        /* Header */
+        header {
+            background: #ffffff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #222;
+            font-size: 16px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 70px 20px;
+            background: linear-gradient(120deg, #d8e6ff, #fff);
+        }
+
+        .hero h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        /* Tools Section */
+        .tools {
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .tool-card h3 {
+            margin-top: 0;
+        }
+
+        .tool-card a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: black;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #222;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Website</h1>
-    <p>If you can see this page, GitHub Pages is working!</p>
-    <p>Made by Anshul 😎</p>
+
+<header>
+    <h1>Divine Destiny</h1>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#motivation">Motivation</a>
+        <a href="#tools">Tools</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero" id="home">
+    <h2>Welcome to Divine Destiny</h2>
+    <p>Daily Spiritual Guidance • Motivational Content • Powerful Utility Tools — all in one place.</p>
+</div>
+
+<!-- TOOLS SECTION -->
+<div class="tools" id="tools">
+    <h2 class="section-title">Useful Tools</h2>
+
+    <div class="tool-grid">
+        <div class="tool-card">
+            <h3>Image Compressor</h3>
+            <p>Compress images instantly in your browser.</p>
+            <a href="tools/compressor.html">Open</a>
+        </div>
+
+        <div class="tool-card">
+            <h3>Collage Maker</h3>
+            <p>Create beautiful image collages with fixed grids.</p>
+            <a href="tools/collage.html">Open</a>
+        </div>
+
+        <div class="tool-card">
+            <h3>Crop Tool</h3>
+            <p>Crop your image quickly and easily.</p>
+            <a href="tools/crop.html">Open</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    © 2026 Divine Destiny • Made with ❤️ by Anshul
+</footer>
+
 </body>
 </html>
