@@ -1,1 +1,107 @@
-<h2>Angel Number Tool Coming Soon</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angel Number Meaning</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f7f7ff;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    h1 {
+        margin-top: 30px;
+        font-size: 32px;
+    }
+
+    .box {
+        background: white;
+        max-width: 450px;
+        margin: 30px auto;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input {
+        width: 80%;
+        padding: 12px;
+        font-size: 18px;
+        margin-top: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 12px 25px;
+        font-size: 18px;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .result {
+        margin-top: 20px;
+        font-size: 18px;
+        padding: 15px;
+        background: #fffbea;
+        border-radius: 10px;
+        border: 1px solid #ffe8a1;
+    }
+</style>
+
+</head>
+<body>
+
+<h1>Angel Number Meaning</h1>
+
+<div class="box">
+    <input type="text" id="numberInput" placeholder="Enter any angel number (e.g., 111, 444, 2323)">
+    <button onclick="getMeaning()">Get Meaning</button>
+
+    <div id="result" class="result" style="display:none;"></div>
+</div>
+
+<script>
+const meanings = {
+    "111": "A new beginning is unfolding. Your thoughts are manifesting fast — stay positive.",
+    "222": "You are aligned with divine timing. Balance and harmony are entering your life.",
+    "333": "Ascended masters are guiding you. Trust your intuition and inner voice.",
+    "444": "You are protected. Angels are surrounding you with strength and stability.",
+    "555": "Major change is coming. Let go of the old and welcome transformation.",
+    "666": "Refocus your thoughts. You are spiritually supported — release fear.",
+    "777": "Miracles are entering your life. Divine blessings are aligning for you.",
+    "888": "Financial abundance is on the way. Your hard work is paying off.",
+    "999": "A chapter is closing. New spiritual growth is beginning for you.",
+    "1212": "Stay optimistic — your manifestations are very close.",
+    "1234": "You are on the right path. Keep moving forward with confidence.",
+    "1010": "You are awakening. The universe is opening new doors.",
+    "1111": "A portal has opened. Make a wish — your manifestation is powerful right now.",
+    "2323": "Creative energy is flowing. Express yourself fearlessly.",
+    "1919": "You are completing a soul cycle. Embrace the next stage of your destiny."
+};
+
+function getMeaning() {
+    const num = document.getElementById("numberInput").value.trim();
+    const resultBox = document.getElementById("result");
+
+    if (meanings[num]) {
+        resultBox.innerHTML = `<b>${num}</b> — ${meanings[num]}`;
+    } else {
+        resultBox.innerHTML = `No direct meaning found for <b>${num}</b> — but trust this: angels are trying to connect with you. Stay aware of signs.`;
+    }
+
+    resultBox.style.display = "block";
+}
+</script>
+
+</body>
+</html>
