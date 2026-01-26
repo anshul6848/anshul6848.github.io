@@ -1,157 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Divine Destiny • Tools + Motivation</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divine Destiny by Qbytex • Spiritual Tools & Guidance</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f8f8f8;
-            color: #222;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: 'Inter', Arial, sans-serif;
+        background: #f8f9fb;
+        color: #222;
+        line-height: 1.6;
+    }
 
-        /* Header */
-        header {
-            background: #ffffff;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    /* Header */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 40px;
+        background: rgba(255,255,255,0.85);
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid #eee;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 22px;
-        }
+    header h1 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: -0.5px;
+    }
 
-        nav a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: #222;
-            font-size: 16px;
-        }
+    header h1 span {
+        font-size: 14px;
+        opacity: 0.7;
+        font-weight: 400;
+        margin-left: 6px;
+    }
 
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 70px 20px;
-            background: linear-gradient(120deg, #d8e6ff, #fff);
-        }
+    nav a {
+        margin-left: 25px;
+        text-decoration: none;
+        color: #222;
+        font-size: 15px;
+        font-weight: 500;
+        transition: 0.3s;
+    }
 
-        .hero h2 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
+    nav a:hover {
+        color: #4c6fff;
+    }
 
-        .hero p {
-            font-size: 18px;
-            max-width: 600px;
-            margin: auto;
-        }
+    /* Hero Section */
+    .hero {
+        text-align: center;
+        padding: 120px 20px 80px;
+        background: linear-gradient(145deg, #eef2ff, #ffffff);
+    }
 
-        /* Tools Section */
-        .tools {
-            padding: 40px 20px;
-        }
+    .hero h2 {
+        font-size: 42px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        letter-spacing: -1px;
+    }
 
-        .section-title {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 30px;
-        }
+    .hero p {
+        font-size: 18px;
+        max-width: 650px;
+        margin: auto;
+        color: #444;
+    }
 
-        .tool-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 10px;
-        }
+    /* Section Title */
+    .section-title {
+        text-align: center;
+        font-size: 30px;
+        margin-top: 70px;
+        margin-bottom: 20px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
 
-        .tool-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
+    /* Tools Section */
+    .tools-wrapper {
+        max-width: 1150px;
+        margin: auto;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 25px;
+    }
 
-        .tool-card h3 {
-            margin-top: 0;
-        }
+    .tool-card {
+        background: white;
+        padding: 25px;
+        border-radius: 18px;
+        text-align: center;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+        transition: 0.3s;
+        border: 1px solid #eef0f4;
+    }
 
-        .tool-card a {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 20px;
-            background: black;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-        }
+    .tool-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+    }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #222;
-            color: white;
-            margin-top: 40px;
-        }
-    </style>
+    .tool-card h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .tool-card p {
+        font-size: 15px;
+        margin-top: 8px;
+        color: #555;
+    }
+
+    .tool-card a {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 20px;
+        background: #111;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 15px;
+        transition: 0.3s;
+    }
+
+    .tool-card a:hover {
+        background: #444;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 25px;
+        background: #111;
+        color: white;
+        margin-top: 80px;
+        font-size: 14px;
+    }
+</style>
+
 </head>
 <body>
 
 <header>
-    <h1>Divine Destiny</h1>
+    <h1>Divine Destiny <span>by Qbytex</span></h1>
     <nav>
         <a href="#home">Home</a>
-        <a href="#motivation">Motivation</a>
+        <a href="#guidance">Guidance</a>
         <a href="#tools">Tools</a>
         <a href="#contact">Contact</a>
     </nav>
 </header>
 
 <!-- HERO -->
-<div class="hero" id="home">
-    <h2>Welcome to Divine Destiny</h2>
-    <p>Daily Spiritual Guidance • Motivational Content • Powerful Utility Tools — all in one place.</p>
-</div>
+<section class="hero" id="home">
+    <h2>Awaken Your Spiritual Power</h2>
+    <p>Your home for Divine Guidance, Angel Numbers, Manifestation Messages, and Spiritual Tools crafted to uplift your journey.</p>
+</section>
 
-<!-- TOOLS SECTION -->
-<div class="tools" id="tools">
-    <h2 class="section-title">Useful Tools</h2>
+<!-- TOOLS -->
+<h2 class="section-title" id="tools">Spiritual Tools</h2>
 
-    <div class="tool-grid">
-        <div class="tool-card">
-            <h3>Angel Number Meaning</h3>
-            <p>Find the divine meaning behind repeating numbers.</p>
-            <a href="tools/angel.html">Open</a>
-        </div>
+<div class="tools-wrapper">
 
-        <div class="tool-card">
-            <h3>Manifestation Message</h3>
-            <p>Click and receive a powerful manifestation message.</p>
-            <a href="tools/manifestation.html">Open</a>
-        </div>
-
-        <div class="tool-card">
-            <h3>Divine Guidance</h3>
-            <p>Receive a spiritual message for your day.</p>
-            <a href="tools/guidance.html">Open</a>
-        </div>
-
+    <div class="tool-card">
+        <h3>Angel Number Meaning</h3>
+        <p>Decode divine signs like 111, 444, 777.</p>
+        <a href="tools/angel.html">Open</a>
     </div>
+
+    <div class="tool-card">
+        <h3>Manifestation Message</h3>
+        <p>Tap once & receive a powerful manifestation message.</p>
+        <a href="tools/manifestation.html">Open</a>
+    </div>
+
+    <div class="tool-card">
+        <h3>Divine Guidance</h3>
+        <p>A message the Universe wants YOU to hear today.</p>
+        <a href="tools/guidance.html">Open</a>
+    </div>
+
 </div>
 
 <footer>
-    © 2026 Divine Destiny • Made with ❤️ by Anshul
+    © 2026 Divine Destiny by Qbytex
 </footer>
 
 </body>
