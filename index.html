@@ -9,9 +9,21 @@
     body {
         margin: 0;
         font-family: 'Inter', Arial, sans-serif;
-        background: #f8f9fb;
+        background: #f6f7fb;
         color: #222;
+        overflow-x: hidden;
         line-height: 1.6;
+    }
+
+    /* Smooth fade animation */
+    .fade {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: 1s ease;
+    }
+    .fade.visible {
+        opacity: 1;
+        transform: translateY(0);
     }
 
     /* Header */
@@ -20,12 +32,12 @@
         justify-content: space-between;
         align-items: center;
         padding: 18px 40px;
-        background: rgba(255,255,255,0.85);
-        backdrop-filter: blur(10px);
+        background: rgba(255,255,255,0.7);
+        backdrop-filter: blur(12px);
         position: sticky;
         top: 0;
         z-index: 1000;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
     }
 
     header h1 {
@@ -34,7 +46,6 @@
         font-weight: 600;
         letter-spacing: -0.5px;
     }
-
     header h1 span {
         font-size: 14px;
         opacity: 0.7;
@@ -47,10 +58,9 @@
         text-decoration: none;
         color: #222;
         font-size: 15px;
+        transition: 0.3s ease;
         font-weight: 500;
-        transition: 0.3s;
     }
-
     nav a:hover {
         color: #4c6fff;
     }
@@ -59,31 +69,45 @@
     .hero {
         text-align: center;
         padding: 120px 20px 80px;
-        background: linear-gradient(145deg, #eef2ff, #ffffff);
+        background: linear-gradient(140deg, #e9efff, #ffffff, #f4f7ff);
+        background-size: 200% 200%;
+        animation: gradientShift 6s ease infinite;
+    }
+
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
 
     .hero h2 {
-        font-size: 42px;
+        font-size: 45px;
         font-weight: 700;
         margin-bottom: 10px;
         letter-spacing: -1px;
+        animation: fadeInUp 1s ease forwards;
     }
 
     .hero p {
-        font-size: 18px;
+        font-size: 19px;
         max-width: 650px;
         margin: auto;
+        margin-top: 10px;
         color: #444;
+        animation: fadeInUp 1.3s ease forwards;
     }
 
-    /* Section Title */
+    @keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(25px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
     .section-title {
         text-align: center;
-        font-size: 30px;
-        margin-top: 70px;
-        margin-bottom: 20px;
+        font-size: 32px;
+        margin-top: 90px;
         font-weight: 700;
-        letter-spacing: -0.5px;
+        margin-bottom: 25px;
     }
 
     /* Tools Section */
@@ -93,22 +117,29 @@
         padding: 20px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-        gap: 25px;
+        gap: 30px;
     }
 
     .tool-card {
         background: white;
-        padding: 25px;
-        border-radius: 18px;
+        padding: 30px;
+        border-radius: 20px;
         text-align: center;
         box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-        transition: 0.3s;
+        transition: 0.4s ease;
         border: 1px solid #eef0f4;
+        transform: translateY(12px);
+        opacity: 0;
+    }
+
+    .tool-card.visible {
+        opacity: 1;
+        transform: translateY(0);
     }
 
     .tool-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.12);
     }
 
     .tool-card h3 {
@@ -116,7 +147,6 @@
         font-size: 20px;
         font-weight: 600;
     }
-
     .tool-card p {
         font-size: 15px;
         margin-top: 8px;
@@ -125,18 +155,18 @@
 
     .tool-card a {
         display: inline-block;
-        margin-top: 15px;
-        padding: 10px 20px;
+        margin-top: 18px;
+        padding: 10px 22px;
         background: #111;
         color: white;
         text-decoration: none;
-        border-radius: 8px;
+        border-radius: 10px;
         font-size: 15px;
-        transition: 0.3s;
+        transition: 0.3s ease;
     }
-
     .tool-card a:hover {
-        background: #444;
+        background: #000;
+        transform: scale(1.05);
     }
 
     /* Footer */
@@ -145,7 +175,7 @@
         padding: 25px;
         background: #111;
         color: white;
-        margin-top: 80px;
+        margin-top: 90px;
         font-size: 14px;
     }
 </style>
@@ -163,30 +193,28 @@
     </nav>
 </header>
 
-<!-- HERO -->
-<section class="hero" id="home">
+<section class="hero fade" id="home">
     <h2>Awaken Your Spiritual Power</h2>
     <p>Your home for Divine Guidance, Angel Numbers, Manifestation Messages, and Spiritual Tools crafted to uplift your journey.</p>
 </section>
 
-<!-- TOOLS -->
-<h2 class="section-title" id="tools">Spiritual Tools</h2>
+<h2 class="section-title fade">Spiritual Tools</h2>
 
 <div class="tools-wrapper">
 
-    <div class="tool-card">
+    <div class="tool-card fade">
         <h3>Angel Number Meaning</h3>
         <p>Decode divine signs like 111, 444, 777.</p>
         <a href="tools/angel.html">Open</a>
     </div>
 
-    <div class="tool-card">
+    <div class="tool-card fade">
         <h3>Manifestation Message</h3>
         <p>Tap once & receive a powerful manifestation message.</p>
         <a href="tools/manifestation.html">Open</a>
     </div>
 
-    <div class="tool-card">
+    <div class="tool-card fade">
         <h3>Divine Guidance</h3>
         <p>A message the Universe wants YOU to hear today.</p>
         <a href="tools/guidance.html">Open</a>
@@ -197,6 +225,19 @@
 <footer>
     © 2026 Divine Destiny by Qbytex
 </footer>
+
+<!-- Scroll Reveal Script -->
+<script>
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade, .tool-card').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
