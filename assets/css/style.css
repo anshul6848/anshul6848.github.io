@@ -605,3 +605,39 @@ nav {
     display: flex;
     align-items: center;
 }
+
+/* --- ADVERTISING PLACEHOLDERS --- */
+.ad-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.ad-slot {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px dashed rgba(124, 58, 237, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(124, 58, 237, 0.5);
+    font-size: 14px;
+    margin: 0 auto;
+}
+
+/* Specific Sizes for AdSense */
+.ad-slot.leaderboard {
+    min-height: 90px;
+    max-width: 728px;
+}
+
+.ad-slot.rectangle {
+    min-height: 250px;
+    max-width: 300px;
+}
+
