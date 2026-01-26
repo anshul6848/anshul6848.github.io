@@ -1,0 +1,22 @@
+[
+    {"name": "New Delhi", "lat": 28.6139, "lon": 77.2090},
+    {"name": "Mumbai", "lat": 19.0760, "lon": 72.8777},
+    {"name": "Bangalore", "lat": 12.9716, "lon": 77.5946},
+    {"name": "Chennai", "lat": 13.0827, "lon": 80.2707},
+    {"name": "Kolkata", "lat": 22.5726, "lon": 88.3639},
+    {"name": "Hyderabad", "lat": 17.3850, "lon": 78.4867},
+    {"name": "Ahmedabad", "lat": 23.0225, "lon": 72.5714},
+    {"name": "Pune", "lat": 18.5204, "lon": 73.8567},
+    {"name": "Jaipur", "lat": 26.9124, "lon": 75.7873},
+    {"name": "Lucknow", "lat": 26.8467, "lon": 80.9462},
+    {"name": "Patna", "lat": 25.5941, "lon": 85.1376},
+    {"name": "Bhopal", "lat": 23.2599, "lon": 77.4126},
+    {"name": "Chandigarh", "lat": 30.7333, "lon": 76.7794},
+    {"name": "New York", "lat": 40.7128, "lon": -74.0060},
+    {"name": "London", "lat": 51.5074, "lon": -0.1278},
+    {"name": "Dubai", "lat": 25.2048, "lon": 55.2708},
+    {"name": "Singapore", "lat": 1.3521, "lon": 103.8198},
+    {"name": "Sydney", "lat": -33.8688, "lon": 151.2093},
+    {"name": "Toronto", "lat": 43.6510, "lon": -79.3470},
+    {"name": "Tokyo", "lat": 35.6762, "lon": 139.6503}
+]
