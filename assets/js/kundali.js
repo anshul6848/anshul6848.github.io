@@ -58,10 +58,15 @@ function generateKundali() {
         const lat = parseFloat(document.getElementById('latitude').value);
         const lon = parseFloat(document.getElementById('longitude').value);
         const cityName = document.getElementById('cityInput').value;
+        const name = document.getElementById('name').value;
 
         if (!dateStr || !timeStr || isNaN(lat)) {
             alert("Please enter all details and select a city from the list.");
             return;
+        }
+
+        if (name) {
+             document.getElementById('resultName').innerText = name + "'s";
         }
 
         const date = new Date(dateStr + 'T' + timeStr);

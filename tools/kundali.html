@@ -107,6 +107,12 @@
     <div class="why-box" style="text-align: left;">
         <h3>Enter Birth Details</h3>
         
+        <div style="margin-bottom: 20px;">
+            <label for="name" style="display:block; margin-bottom:10px; font-weight:600; color:#4c1d95;">Your Name</label>
+            <input type="text" id="name" placeholder="Enter your full name" 
+                   style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.3); font-family: 'Poppins', sans-serif;">
+        </div>
+        
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div>
                 <label for="dob" style="display:block; margin-bottom:10px; font-weight:600; color:#4c1d95;">Date of Birth</label>
@@ -130,7 +136,7 @@
         <button onclick="generateKundali()" class="contact-btn" style="width: 100%; margin-top: 25px;">Generate Chart</button>
         
         <div id="result" style="display:none; margin-top: 40px;">
-            <h3 style="text-align: center; color: #4c1d95;">Your Kundali Details</h3>
+            <h3 style="text-align: center; color: #4c1d95;"><span id="resultName">Your</span> Kundali Details</h3>
             
             <div class="kundali-grid">
                 <!-- Graphical Chart -->
