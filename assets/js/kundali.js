@@ -66,14 +66,23 @@ function generateKundali() {
 
         const date = new Date(dateStr + 'T' + timeStr);
         
-        // 1. Calculate Ayanamsa (Lahiri)
-        const ayanamsa = calculateLahiriAyanamsa(date);
+    if (isNaN(date.getTime())) {
+        alert("Invalid Date/Time format.");
+        return;
+    }
 
-        // 2. Calculate Planets
-        const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
-        const signs = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
-        
-        const planetaryPositions = [];
+    // 1. Calculate Ayanamsa (Lahiri)
+    const ayanamsa = calculateLahiriAyanamsa(date);
+
+    // 2. Calculate Planets
+    const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+    const signs = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
+    
+    const planetaryPositions = [];
+    
+    try {
+        // Explicitly create Astronomy Time object
+        const astroTime = Astronomy.MakeTime(date);
 
         planets.forEach(p => {
              // Verify Body exists
@@ -82,7 +91,9 @@ function generateKundali() {
                 return; 
             }
             const body = Astronomy.Body[p];
-            const tropical = Astronomy.Ecliptic(body, date);
+            
+            // Use explicit Time object
+            const tropical = Astronomy.Ecliptic(body, astroTime);
             
             let siderealLon = tropical.elon - ayanamsa;
             if (siderealLon < 0) siderealLon += 360;
@@ -98,8 +109,11 @@ function generateKundali() {
                 absDeg: siderealLon
             });
         });
-
-        // 3. Populate Table
+    } catch (innerError) {
+        console.error("Astronomy Calculation Error:", innerError);
+        alert("Error calculating planetary positions: " + innerError.message);
+        return;
+    }
         const tbody = document.getElementById('planetBody');
         tbody.innerHTML = '';
         planetaryPositions.forEach(p => {
