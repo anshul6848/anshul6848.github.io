@@ -20,7 +20,7 @@ cityInput.addEventListener('input', function() {
 
     if (value.length < 2) return;
 
-    const filtered = citiesData.filter(city => city.name.toLowerCase().includes(value));
+    const filtered = citiesData.filter(city => city.name.toLowerCase().includes(value)).slice(0, 10);
     
     if (filtered.length > 0) {
         cityList.style.display = 'block';
@@ -47,84 +47,80 @@ document.addEventListener('click', function(e) {
 });
 
 function generateKundali() {
-    const dateStr = document.getElementById('dob').value;
-    const timeStr = document.getElementById('tob').value;
-    const lat = parseFloat(document.getElementById('latitude').value);
-    const lon = parseFloat(document.getElementById('longitude').value);
-    const cityName = document.getElementById('cityInput').value;
+    try {
+        if (typeof Astronomy === 'undefined') {
+            alert("Error: Astronomy library not loaded. Please allow scripts or check internet connection.");
+            return;
+        }
 
-    if (!dateStr || !timeStr || isNaN(lat)) {
-        alert("Please enter all details and select a city from the list.");
-        return;
-    }
+        const dateStr = document.getElementById('dob').value;
+        const timeStr = document.getElementById('tob').value;
+        const lat = parseFloat(document.getElementById('latitude').value);
+        const lon = parseFloat(document.getElementById('longitude').value);
+        const cityName = document.getElementById('cityInput').value;
 
-    const date = new Date(dateStr + 'T' + timeStr);
-    
-    // 1. Calculate Ayanamsa (Lahiri)
-    // Approximate simplified formula for MVP. 
-    // J2000 epoch: 2000 Jan 1 12:00 UTC
-    // Ayanamsa ~ 23deg 51min at J2000
-    // Rate ~ 50.29 arcsec/year
-    const ayanamsa = calculateLahiriAyanamsa(date);
+        if (!dateStr || !timeStr || isNaN(lat)) {
+            alert("Please enter all details and select a city from the list.");
+            return;
+        }
 
-    // 2. Calculate Planets
-    const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
-    const signs = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
-    
-    const planetaryPositions = [];
-
-    planets.forEach(p => {
-        // Astronomy Engine returns Tropical positions
-        const body = Astronomy.Body[p];
-        const tropical = Astronomy.Ecliptic(body, date);
+        const date = new Date(dateStr + 'T' + timeStr);
         
-        let siderealLon = tropical.elon - ayanamsa;
-        if (siderealLon < 0) siderealLon += 360;
+        // 1. Calculate Ayanamsa (Lahiri)
+        const ayanamsa = calculateLahiriAyanamsa(date);
+
+        // 2. Calculate Planets
+        const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+        const signs = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
         
-        const signIndex = Math.floor(siderealLon / 30);
-        const degrees = siderealLon % 30;
-        
-        planetaryPositions.push({
-            name: p,
-            sign: signs[signIndex],
-            signIndex: signIndex + 1, // 1-12
-            deg: degrees.toFixed(2),
-            absDeg: siderealLon
+        const planetaryPositions = [];
+
+        planets.forEach(p => {
+             // Verify Body exists
+            if (!Astronomy.Body[p]) {
+                console.warn(`Astronomy.Body[${p}] not found.`);
+                return; 
+            }
+            const body = Astronomy.Body[p];
+            const tropical = Astronomy.Ecliptic(body, date);
+            
+            let siderealLon = tropical.elon - ayanamsa;
+            if (siderealLon < 0) siderealLon += 360;
+            
+            const signIndex = Math.floor(siderealLon / 30);
+            const degrees = siderealLon % 30;
+            
+            planetaryPositions.push({
+                name: p,
+                sign: signs[signIndex],
+                signIndex: signIndex + 1, // 1-12
+                deg: degrees.toFixed(2),
+                absDeg: siderealLon
+            });
         });
-    });
 
-    // 3. Calculate Ascendant (Lagna)
-    // This is tricky without a specific library, but Astronomy Engine gives us GMST and we can compute it.
-    // RAMC = GMST + Longitude (in hours)
-    // Using a simplified approximation for Ascendant or borrowing the 'Observer' logic if possible.
-    // For MVP/Prototype, we will estimate or use a basic house system if exact calc is complex.
-    // However, let's try to get a decent Lagna.
-    
-    // Using an approximation for now as exact Ascendant requires complex table lookups or iterative solutions
-    // that Astronomy Engine doesn't directly expose as a single function call.
-    // For a "Client Side Only" accurate version, we'd eventually port the math.
-    // Let's assume for this MVP we display the planets. Calculating accurate Lagna perfectly manually is hard.
-    // *Correction*: We can get the vector of the observer.
-    
-    // Let's populate the table first
-    const tbody = document.getElementById('planetBody');
-    tbody.innerHTML = '';
-    planetaryPositions.forEach(p => {
-        const row = `<tr>
-            <td>${p.name}</td>
-            <td>${p.sign}</td>
-            <td>${p.deg}°</td>
-        </tr>`;
-        tbody.innerHTML += row;
-    });
+        // 3. Populate Table
+        const tbody = document.getElementById('planetBody');
+        tbody.innerHTML = '';
+        planetaryPositions.forEach(p => {
+            const row = `<tr>
+                <td>${p.name}</td>
+                <td>${p.sign}</td>
+                <td>${p.deg}°</td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
 
-    // Draw Chart (North Indian)
-    drawNorthIndianChart(planetaryPositions);
+        // 4. Draw Chart
+        drawNorthIndianChart(planetaryPositions);
 
-    document.getElementById('result').style.display = 'block';
-    
-    // Scroll to result
-    document.getElementById('result').scrollIntoView({behavior: 'smooth'});
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('result').scrollIntoView({behavior: 'smooth'});
+        
+    } catch(e) {
+        console.error(e);
+        alert("An error occurred while generating the chart: " + e.message);
+    }
 }
 
 function calculateLahiriAyanamsa(date) {
