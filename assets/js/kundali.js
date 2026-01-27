@@ -86,8 +86,14 @@ function generateKundali() {
     const planetaryPositions = [];
     
     try {
+        console.log("Input Date:", date);
         // Explicitly create Astronomy Time object
         const astroTime = Astronomy.MakeTime(date);
+        console.log("AstroTime:", astroTime);
+
+        if (!astroTime) {
+            throw new Error("Failed to create Astronomy Time object from date: " + date);
+        }
 
         planets.forEach(p => {
              // Verify Body exists
@@ -98,6 +104,7 @@ function generateKundali() {
             const body = Astronomy.Body[p];
             
             // Use explicit Time object
+            // Ensure we are passing correct arguments
             const tropical = Astronomy.Ecliptic(body, astroTime);
             
             let siderealLon = tropical.elon - ayanamsa;
@@ -116,7 +123,7 @@ function generateKundali() {
         });
     } catch (innerError) {
         console.error("Astronomy Calculation Error:", innerError);
-        alert("Error calculating planetary positions: " + innerError.message);
+        alert("Error calculating planetary positions: " + innerError.message + " (Date: " + date + ")");
         return;
     }
         const tbody = document.getElementById('planetBody');
