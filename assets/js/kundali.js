@@ -76,8 +76,14 @@ function generateKundali() {
         return;
     }
 
+    
     // 1. Calculate Ayanamsa (Lahiri)
-    const ayanamsa = calculateLahiriAyanamsa(date);
+    let ayanamsa = 0;
+    try {
+        ayanamsa = calculateLahiriAyanamsa(date);
+    } catch(e) {
+        console.error("Ayanamsa Calc Error", e);
+    }
 
     // 2. Calculate Planets
     const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
@@ -86,44 +92,54 @@ function generateKundali() {
     const planetaryPositions = [];
     
     try {
-        console.log("Input Date:", date);
-        // Explicitly create Astronomy Time object
+        console.log("Creating AstroTime from:", date);
         const astroTime = Astronomy.MakeTime(date);
-        console.log("AstroTime:", astroTime);
-
+        
         if (!astroTime) {
-            throw new Error("Failed to create Astronomy Time object from date: " + date);
+            throw new Error("Astronomy.MakeTime returned null/undefined");
+        }
+        if (typeof astroTime.tt === 'undefined') {
+            throw new Error("astroTime.tt is undefined. Time object invalid.");
         }
 
         planets.forEach(p => {
-             // Verify Body exists
-            if (!Astronomy.Body[p]) {
-                console.warn(`Astronomy.Body[${p}] not found.`);
-                return; 
+            try {
+                // Use string name directly
+                const tropical = Astronomy.Ecliptic(p, astroTime);
+                
+                if (!tropical) {
+                    throw new Error(`Astronomy.Ecliptic returned nothing for ${p}`);
+                }
+                
+                let siderealLon = tropical.elon - ayanamsa;
+                if (siderealLon < 0) siderealLon += 360;
+                
+                const signIndex = Math.floor(siderealLon / 30);
+                const degrees = siderealLon % 30;
+                
+                planetaryPositions.push({
+                    name: p,
+                    sign: signs[signIndex],
+                    signIndex: signIndex + 1, // 1-12
+                    deg: degrees.toFixed(2),
+                    absDeg: siderealLon
+                });
+            } catch (planetError) {
+                console.error(`Error calculating ${p}:`, planetError);
+                // Continue with other planets? Or fail?
+                // Let's add a placeholder to avoid breaking the chart
+                planetaryPositions.push({
+                    name: p + " (Err)",
+                    sign: "Error",
+                    signIndex: 1,
+                    deg: "0.00",
+                    absDeg: 0
+                });
             }
-            const body = Astronomy.Body[p];
-            
-            // Use explicit Time object
-            // Ensure we are passing correct arguments
-            const tropical = Astronomy.Ecliptic(body, astroTime);
-            
-            let siderealLon = tropical.elon - ayanamsa;
-            if (siderealLon < 0) siderealLon += 360;
-            
-            const signIndex = Math.floor(siderealLon / 30);
-            const degrees = siderealLon % 30;
-            
-            planetaryPositions.push({
-                name: p,
-                sign: signs[signIndex],
-                signIndex: signIndex + 1, // 1-12
-                deg: degrees.toFixed(2),
-                absDeg: siderealLon
-            });
         });
     } catch (innerError) {
-        console.error("Astronomy Calculation Error:", innerError);
-        alert("Error calculating planetary positions: " + innerError.message + " (Date: " + date + ")");
+        console.error("Global Calc Error:", innerError);
+        alert("Critical Error: " + innerError.message);
         return;
     }
         const tbody = document.getElementById('planetBody');
