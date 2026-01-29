@@ -1,8 +1,9 @@
-function shareTool() {
+function shareTool(customUrl) {
+    const url = customUrl || window.__shareUrlOverride || window.location.href;
     const shareData = {
         title: document.title,
-        text: document.querySelector('meta[name="description"]')?.content || 'Check out this amazing spiritual tool!',
-        url: window.location.href
+        text: window.__shareTextOverride || document.querySelector('meta[name="description"]')?.content || 'Check out this amazing spiritual tool!',
+        url
     };
 
     if (navigator.share) {

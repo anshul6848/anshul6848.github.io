@@ -17,6 +17,36 @@
 <meta name="keywords" content="free kundali, vedic birth chart, rashi calculator, lagna chart, astrology chart, online kundli, free horoscope">
 <link rel="canonical" href="https://www.qbytex.com/tools/kundali.html" />
 
+<!-- FAQ Schema for SEO -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Is this Kundali generator free to use?",
+            "acceptedAnswer": {"@type": "Answer", "text": "Yes, the Kundali (Vedic birth chart) calculator on Qbytex is completely free and requires no signup."}
+        },
+        {
+            "@type": "Question",
+            "name": "Do you store my birth details?",
+            "acceptedAnswer": {"@type": "Answer", "text": "No. All calculations run in your browser using the Astronomy engine; we do not store your birth date, time, or location."}
+        },
+        {
+            "@type": "Question",
+            "name": "Which ayanamsa is used?",
+            "acceptedAnswer": {"@type": "Answer", "text": "We use the Lahiri ayanamsa for sidereal calculations."}
+        },
+        {
+            "@type": "Question",
+            "name": "What details are shown in the chart?",
+            "acceptedAnswer": {"@type": "Answer", "text": "The chart shows Lagna (ascendant), planetary positions with nakshatra and pada, retrograde status, and Rahu/Ketu (lunar nodes)."}
+        }
+    ]
+}
+</script>
+
 <!-- Google AdSense Placeholder -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3753214906000202" crossorigin="anonymous"></script>
 
@@ -142,6 +172,7 @@
                 <!-- Graphical Chart -->
                 <div style="text-align: center;">
                     <h4 style="margin-bottom: 15px;">Lagna Chart (North Indian)</h4>
+                    <div style="margin-bottom:8px; color:#4c1d95; font-weight:600;">Ascendant: <span id="ascDisplay">--</span></div>
                     <canvas id="northChart" width="400" height="400" style="border: 2px solid #4c1d95; background: #fff; max-width:100%; height: auto;"></canvas>
                 </div>
 
@@ -154,6 +185,9 @@
                                 <th>Planet</th>
                                 <th>Rashi (Sign)</th>
                                 <th>Degrees</th>
+                                <th>Nakshatra</th>
+                                <th>Retrograde</th>
+                                <th>House</th>
                             </tr>
                         </thead>
                         <tbody id="planetBody">

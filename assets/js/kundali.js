@@ -1,6 +1,98 @@
 // Initialize Cities Data
 let citiesData = [];
 
+// Constants for astrology metadata
+const SIGNS = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
+const NAKSHATRAS = [
+    "Ashwini","Bharani","Krittika","Rohini","Mrigashirsha","Ardra","Punarvasu","Pushya","Ashlesha",
+    "Magha","Purva Phalguni","Uttara Phalguni","Hasta","Chitra","Swati","Vishakha","Anuradha","Jyeshtha",
+    "Mula","Purva Ashadha","Uttara Ashadha","Shravana","Dhanishta","Shatabhisha","Purva Bhadrapada","Uttara Bhadrapada","Revati"
+];
+
+// Helpers
+const DEG2RAD = Math.PI / 180;
+const RAD2DEG = 180 / Math.PI;
+const SEGMENT_NAK = 360 / 27; // 13°20'
+const SEGMENT_PADA = SEGMENT_NAK / 4; // 3°20'
+
+function normalizeDeg(val) {
+    return ((val % 360) + 360) % 360;
+}
+
+function normalizeDelta(val) {
+    // Return delta in range [-180, 180)
+    const d = ((val + 180) % 360 + 360) % 360 - 180;
+    return d;
+}
+
+function centuriesSinceJ2000(date) {
+    const J2000 = new Date('2000-01-01T12:00:00Z');
+    const days = (date - J2000) / (1000 * 60 * 60 * 24);
+    return days / 36525;
+}
+
+function meanObliquityDeg(T) {
+    // Simple mean obliquity approximation (deg)
+    return 23.439291 - 0.0130042 * T;
+}
+
+function calcAscendantSidereal(date, latDeg, lonDeg, ayanamsa) {
+    const T = centuriesSinceJ2000(date);
+    const eps = meanObliquityDeg(T) * DEG2RAD;
+
+    const astroTime = Astronomy.MakeTime(date);
+    let gstHours = Astronomy.SiderealTime(astroTime); // Greenwich sidereal time (hours)
+    let lstHours = gstHours + lonDeg / 15;
+    lstHours = ((lstHours % 24) + 24) % 24;
+    const theta = lstHours * Math.PI / 12; // convert hours to radians (24h = 2π)
+    const phi = latDeg * DEG2RAD;
+
+    // Formula for ecliptic longitude of ascendant
+    const ascRad = Math.atan2(
+        Math.sin(theta),
+        Math.cos(theta) * Math.cos(eps) - Math.tan(phi) * Math.sin(eps)
+    );
+
+    const ascDeg = normalizeDeg(ascRad * RAD2DEG);
+    const ascSid = normalizeDeg(ascDeg - ayanamsa);
+    return { tropical: ascDeg, sidereal: ascSid };
+}
+
+function calcNakshatra(siderealLon) {
+    const idx = Math.floor(normalizeDeg(siderealLon) / SEGMENT_NAK);
+    const pada = Math.floor((normalizeDeg(siderealLon) % SEGMENT_NAK) / SEGMENT_PADA) + 1;
+    return { name: NAKSHATRAS[idx], pada };
+}
+
+function calcMeanNodes(date, ayanamsa) {
+    const T = centuriesSinceJ2000(date);
+    let rahu = 125.04452 - 1934.136261 * T + 0.0020708 * T * T + (T * T * T) / 450000;
+    rahu = normalizeDeg(rahu);
+    const ketu = normalizeDeg(rahu + 180);
+    return {
+        rahuSid: normalizeDeg(rahu - ayanamsa),
+        ketuSid: normalizeDeg(ketu - ayanamsa)
+    };
+}
+
+function isRetrograde(body, astroTime, date) {
+    // Skip retrograde calc for Sun/Moon
+    if (body === 'Sun' || body === 'Moon') return false;
+    const prev = astroTime.AddDays(-1);
+
+    const vecNow = (body === 'Moon' || (Astronomy.Body && body === Astronomy.Body.Moon))
+        ? Astronomy.GeoMoon(astroTime)
+        : Astronomy.GeoVector(body, astroTime, true);
+    const vecPrev = (body === 'Moon' || (Astronomy.Body && body === Astronomy.Body.Moon))
+        ? Astronomy.GeoMoon(prev)
+        : Astronomy.GeoVector(body, prev, true);
+
+    const lonNow = Astronomy.Ecliptic(vecNow).elon;
+    const lonPrev = Astronomy.Ecliptic(vecPrev).elon;
+    const delta = normalizeDelta(lonNow - lonPrev);
+    return delta < 0;
+}
+
 // Load cities on page load
 fetch('../assets/data/cities.json')
     .then(response => response.json())
@@ -85,10 +177,19 @@ function generateKundali() {
         console.error("Ayanamsa Calc Error", e);
     }
 
-    // 2. Calculate Planets
+    // 2. Ascendant (sidereal)
+    let ascendant = { tropical: 0, sidereal: 0 };
+    try {
+        ascendant = calcAscendantSidereal(date, lat, lon, ayanamsa);
+    } catch (ascErr) {
+        console.error('Ascendant calc error', ascErr);
+    }
+
+    // 3. Mean Rahu/Ketu (sidereal)
+    const nodes = calcMeanNodes(date, ayanamsa);
+
+    // 4. Calculate Planets
     const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
-    const signs = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
-    
     const planetaryPositions = [];
     
     try {
@@ -109,8 +210,8 @@ function generateKundali() {
                 // Prefer the library's Body enum when available.
                 const body = (Astronomy.Body && Astronomy.Body[p]) ? Astronomy.Body[p] : p;
 
-                // IMPORTANT: In our bundled astronomy.min.js, Astronomy.Ecliptic() takes a VECTOR,
-                // not (body, time). So we must first obtain a geocentric vector for the body.
+                // In our bundled astronomy.min.js, Astronomy.Ecliptic() takes a VECTOR,
+                // so obtain a geocentric vector first.
                 let vec;
                 if (body === 'Moon' || (Astronomy.Body && body === Astronomy.Body.Moon)) {
                     if (typeof Astronomy.GeoMoon !== 'function') {
@@ -135,31 +236,38 @@ function generateKundali() {
                     throw new Error(`Astronomy.Ecliptic returned nothing for ${p}`);
                 }
                 
-                let siderealLon = tropical.elon - ayanamsa;
-                if (siderealLon < 0) siderealLon += 360;
+                let siderealLon = normalizeDeg(tropical.elon - ayanamsa);
                 
                 const signIndex = Math.floor(siderealLon / 30);
                 const degrees = siderealLon % 30;
+                const nak = calcNakshatra(siderealLon);
+                const retro = isRetrograde(p, astroTime, date);
+                const house = ((Math.floor(normalizeDeg(siderealLon - ascendant.sidereal) / 30)) % 12) + 1;
                 
                 planetaryPositions.push({
                     name: p,
-                    sign: signs[signIndex],
+                    sign: SIGNS[signIndex],
                     signIndex: signIndex + 1, // 1-12
                     deg: degrees.toFixed(2),
-                    absDeg: siderealLon
+                    absDeg: siderealLon,
+                    nakshatra: `${nak.name} (Pada ${nak.pada})`,
+                    retrograde: retro,
+                    house
                 });
             } catch (planetError) {
                 console.error(`Error calculating ${p}:`, planetError);
                 failureCount += 1;
                 if (!lastErrorMessage) lastErrorMessage = planetError && planetError.message ? planetError.message : String(planetError);
-                // Continue with other planets? Or fail?
-                // Let's add a placeholder to avoid breaking the chart
+                // Add a placeholder to avoid breaking the chart
                 planetaryPositions.push({
                     name: p + " (Err)",
                     sign: "Error",
                     signIndex: 1,
                     deg: "0.00",
-                    absDeg: 0
+                    absDeg: 0,
+                    nakshatra: "-",
+                    retrograde: false,
+                    house: 1
                 });
             }
         });
@@ -172,6 +280,36 @@ function generateKundali() {
         alert("Critical Error: " + innerError.message);
         return;
     }
+
+    // Add Rahu/Ketu
+    planetaryPositions.push({
+        name: 'Rahu (North Node)',
+        sign: SIGNS[Math.floor(nodes.rahuSid / 30)],
+        signIndex: Math.floor(nodes.rahuSid / 30) + 1,
+        deg: (nodes.rahuSid % 30).toFixed(2),
+        absDeg: nodes.rahuSid,
+        nakshatra: (() => { const n = calcNakshatra(nodes.rahuSid); return `${n.name} (Pada ${n.pada})`; })(),
+        retrograde: true,
+        house: ((Math.floor(normalizeDeg(nodes.rahuSid - ascendant.sidereal) / 30)) % 12) + 1
+    });
+
+    planetaryPositions.push({
+        name: 'Ketu (South Node)',
+        sign: SIGNS[Math.floor(nodes.ketuSid / 30)],
+        signIndex: Math.floor(nodes.ketuSid / 30) + 1,
+        deg: (nodes.ketuSid % 30).toFixed(2),
+        absDeg: nodes.ketuSid,
+        nakshatra: (() => { const n = calcNakshatra(nodes.ketuSid); return `${n.name} (Pada ${n.pada})`; })(),
+        retrograde: true,
+        house: ((Math.floor(normalizeDeg(nodes.ketuSid - ascendant.sidereal) / 30)) % 12) + 1
+    });
+        const ascSign = SIGNS[Math.floor(ascendant.sidereal / 30)];
+        const ascDeg = (ascendant.sidereal % 30).toFixed(2);
+        const ascEl = document.getElementById('ascDisplay');
+        const ascLabel = document.getElementById('ascLabel');
+        if (ascEl) ascEl.innerText = `${ascSign} ${ascDeg}°`;
+        if (ascLabel) ascLabel.innerText = `Lagna (${ascSign})`;
+
         const tbody = document.getElementById('planetBody');
         tbody.innerHTML = '';
         planetaryPositions.forEach(p => {
@@ -179,12 +317,31 @@ function generateKundali() {
                 <td>${p.name}</td>
                 <td>${p.sign}</td>
                 <td>${p.deg}°</td>
+                <td>${p.nakshatra}</td>
+                <td>${p.retrograde ? 'Yes' : 'No'}</td>
+                <td>${p.house}</td>
             </tr>`;
             tbody.innerHTML += row;
         });
 
         // 4. Draw Chart
-        drawNorthIndianChart(planetaryPositions);
+        drawNorthIndianChart(planetaryPositions, ascendant);
+
+        // Override share link with filled inputs so users can share this chart state
+        try {
+            const params = new URLSearchParams({
+                name: name || '',
+                dob: dateStr,
+                tob: timeStr,
+                city: cityName || '',
+                lat: lat.toFixed(4),
+                lon: lon.toFixed(4)
+            });
+            window.__shareUrlOverride = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+            window.__shareTextOverride = `${name ? name + "'s" : 'My'} Kundali Chart | Divine Destiny`;
+        } catch (shareErr) {
+            console.warn('Share link not set', shareErr);
+        }
 
         document.getElementById('result').style.display = 'block';
         document.getElementById('result').scrollIntoView({behavior: 'smooth'});
@@ -207,7 +364,7 @@ function calculateLahiriAyanamsa(date) {
     return base + (yearsDiff * rate);
 }
 
-function drawNorthIndianChart(planets) {
+function drawNorthIndianChart(planets, ascendant) {
     const canvas = document.getElementById('northChart');
     const ctx = canvas.getContext('2d');
     const w = canvas.width;
@@ -245,7 +402,8 @@ function drawNorthIndianChart(planets) {
     ctx.fillStyle = '#4c1d95';
     ctx.font = '16px Poppins';
     ctx.textAlign = 'center';
-    ctx.fillText("Lagna (Asc)", w/2, h/2 - 20);
+    const ascSign = ascendant ? SIGNS[Math.floor(ascendant.sidereal / 30)] : 'Asc';
+    ctx.fillText(`Lagna (${ascSign})`, w/2, h/2 - 20);
     
     // Just listing planets in center for MVP visual proof
     // Real mapping requires House calculation
