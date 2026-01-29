@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FJSRJ7EFV7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FJSRJ7EFV7');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Year Calculator - Divine Destiny</title>
+<meta name="description" content="Find your personal year number and focus theme for this year in seconds. Enter your birth date and see the guidance and action cue.">
+<link rel="canonical" href="https://www.qbytex.com/tools/personal-year.html" />
+<meta property="og:title" content="Personal Year Calculator - Divine Destiny">
+<meta property="og:description" content="Quickly calculate your personal year number with a theme and action cue.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.qbytex.com/tools/personal-year.html">
+<meta property="og:image" content="https://www.qbytex.com/assets/icons/icon-512x512.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Personal Year Calculator - Divine Destiny">
+<meta name="twitter:description" content="Find your personal year number and what to focus on right now.">
+<meta name="twitter:image" content="https://www.qbytex.com/assets/icons/icon-512x512.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<canvas id="particles"></canvas>
+<header>
+    <h1>Divine Destiny <span>by Qbytex</span></h1>
+    <nav>
+        <a href="../index.html" data-i18n="nav_home">Home</a>
+        <a href="../blog.html" data-i18n="nav_blog">Blog</a>
+        <a href="../index.html#tools" data-i18n="nav_tools">Tools</a>
+        <a href="../index.html#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+</header>
+
+<div class="hero" style="padding: 100px 20px 40px; border: none; background: transparent;">
+    <h2>Personal Year Calculator</h2>
+    <p>See your personal year number, theme, and a small action cue for this year.</p>
+</div>
+
+<div class="why-section" style="margin: 20px auto; max-width: 640px;">
+    <div class="why-box" style="text-align: left;">
+        <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Enter your birth date and the year you want to check (defaults to this year). We reduce month + day + year and keep master numbers 11 and 22.</p>
+        <label for="pyDob" style="display:block; margin-bottom:10px; font-weight:600; color:#4c1d95;">Birth Date</label>
+        <input type="date" id="pyDob" class="date-input-styled">
+        <label for="pyYear" style="display:block; margin:16px 0 10px; font-weight:600; color:#4c1d95;">Target Year (optional)</label>
+        <input type="number" id="pyYear" min="1900" max="2100" placeholder="2026" class="date-input-styled">
+        <button onclick="calculatePersonalYear()" class="contact-btn" style="width: 100%; margin-top: 14px;">Calculate</button>
+        <div id="pyResult" style="display:none; margin-top: 24px; padding: 20px; border-radius: 12px; background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.2);"></div>
+        <div class="share-container" style="text-align: center; margin-top: 20px;">
+            <button onclick="shareTool()" class="share-btn"><span class="icon">📤</span> Share this Tool</button>
+        </div>
+    </div>
+</div>
+
+<div class="why-section" style="margin: 0 auto 40px; max-width: 640px;">
+    <div class="why-box" style="text-align:left; background: rgba(109,40,217,0.04); border:1px solid rgba(109,40,217,0.15);">
+        <h4 style="margin:0 0 8px; color:#6d28d9;">Related tools</h4>
+        <ul style="margin:0; padding-left:18px; color:#374151; line-height:1.6;">
+            <li><a href="../tools/lifepath.html" style="color:#6d28d9; text-decoration:none;">Life Path Number</a></li>
+            <li><a href="../tools/numerology.html" style="color:#6d28d9; text-decoration:none;">Name Numerology</a></li>
+            <li><a href="../tools/manifestation.html" style="color:#6d28d9; text-decoration:none;">Manifestation Message</a></li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    <span>(c) 2026 Divine Destiny by Qbytex</span>
+</footer>
+
+<script src="../assets/js/particles.js"></script>
+<script src="../assets/js/language.js"></script>
+<script src="../assets/js/share.js"></script>
+<script>
+const personalYearMeanings = {
+    1: { theme: "New beginnings and leadership", cue: "Start the project, plant the flag." },
+    2: { theme: "Partnerships and patience", cue: "Collaborate, listen, and refine." },
+    3: { theme: "Creativity and expression", cue: "Speak, write, ship something joyful." },
+    4: { theme: "Stability and systems", cue: "Build routines; declutter and organize." },
+    5: { theme: "Change and adventure", cue: "Try one bold experiment each month." },
+    6: { theme: "Responsibility and care", cue: "Nurture home and relationships." },
+    7: { theme: "Inner work and study", cue: "Learn, journal, and protect quiet time." },
+    8: { theme: "Power and results", cue: "Negotiate, invest, and measure outcomes." },
+    9: { theme: "Completion and release", cue: "Finish lingering tasks and let go." },
+    11: { theme: "Intuition and illumination", cue: "Teach or guide; trust the nudge." },
+    22: { theme: "Master builder", cue: "Break the big vision into a roadmap." }
+};
+
+function reduceNumber(num) {
+    while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
+        num = num.toString().split('').reduce((a, b) => a + parseInt(b), 0);
+    }
+    return num;
+}
+
+function calculatePersonalYear() {
+    const dob = document.getElementById('pyDob').value;
+    if (!dob) {
+        alert('Please enter your birth date.');
+        return;
+    }
+    const targetInput = document.getElementById('pyYear').value;
+    const targetYear = targetInput ? parseInt(targetInput, 10) : new Date().getFullYear();
+    const [y, m, d] = dob.split('-').map(Number);
+    if (!y || !m || !d) {
+        alert('Invalid birth date.');
+        return;
+    }
+    const sum = reduceNumber(m + d + targetYear);
+    const info = personalYearMeanings[sum] || { theme: 'Stay balanced and observe.', cue: 'Keep actions simple and steady.' };
+    const resultBox = document.getElementById('pyResult');
+    resultBox.innerHTML = `
+        <h3 style="margin-top:0; color:#6d28d9;">Personal Year: ${sum}</h3>
+        <p style="margin:6px 0; color:#1f2937;">Theme: ${info.theme}</p>
+        <p style="margin:6px 0; color:#374151;">Action cue: ${info.cue}</p>
+        <p style="margin:6px 0; color:#4b5563; font-size:14px;">Tip: Re-check each January or when you plan the year.</p>
+    `;
+    resultBox.style.display = 'block';
+}
+</script>
+
+<script src="../assets/js/cookie-consent.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.qbytex.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.qbytex.com/index.html#tools"},
+    {"@type": "ListItem", "position": 3, "name": "Personal Year", "item": "https://www.qbytex.com/tools/personal-year.html"}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is the personal year calculated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We add your birth month, birth day, and the target year digits, then reduce to a single digit unless it is a master number 11 or 22."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I recalc my personal year?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Re-check each January or whenever you plan the year. Many numerologists also recheck around your birthday for a fresh cycle cue."
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

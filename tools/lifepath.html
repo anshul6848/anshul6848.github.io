@@ -56,7 +56,7 @@
 
 <div class="why-section" style="margin: 20px auto; max-width: 600px;">
     <div class="why-box" style="text-align: left;">
-        <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Get your core numerology number in seconds. Enter your birth date, see your life path, and share your reading.</p>
+        <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Get your core numerology number in seconds. Enter your birth date, see your life path, your current personal year, and share your reading.</p>
         <label for="dob" style="display:block; margin-bottom:10px; font-weight:600; color:#4c1d95;" data-i18n="label_dob_enter">Enter your Date of Birth:</label>
         <input type="date" id="dob" class="date-input-styled">
         <button onclick="calculateLifePath()" class="contact-btn" style="width: 100%;" data-i18n="btn_calculate_simple">Calculate</button>
@@ -78,6 +78,7 @@
             <li><a href="../tools/numerology.html" style="color:#6d28d9; text-decoration:none;">Name Numerology</a></li>
             <li><a href="../tools/zodiac.html" style="color:#6d28d9; text-decoration:none;">Zodiac Sign Finder</a></li>
             <li><a href="../tools/angel.html" style="color:#6d28d9; text-decoration:none;">Angel Number Meaning</a></li>
+            <li><a href="../tools/personal-year.html" style="color:#6d28d9; text-decoration:none;">Personal Year</a></li>
         </ul>
     </div>
 </div>
@@ -149,12 +150,54 @@ function calculateLifePath() {
     const meanings = lang === 'en' ? meanings_en : meanings_hi;
     const meaning = meanings[sum] || "Unknown number";
 
+    const personalYear = calculatePersonalYear();
+    const compat = compatibilityTips[sum] || "Pair with people who help you stay balanced.";
+
     resultBox.innerHTML = `
         <h3 style='margin-top:0; color:#6d28d9; font-size:24px;'>Your Life Path Number: ${sum}</h3>
         <p style='font-size:16px; line-height:1.6; color:#4b5563;'>${meaning}</p>
+        <div style='margin-top:16px; padding:14px; border-radius:10px; background: rgba(124,58,237,0.06); border:1px solid rgba(124,58,237,0.18);'>
+            <strong style='color:#4c1d95;'>Current Personal Year:</strong> <span style='color:#111827;'>${personalYear}</span>
+            <div style='font-size:14px; color:#374151; margin-top:6px;'>Revisit each January or around your birthday.</div>
+        </div>
+        <div style='margin-top:14px; padding:14px; border-radius:10px; background: rgba(16,185,129,0.07); border:1px solid rgba(16,185,129,0.18);'>
+            <strong style='color:#065f46;'>Compatibility cue:</strong>
+            <div style='font-size:14px; color:#064e3b; margin-top:6px;'>${compat}</div>
+        </div>
+        <p style='font-size:14px; color:#6b7280; margin-top:12px;'>Tip: Screenshot or share your result, then explore your <a href="../tools/personal-year.html" style="color:#6d28d9; text-decoration:none;">personal year</a> in depth.</p>
     `;
     resultBox.style.display = "block";
 }
+
+function calculatePersonalYear() {
+    const input = document.getElementById("dob").value;
+    if (!input) return "-";
+    const [year, month, day] = input.split('-').map(Number);
+    const targetYear = new Date().getFullYear();
+    return reduceNumber(month + day + targetYear);
+}
+
+function reduceNumber(num) {
+    while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
+        num = num.toString().split('').reduce((a, b) => a + parseInt(b), 0);
+    }
+    return num;
+}
+
+const compatibilityTips = {
+    1: "Pairs well with 3 and 5 for creativity and momentum.",
+    2: "Pairs well with 6 and 8 for balance and support.",
+    3: "Pairs well with 1 and 5 for inspiration and play.",
+    4: "Pairs well with 2 and 8 for steady growth.",
+    5: "Pairs well with 1 and 7 for freedom with depth.",
+    6: "Pairs well with 2 and 9 for harmony and service.",
+    7: "Pairs well with 5 and 9 for insight and expansion.",
+    8: "Pairs well with 2 and 4 for grounded success.",
+    9: "Pairs well with 3 and 6 for heart-led action.",
+    11: "Pairs well with 2 and 7 for intuitive flow.",
+    22: "Pairs well with 4 and 8 for building big visions.",
+    33: "Pairs well with 6 and 9 for compassionate teaching."
+};
 </script>
 
 <script type="application/ld+json">

@@ -62,6 +62,7 @@
         <button onclick="generateMessage()" class="contact-btn" style="width: 100%; margin-top: 20px;" data-i18n="btn_reveal_message">Reveal Message</button>
 
         <div id="result" style="display:none; margin-top: 30px; padding: 20px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); font-weight: 500; font-size: 20px;"></div>
+        <div id="microActions" style="display:none; margin-top: 16px; padding: 16px; border-radius: 12px; background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.18); font-size:14px; color:#064e3b;"></div>
         <!-- Share Button -->
         <div class="share-container" style="text-align: center; margin-top: 30px;">
             <button onclick="shareTool()" class="share-btn">
@@ -130,13 +131,25 @@ const messages_hi = [
 
 function generateMessage() {
     const result = document.getElementById("result");
+    const actionsBox = document.getElementById("microActions");
     const lang = localStorage.getItem('divine_lang') || 'en';
     const messages = lang === 'en' ? messages_en : messages_hi;
     const random = messages[Math.floor(Math.random() * messages.length)];
+    const actions = microActions[Math.floor(Math.random() * microActions.length)];
 
     result.innerHTML = random;
     result.style.display = "block";
+    actionsBox.innerHTML = `<strong>Try these 3 micro-actions today:</strong><ol style='margin:8px 0 0 16px; padding:0;'>${actions.map(a => `<li style="margin:4px 0;">${a}</li>`).join('')}</ol>`;
+    actionsBox.style.display = "block";
 }
+
+const microActions = [
+    ["Write your desire in one clear sentence.", "Visualize it for 60 seconds with feeling.", "Take one tiny action that aligns (email, call, or list)."],
+    ["Clear one item that blocks your space or mind.", "Express gratitude for one thing already working.", "Share your intention with a supportive friend."],
+    ["Move your body for five minutes to shift energy.", "Set a timer and focus on one task for 15 minutes.", "After finishing, celebrate with a deep breath and smile."],
+    ["Drink water, then say your affirmation aloud.", "Map the next smallest step you can take.", "Do it now for five minutes."],
+    ["Write down a limiting belief.", "Flip it to an empowering statement.", "Act in a way that matches the empowering version once today."]
+];
 </script>
 
 <script src="../assets/js/cookie-consent.js"></script>

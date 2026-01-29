@@ -46,26 +46,15 @@
 
 <div class="hero" style="padding: 100px 20px 40px; border: none; background: transparent;">
 
-    <div class="why-section" style="margin: 0 auto 40px; max-width: 600px;">
-        <div class="why-box" style="text-align:left; background: rgba(109,40,217,0.04); border:1px solid rgba(109,40,217,0.15);">
-            <h4 style="margin:0 0 8px; color:#6d28d9;">Related tools</h4>
-            <ul style="margin:0; padding-left:18px; color:#374151; line-height:1.6;">
-                <li><a href="../tools/lifepath.html" style="color:#6d28d9; text-decoration:none;">Life Path Number</a></li>
-                <li><a href="../tools/numerology.html" style="color:#6d28d9; text-decoration:none;">Name Numerology</a></li>
-                <li><a href="../tools/angel.html" style="color:#6d28d9; text-decoration:none;">Angel Number Meaning</a></li>
-            </ul>
-        </div>
-    </div>
-
     <h2 data-i18n="zodiac_title">Find Your Zodiac Sign</h2>
-    <p data-i18n="zodiac_desc">Enter your birth date to discover your Rashi (Sun Sign).</p>
+    <p data-i18n="zodiac_desc">Enter your birth date to discover your Rashi (Sun Sign), element, modality, and a one-line cue for today.</p>
 </div>
 
 
 
 <div class="why-section" style="margin: 20px auto; max-width: 600px;">
     <div class="why-box" style="text-align: left;">
-        <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Enter your birth date to get your western sun sign instantly. Share it or pair it with numerology for deeper insight.</p>
+        <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Enter your birth date to get your western sun sign instantly. See the element, modality, ruling planet, and a mini cue for today.</p>
         <label for="dob" style="display:block; margin-bottom:10px; font-weight:600; color:#4c1d95;" data-i18n="label_dob">Date of Birth</label>
         <input type="date" id="dob" class="date-input-styled">
         <button onclick="findZodiac()" class="contact-btn" style="width: 100%;" data-i18n="btn_find_zodiac">Find Zodiac</button>
@@ -102,28 +91,53 @@ function findZodiac() {
     const month = date.getMonth() + 1; // 1-12
 
     let sign = "";
+    let key = "";
     
     // Simple Western Zodiac Logic
-    if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) { sign = "Aries (Mesh)"; }
-    else if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) { sign = "Taurus (Vrishabha)"; }
-    else if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) { sign = "Gemini (Mithuna)"; }
-    else if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) { sign = "Cancer (Karka)"; }
-    else if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) { sign = "Leo (Simha)"; }
-    else if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) { sign = "Virgo (Kanya)"; }
-    else if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) { sign = "Libra (Tula)"; }
-    else if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) { sign = "Scorpio (Vrishchika)"; }
-    else if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) { sign = "Sagittarius (Dhanu)"; }
-    else if ((month == 12 && day >= 22) || (month == 1 && day <= 19)) { sign = "Capricorn (Makara)"; }
-    else if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) { sign = "Aquarius (Kumbha)"; }
-    else { sign = "Pisces (Meena)"; }
+    if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) { sign = "Aries (Mesh)"; key = "aries"; }
+    else if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) { sign = "Taurus (Vrishabha)"; key = "taurus"; }
+    else if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) { sign = "Gemini (Mithuna)"; key = "gemini"; }
+    else if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) { sign = "Cancer (Karka)"; key = "cancer"; }
+    else if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) { sign = "Leo (Simha)"; key = "leo"; }
+    else if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) { sign = "Virgo (Kanya)"; key = "virgo"; }
+    else if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) { sign = "Libra (Tula)"; key = "libra"; }
+    else if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) { sign = "Scorpio (Vrishchika)"; key = "scorpio"; }
+    else if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) { sign = "Sagittarius (Dhanu)"; key = "sagittarius"; }
+    else if ((month == 12 && day >= 22) || (month == 1 && day <= 19)) { sign = "Capricorn (Makara)"; key = "capricorn"; }
+    else if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) { sign = "Aquarius (Kumbha)"; key = "aquarius"; }
+    else { sign = "Pisces (Meena)"; key = "pisces"; }
+
+    const info = signDetails[key];
+    const cue = info.cues[Math.floor(Math.random() * info.cues.length)];
 
     const resultBox = document.getElementById("result");
     resultBox.innerHTML = `
         <h3 style='margin-top:0; color:#6d28d9; font-size:32px;'>${sign}</h3>
-        <p style='margin:10px 0 0; color:#4b5563;'>Western sun sign lookup based on your birth date.</p>
+        <div style='margin:10px 0 0; color:#4b5563;'>
+            <div><strong>Element:</strong> ${info.element}</div>
+            <div><strong>Modality:</strong> ${info.modality}</div>
+            <div><strong>Ruling planet:</strong> ${info.planet}</div>
+        </div>
+        <p style='margin:12px 0 0; color:#111827; font-weight:600;'>Today's cue: ${cue}</p>
+        <p style='margin:8px 0 0; color:#6b7280; font-size:14px;'>Pair with your <a href="../tools/lifepath.html" style="color:#6d28d9; text-decoration:none;">Life Path</a> and <a href="../tools/personal-year.html" style="color:#6d28d9; text-decoration:none;">Personal Year</a> for planning.</p>
     `;
     resultBox.style.display = "block";
 }
+
+const signDetails = {
+    aries: { element: "Fire", modality: "Cardinal", planet: "Mars", cues: ["Lead the charge but leave room for feedback.", "Channel the spark into one focused task today.", "Move your body to clear the mental static."] },
+    taurus: { element: "Earth", modality: "Fixed", planet: "Venus", cues: ["Slow and steady wins; choose quality over quantity.", "Ground with a short walk and a good meal.", "Declutter one small space to feel lighter."] },
+    gemini: { element: "Air", modality: "Mutable", planet: "Mercury", cues: ["Share your idea with one trusted friend.", "Write it down before it drifts away.", "Ask one better question today."] },
+    cancer: { element: "Water", modality: "Cardinal", planet: "Moon", cues: ["Nourish your space; the mood lifts with it.", "Set a soft boundary to protect your energy.", "Call someone who feels like home."] },
+    leo: { element: "Fire", modality: "Fixed", planet: "Sun", cues: ["Show your work; your warmth inspires others.", "Dress for how you want to feel.", "Celebrate a small win loudly."] },
+    virgo: { element: "Earth", modality: "Mutable", planet: "Mercury", cues: ["Organize one system; clarity follows.", "Trade worry for a practical checklist.", "Teach someone a small skill today."] },
+    libra: { element: "Air", modality: "Cardinal", planet: "Venus", cues: ["Balance comes from one firm yes and one gentle no.", "Beautify your workspace to spark focus.", "Mediate with kindness but keep your center."] },
+    scorpio: { element: "Water", modality: "Fixed", planet: "Mars/Pluto", cues: ["Transform tension into action; move the energy.", "Keep one thing private as you build momentum.", "Let intensity fuel a deep focus sprint."] },
+    sagittarius: { element: "Fire", modality: "Mutable", planet: "Jupiter", cues: ["Follow curiosity for thirty minutes; expansion follows.", "Share a bold idea; optimism attracts allies.", "Step outside—fresh air, fresh insight."] },
+    capricorn: { element: "Earth", modality: "Cardinal", planet: "Saturn", cues: ["Structure your day, then take the first disciplined step.", "Invest in the long game; skip a shortcut today.", "Honor your limits and rest equals progress."] },
+    aquarius: { element: "Air", modality: "Fixed", planet: "Saturn/Uranus", cues: ["Innovate one small thing; future you will smile.", "Text your community; collaboration sparks.", "Detach from noise and return to your unique vision."] },
+    pisces: { element: "Water", modality: "Mutable", planet: "Jupiter/Neptune", cues: ["Let intuition pick the playlist and the pace.", "Create for ten minutes; flow melts stress.", "Protect quiet time; your insight blooms there."] }
+};
 </script>
 
 <script type="application/ld+json">
