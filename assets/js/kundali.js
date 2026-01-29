@@ -92,7 +92,6 @@ function generateKundali() {
     const planetaryPositions = [];
     
     try {
-        console.log("Creating AstroTime from:", date);
         const astroTime = Astronomy.MakeTime(date);
         
         if (!astroTime) {
@@ -102,10 +101,22 @@ function generateKundali() {
             throw new Error("astroTime.tt is undefined. Time object invalid.");
         }
 
+        let failureCount = 0;
+        let lastErrorMessage = "";
+
         planets.forEach(p => {
             try {
-                // Use string name directly
-                const tropical = Astronomy.Ecliptic(p, astroTime);
+                // Prefer the library's Body enum when available.
+                const body = (Astronomy.Body && Astronomy.Body[p]) ? Astronomy.Body[p] : p;
+
+                let tropical;
+                try {
+                    // Some builds accept Astronomy.Time.
+                    tropical = Astronomy.Ecliptic(body, astroTime);
+                } catch (timeCallError) {
+                    // Fallback: other builds expect a plain Date and will internally convert.
+                    tropical = Astronomy.Ecliptic(body, date);
+                }
                 
                 if (!tropical) {
                     throw new Error(`Astronomy.Ecliptic returned nothing for ${p}`);
@@ -126,6 +137,8 @@ function generateKundali() {
                 });
             } catch (planetError) {
                 console.error(`Error calculating ${p}:`, planetError);
+                failureCount += 1;
+                if (!lastErrorMessage) lastErrorMessage = planetError && planetError.message ? planetError.message : String(planetError);
                 // Continue with other planets? Or fail?
                 // Let's add a placeholder to avoid breaking the chart
                 planetaryPositions.push({
@@ -137,6 +150,10 @@ function generateKundali() {
                 });
             }
         });
+
+        if (failureCount === planets.length) {
+            throw new Error("All planetary calculations failed. " + (lastErrorMessage ? ("Last error: " + lastErrorMessage) : ""));
+        }
     } catch (innerError) {
         console.error("Global Calc Error:", innerError);
         alert("Critical Error: " + innerError.message);
