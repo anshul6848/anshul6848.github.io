@@ -107,6 +107,19 @@ const SEGMENT_NAK = 360 / 27; // 13°20'
 const SEGMENT_PADA = SEGMENT_NAK / 4; // 3°20'
 const WEEKDAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
+const PHASE_CUES = {
+    'New Moon': 'Reset, set intentions, move quietly.',
+    'Waxing Crescent': 'Plant seeds, outline small steps.',
+    'First Quarter': 'Make a decision and act.',
+    'Waxing Gibbous': 'Refine, polish, prepare to show.',
+    'Full Moon': 'Launch, share, celebrate outcomes.',
+    'Waning Gibbous': 'Express gratitude, share lessons.',
+    'Last Quarter': 'Edit, declutter, renegotiate.',
+    'Waning Crescent': 'Rest, reflect, close loops.'
+};
+
+let lastHighlightsPayload = null;
+
 function normalizeDeg(val) {
     return ((val % 360) + 360) % 360;
 }
@@ -292,10 +305,10 @@ function computePanchangToday() {
         return;
     }
     trackEvent('panchang_today_request');
-    computePanchang(new Date(), lat, lon);
+    computePanchang(new Date(), lat, lon, { cityName: document.getElementById('cityInput').value });
 }
 
-function computePanchang(date, lat, lon) {
+function computePanchang(date, lat, lon, options = {}) {
     try {
         if (typeof Astronomy === 'undefined') throw new Error('Astronomy not loaded');
 
@@ -316,14 +329,17 @@ function computePanchang(date, lat, lon) {
         const moonPhaseAngle = normalizeDeg(moonLonTrop - sunLonTrop);
         const phaseLabel = describePhase(moonPhaseAngle);
 
-        updatePanchangPanel({
+        const info = {
             tithi,
             nak,
             phaseLabel,
             weekday: WEEKDAYS[date.getDay()],
             date
-        });
+        };
+        updatePanchangPanel(info);
+        updateHighlightsCard(info, { cityName: options.cityName });
         trackEvent('panchang_computed');
+        return info;
     } catch (e) {
         console.error('Panchang error', e);
         alert('Unable to fetch panchang right now.');
@@ -359,6 +375,94 @@ function updatePanchangPanel(info) {
     if (phaseEl && info.phaseLabel) phaseEl.innerText = info.phaseLabel;
     if (weekdayEl && info.weekday) weekdayEl.innerText = info.weekday;
     if (dateEl && dateStr) dateEl.innerText = dateStr;
+}
+
+function buildHighlightsInterpretation(info) {
+    const cues = [];
+    if (info.phaseLabel) {
+        cues.push(PHASE_CUES[info.phaseLabel] || 'Notice the lunar rhythm today.');
+    }
+    if (info.tithi && info.tithi.meaning) {
+        cues.push(info.tithi.meaning);
+    }
+    if (info.nak && info.nak.name) {
+        cues.push(`${info.nak.name} invites mindful, steady steps.`);
+    }
+    return cues.join(' ');
+}
+
+function buildHighlightsText(payload) {
+    if (!payload || !payload.info) return '';
+    const { info, city } = payload;
+    const dateStr = info.date ? info.date.toLocaleDateString() : 'Today';
+    const tithiText = info.tithi ? info.tithi.label : '--';
+    const nakText = info.nak ? `${info.nak.name} (Pada ${info.nak.pada})` : '--';
+    const phaseText = info.phaseLabel || '--';
+    const quick = buildHighlightsInterpretation(info);
+    return `Today's Panchang highlights for ${city || 'your city'} — ${dateStr}: Tithi: ${tithiText}; Nakshatra: ${nakText}; Moon phase: ${phaseText}. Quick note: ${quick} • Divine Destiny (Qbytex) https://www.qbytex.com/tools/kundali.html`;
+}
+
+function updateHighlightsCard(info, meta = {}) {
+    const panel = document.getElementById('todayHighlightsPanel');
+    const card = document.getElementById('highlightsCard');
+    if (!panel || !card) return;
+
+    const dateStr = info.date ? info.date.toLocaleDateString() : '--';
+    const city = meta.cityName || document.getElementById('cityInput').value || 'Your city';
+
+    panel.style.display = 'block';
+    const dateEl = document.getElementById('highlightsDate');
+    const cityEl = document.getElementById('highlightsCity');
+    const tithiEl = document.getElementById('highlightsTithi');
+    const nakEl = document.getElementById('highlightsNakshatra');
+    const weekdayEl = document.getElementById('highlightsWeekday');
+    const phaseEl = document.getElementById('highlightsPhase');
+    const interpEl = document.getElementById('highlightsInterpretation');
+
+    if (dateEl) dateEl.innerText = dateStr;
+    if (cityEl) cityEl.innerText = city || 'Your city';
+    if (tithiEl && info.tithi) tithiEl.innerText = info.tithi.label;
+    if (nakEl && info.nak) nakEl.innerText = `${info.nak.name} (Pada ${info.nak.pada})`;
+    if (weekdayEl && info.weekday) weekdayEl.innerText = info.weekday;
+    if (phaseEl && info.phaseLabel) phaseEl.innerText = info.phaseLabel;
+    if (interpEl) interpEl.innerText = buildHighlightsInterpretation(info);
+
+    lastHighlightsPayload = { info, city };
+    trackEvent('highlights_rendered');
+}
+
+function refreshTodayHighlights() {
+    computePanchangToday();
+}
+
+function shareHighlightsCard() {
+    if (!lastHighlightsPayload) {
+        alert('Refresh today\'s highlights first.');
+        return;
+    }
+    const text = buildHighlightsText(lastHighlightsPayload);
+    if (!text) return;
+    if (navigator.share) {
+        navigator.share({ text }).catch(() => copyHighlightsText());
+    } else {
+        copyHighlightsText();
+    }
+    trackEvent('highlights_shared');
+}
+
+function copyHighlightsText() {
+    if (!lastHighlightsPayload) {
+        alert('Refresh today\'s highlights first.');
+        return;
+    }
+    const text = buildHighlightsText(lastHighlightsPayload);
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+        alert('Highlights copied.');
+    }).catch(() => {
+        prompt('Copy highlights:', text);
+    });
+    trackEvent('highlights_copied');
 }
 
 function generateMoonCalendar() {

@@ -293,6 +293,42 @@
             </div>
         </div>
 
+        <div class="panchang-panel" id="todayHighlightsPanel" style="display:none;">
+            <div style="display:flex; justify-content: space-between; align-items: center; gap:12px; flex-wrap:wrap;">
+                <h4 style="margin:0;" data-i18n="kundali_heading_highlights">Today's Highlights</h4>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button class="contact-btn" style="padding:8px 14px;" onclick="refreshTodayHighlights()">Refresh Today</button>
+                    <button class="share-btn" style="padding:10px 16px;" onclick="shareHighlightsCard()">Share Highlights</button>
+                    <button class="contact-btn" style="padding:8px 14px;" onclick="copyHighlightsText()">Copy Text</button>
+                </div>
+            </div>
+            <p style="margin:8px 0 12px; color:#4b5563;" data-i18n="kundali_highlights_note">Uses your selected city for accurate timings. Tap refresh after changing city.</p>
+            <div class="highlights-card" id="highlightsCard">
+                <div class="highlights-head">
+                    <div>
+                        <div class="highlights-date" id="highlightsDate">--</div>
+                        <div class="highlights-city" id="highlightsCity">Select a city to get local highlights.</div>
+                    </div>
+                    <span class="highlight-pill" id="highlightsPhase">--</span>
+                </div>
+                <div class="highlight-grid">
+                    <div class="highlight-item">
+                        <label>Tithi</label>
+                        <div id="highlightsTithi">--</div>
+                    </div>
+                    <div class="highlight-item">
+                        <label>Nakshatra</label>
+                        <div id="highlightsNakshatra">--</div>
+                    </div>
+                    <div class="highlight-item">
+                        <label>Weekday</label>
+                        <div id="highlightsWeekday">--</div>
+                    </div>
+                </div>
+                <div class="highlight-interpretation" id="highlightsInterpretation">Tap refresh to get your quick lunar guidance for today.</div>
+            </div>
+        </div>
+
         <div class="panchang-panel" id="panchangPanel" style="display:none;">
             <div style="display:flex; justify-content: space-between; align-items: center; gap:12px; flex-wrap:wrap;">
                 <h4 style="margin:0;" data-i18n="kundali_heading_panchang">Daily Panchang (Today)</h4>
