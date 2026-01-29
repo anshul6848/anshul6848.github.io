@@ -45,6 +45,18 @@
 </header>
 
 <div class="hero" style="padding: 100px 20px 40px; border: none; background: transparent;">
+
+    <div class="why-section" style="margin: 0 auto 40px; max-width: 600px;">
+        <div class="why-box" style="text-align:left; background: rgba(109,40,217,0.04); border:1px solid rgba(109,40,217,0.15);">
+            <h4 style="margin:0 0 8px; color:#6d28d9;">Related tools</h4>
+            <ul style="margin:0; padding-left:18px; color:#374151; line-height:1.6;">
+                <li><a href="../tools/lifepath.html" style="color:#6d28d9; text-decoration:none;">Life Path Number</a></li>
+                <li><a href="../tools/numerology.html" style="color:#6d28d9; text-decoration:none;">Name Numerology</a></li>
+                <li><a href="../tools/angel.html" style="color:#6d28d9; text-decoration:none;">Angel Number Meaning</a></li>
+            </ul>
+        </div>
+    </div>
+
     <h2 data-i18n="zodiac_title">Find Your Zodiac Sign</h2>
     <p data-i18n="zodiac_desc">Enter your birth date to discover your Rashi (Sun Sign).</p>
 </div>
@@ -53,6 +65,7 @@
 
 <div class="why-section" style="margin: 20px auto; max-width: 600px;">
     <div class="why-box" style="text-align: left;">
+        <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Enter your birth date to get your western sun sign instantly. Share it or pair it with numerology for deeper insight.</p>
         <label for="dob" style="display:block; margin-bottom:10px; font-weight:600; color:#4c1d95;" data-i18n="label_dob">Date of Birth</label>
         <input type="date" id="dob" class="date-input-styled">
         <button onclick="findZodiac()" class="contact-btn" style="width: 100%;" data-i18n="btn_find_zodiac">Find Zodiac</button>
@@ -89,26 +102,25 @@ function findZodiac() {
     const month = date.getMonth() + 1; // 1-12
 
     let sign = "";
-    let icon = "";
     
     // Simple Western Zodiac Logic
-    if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) { sign = "Aries (Mesh)"; icon = "â™ˆ"; }
-    else if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) { sign = "Taurus (Vrishabha)"; icon = "â™‰"; }
-    else if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) { sign = "Gemini (Mithuna)"; icon = "â™Š"; }
-    else if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) { sign = "Cancer (Karka)"; icon = "â™‹"; }
-    else if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) { sign = "Leo (Simha)"; icon = "â™Œ"; }
-    else if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) { sign = "Virgo (Kanya)"; icon = "â™"; }
-    else if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) { sign = "Libra (Tula)"; icon = "â™Ž"; }
-    else if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) { sign = "Scorpio (Vrishchika)"; icon = "â™"; }
-    else if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) { sign = "Sagittarius (Dhanu)"; icon = "â™"; }
-    else if ((month == 12 && day >= 22) || (month == 1 && day <= 19)) { sign = "Capricorn (Makara)"; icon = "â™‘"; }
-    else if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) { sign = "Aquarius (Kumbha)"; icon = "â™’"; }
-    else { sign = "Pisces (Meena)"; icon = "â™“"; }
+    if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) { sign = "Aries (Mesh)"; }
+    else if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) { sign = "Taurus (Vrishabha)"; }
+    else if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) { sign = "Gemini (Mithuna)"; }
+    else if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) { sign = "Cancer (Karka)"; }
+    else if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) { sign = "Leo (Simha)"; }
+    else if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) { sign = "Virgo (Kanya)"; }
+    else if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) { sign = "Libra (Tula)"; }
+    else if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) { sign = "Scorpio (Vrishchika)"; }
+    else if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) { sign = "Sagittarius (Dhanu)"; }
+    else if ((month == 12 && day >= 22) || (month == 1 && day <= 19)) { sign = "Capricorn (Makara)"; }
+    else if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) { sign = "Aquarius (Kumbha)"; }
+    else { sign = "Pisces (Meena)"; }
 
     const resultBox = document.getElementById("result");
     resultBox.innerHTML = `
-        <div style="font-size: 60px; margin-bottom: 15px;">${icon}</div>
         <h3 style='margin-top:0; color:#6d28d9; font-size:32px;'>${sign}</h3>
+        <p style='margin:10px 0 0; color:#4b5563;'>Western sun sign lookup based on your birth date.</p>
     `;
     resultBox.style.display = "block";
 }
@@ -135,6 +147,18 @@ function findZodiac() {
                 "text": "This tool uses western sun sign (tropical) date ranges for quick lookups."
             }
         }
+    ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.qbytex.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.qbytex.com/index.html#tools"},
+        {"@type": "ListItem", "position": 3, "name": "Zodiac Sign", "item": "https://www.qbytex.com/tools/zodiac.html"}
     ]
 }
 </script>

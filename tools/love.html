@@ -55,6 +55,7 @@
 
 <div class="why-section" style="margin: 20px auto; max-width: 600px;">
     <div class="why-box" style="text-align: left;">
+        <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Get a playful love match percentage with a short note. Use names for a light read; for deeper insight, try Life Path and Numerology after.</p>
         <label for="name1" style="display:block; margin-bottom:10px; font-weight:600; color:#4c1d95;" data-i18n="label_your_name">Your Name</label>
         <input type="text" id="name1" data-i18n="ph_your_name" placeholder="Enter your name"
                style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 20px; font-family: 'Poppins', sans-serif;">
@@ -72,6 +73,17 @@
                 <span class="icon">📤</span> Share this Tool
             </button>
         </div>
+    </div>
+</div>
+
+<div class="why-section" style="margin: 0 auto 40px; max-width: 600px;">
+    <div class="why-box" style="text-align:left; background: rgba(219,39,119,0.04); border:1px solid rgba(219,39,119,0.18);">
+        <h4 style="margin:0 0 8px; color:#be185d;">Related tools</h4>
+        <ul style="margin:0; padding-left:18px; color:#374151; line-height:1.6;">
+            <li><a href="../tools/numerology.html" style="color:#db2777; text-decoration:none;">Name Numerology</a></li>
+            <li><a href="../tools/lifepath.html" style="color:#db2777; text-decoration:none;">Life Path Number</a></li>
+            <li><a href="../tools/angel.html" style="color:#db2777; text-decoration:none;">Angel Number Meaning</a></li>
+        </ul>
     </div>
 </div>
 
@@ -106,11 +118,11 @@ function calculateLove() {
     const percentage = (sum % 100) + 1;
     
     let message = "";
-    if (percentage > 90) message = "A Match Made in Heaven! â¤ï¸";
-    else if (percentage > 70) message = "Great Compatibility! ðŸ’ž";
-    else if (percentage > 50) message = "Good Potential. ðŸ¤";
-    else if (percentage > 30) message = "Needs Work, but possible. ðŸŒ±";
-    else message = "Not the best match... but love finds a way! ðŸ’”";
+    if (percentage > 90) message = "A match made in heaven.";
+    else if (percentage > 70) message = "Great compatibility.";
+    else if (percentage > 50) message = "Good potential.";
+    else if (percentage > 30) message = "Needs work, but possible.";
+    else message = "Not the best match, but effort can help.";
 
     resultBox.innerHTML = `
         <h3 style='margin-top:0; color:#db2777; font-size:42px;'>${percentage}%</h3>
@@ -121,6 +133,43 @@ function calculateLove() {
 </script>
 
 <script src="../assets/js/cookie-consent.js"></script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.qbytex.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.qbytex.com/index.html#tools"},
+        {"@type": "ListItem", "position": 3, "name": "Love Compatibility", "item": "https://www.qbytex.com/tools/love.html"}
+    ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How is the love score calculated?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We combine both names into a consistent algorithm to generate a playful percentage that stays the same for the same pair."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Is this meant to be serious advice?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. It is a light, computer-generated insight. For meaningful relationship guidance, talk to a professional."
+            }
+        }
+    ]
+}
+</script>
 </body>
 </html>
 

@@ -56,6 +56,7 @@
 
 <div class="why-section" style="margin: 20px auto; max-width: 600px;">
     <div class="why-box" style="text-align: left;">
+        <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Get your core numerology number in seconds. Enter your birth date, see your life path, and share your reading.</p>
         <label for="dob" style="display:block; margin-bottom:10px; font-weight:600; color:#4c1d95;" data-i18n="label_dob_enter">Enter your Date of Birth:</label>
         <input type="date" id="dob" class="date-input-styled">
         <button onclick="calculateLifePath()" class="contact-btn" style="width: 100%;" data-i18n="btn_calculate_simple">Calculate</button>
@@ -67,6 +68,17 @@
                 <span class="icon">📤</span> Share this Tool
             </button>
         </div>
+    </div>
+</div>
+
+<div class="why-section" style="margin: 0 auto 40px; max-width: 600px;">
+    <div class="why-box" style="text-align:left; background: rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.15);">
+        <h4 style="margin:0 0 8px; color:#6d28d9;">Related tools</h4>
+        <ul style="margin:0; padding-left:18px; color:#374151; line-height:1.6;">
+            <li><a href="../tools/numerology.html" style="color:#6d28d9; text-decoration:none;">Name Numerology</a></li>
+            <li><a href="../tools/zodiac.html" style="color:#6d28d9; text-decoration:none;">Zodiac Sign Finder</a></li>
+            <li><a href="../tools/angel.html" style="color:#6d28d9; text-decoration:none;">Angel Number Meaning</a></li>
+        </ul>
     </div>
 </div>
 
@@ -166,6 +178,18 @@ function calculateLifePath() {
                 "text": "We add all digits of your birth date and reduce to a single digit, keeping master numbers 11, 22, or 33 when they appear."
             }
         }
+    ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.qbytex.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.qbytex.com/index.html#tools"},
+        {"@type": "ListItem", "position": 3, "name": "Life Path Number", "item": "https://www.qbytex.com/tools/lifepath.html"}
     ]
 }
 </script>

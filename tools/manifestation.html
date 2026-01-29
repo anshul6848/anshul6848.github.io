@@ -57,6 +57,7 @@
 
 <div class="why-section" style="margin: 20px auto; max-width: 600px;">
     <div class="why-box" style="text-align: center;">
+        <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Tap to get a quick affirmation to raise your energy. Read it aloud, screenshot it, and act on one small step today.</p>
         
         <button onclick="generateMessage()" class="contact-btn" style="width: 100%; margin-top: 20px;" data-i18n="btn_reveal_message">Reveal Message</button>
 
@@ -72,6 +73,17 @@
 
 <!-- ADVERTISEMENT SLOT 2 -->
 
+<div class="why-section" style="margin: 0 auto 40px; max-width: 600px;">
+    <div class="why-box" style="text-align:left; background: rgba(16,185,129,0.05); border:1px solid rgba(16,185,129,0.18);">
+        <h4 style="margin:0 0 8px; color:#0f766e;">Related tools</h4>
+        <ul style="margin:0; padding-left:18px; color:#374151; line-height:1.6;">
+            <li><a href="../tools/angel.html" style="color:#0f766e; text-decoration:none;">Angel Number Meaning</a></li>
+            <li><a href="../tools/guidance.html" style="color:#0f766e; text-decoration:none;">Divine Guidance</a></li>
+            <li><a href="../tools/lifepath.html" style="color:#0f766e; text-decoration:none;">Life Path Number</a></li>
+        </ul>
+    </div>
+</div>
+
 
 <footer>
     <span data-i18n="footer_text">(c) 2026 Divine Destiny by Qbytex</span>
@@ -84,18 +96,18 @@
 const messages_en = [
     "Money is flowing to you in unexpected beautiful ways.",
     "Your desire is closer than you think. Keep your energy high.",
-    "You are entering a lucky phase â€” the universe is supporting you.",
+    "You are entering a lucky phase - the universe is supporting you.",
     "Your manifestation is already yours. Believe and receive.",
-    "A beautiful shift is happening â€” trust divine timing.",
+    "A beautiful shift is happening - trust divine timing.",
     "Someone is thinking about you with pure intention.",
     "Your dreams are aligning with reality. You are powerful.",
-    "An opportunity is coming â€” stay ready.",
+    "An opportunity is coming - stay ready.",
     "Your energy is magnetic. What you want is moving toward you.",
-    "A blessing is entering your life today â€” remain open to it.",
-    "Your wish is being heard â€” positive change is unfolding.",
+    "A blessing is entering your life today - remain open to it.",
+    "Your wish is being heard - positive change is unfolding.",
     "You are being guided toward abundance and joy.",
     "Something you have prayed for is already on its way.",
-    "You are becoming the best version of yourself â€” keep going.",
+    "You are becoming the best version of yourself - keep going.",
     "Your emotional, financial and spiritual life is rising beautifully."
 ];
 const messages_hi = [
@@ -128,6 +140,43 @@ function generateMessage() {
 </script>
 
 <script src="../assets/js/cookie-consent.js"></script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.qbytex.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.qbytex.com/index.html#tools"},
+        {"@type": "ListItem", "position": 3, "name": "Manifestation Message", "item": "https://www.qbytex.com/tools/manifestation.html"}
+    ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How should I use these manifestation messages?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Read it aloud, feel the emotion, and take one aligned action today. Repeat when you need a boost."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Do the messages change each time?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Each click randomly selects a positive affirmation from a curated list so you can refresh as often as you like."
+            }
+        }
+    ]
+}
+</script>
 </body>
 </html>
 

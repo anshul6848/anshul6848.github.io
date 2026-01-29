@@ -57,6 +57,7 @@
 
 <div class="why-section" style="margin: 20px auto; max-width: 600px;">
     <div class="why-box" style="text-align: center;">
+        <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Tap once to get a short, calming note for the day. Save the message and share with someone who needs a nudge.</p>
         
         <button onclick="getGuidance()" class="contact-btn" style="width: 100%; margin-top: 20px;" data-i18n="btn_receive_guidance">Receive Guidance</button>
 
@@ -71,6 +72,17 @@
 </div>
 
 <!-- ADVERTISEMENT SLOT 2 -->
+
+<div class="why-section" style="margin: 0 auto 40px; max-width: 600px;">
+    <div class="why-box" style="text-align:left; background: rgba(109,40,217,0.04); border:1px solid rgba(109,40,217,0.15);">
+        <h4 style="margin:0 0 8px; color:#6d28d9;">Related tools</h4>
+        <ul style="margin:0; padding-left:18px; color:#374151; line-height:1.6;">
+            <li><a href="../tools/manifestation.html" style="color:#6d28d9; text-decoration:none;">Manifestation Message</a></li>
+            <li><a href="../tools/angel.html" style="color:#6d28d9; text-decoration:none;">Angel Number Meaning</a></li>
+            <li><a href="../tools/love.html" style="color:#6d28d9; text-decoration:none;">Love Compatibility</a></li>
+        </ul>
+    </div>
+</div>
 
 
 <footer>
@@ -120,6 +132,43 @@ function getGuidance() {
 </script>
 
 <script src="../assets/js/cookie-consent.js"></script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.qbytex.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.qbytex.com/index.html#tools"},
+        {"@type": "ListItem", "position": 3, "name": "Divine Guidance", "item": "https://www.qbytex.com/tools/guidance.html"}
+    ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How is the guidance message chosen?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A short inspirational line is randomly selected from a curated list each time you click, so you can refresh when you need a new nudge."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Can I share the guidance?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Use the share button or copy the text to pass along encouragement to a friend or family member."
+            }
+        }
+    ]
+}
+</script>
 </body>
 </html>
 

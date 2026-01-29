@@ -104,6 +104,7 @@
 
 
 <div class="tool-container">
+    <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Get a fast name number reading plus a compatibility score. We use Chaldean values and keep results lightweight for quick sharing.</p>
     <div class="contact-form" style="box-shadow: none; padding: 0;">
         <input type="text" id="nameInput" placeholder="Enter Full Name (e.g. Anshul Sharma)" onkeypress="handleEnter(event)">
         <button class="contact-btn" onclick="calculateNumerology()">Reveal My Number</button>
@@ -142,6 +143,15 @@
             <div id="compDetail">--</div>
         </div>
     </div>
+
+    <div class="why-box" style="margin-top:24px; text-align:left; background: rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.15);">
+        <h4 style="margin:0 0 8px; color:#4c1d95;">Related tools</h4>
+        <ul style="margin:0; padding-left:18px; color:#374151; line-height:1.6;">
+            <li><a href="../tools/lifepath.html" style="color:#6d28d9; text-decoration:none;">Life Path Number Calculator</a></li>
+            <li><a href="../tools/love.html" style="color:#6d28d9; text-decoration:none;">Love Compatibility</a></li>
+            <li><a href="../tools/zodiac.html" style="color:#6d28d9; text-decoration:none;">Zodiac Sign Finder</a></li>
+        </ul>
+    </div>
 </div>
 
 <footer>
@@ -154,6 +164,43 @@
 <script src="../assets/js/particles.js"></script>
 <script src="../assets/js/numerology.js"></script>
 <script src="../assets/js/cookie-consent.js"></script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.qbytex.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.qbytex.com/index.html#tools"},
+        {"@type": "ListItem", "position": 3, "name": "Name Numerology", "item": "https://www.qbytex.com/tools/numerology.html"}
+    ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How do you calculate my name number?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We use the Chaldean chart to convert each letter of your full name to numbers, sum them, and reduce to a single digit unless it is a master number like 11 or 22."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Is the compatibility score accurate?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The score is a quick computer-generated guide for insight only. It blends both names and birth dates for a consistent, shareable result."
+            }
+        }
+    ]
+}
+</script>
 </body>
 </html>
 

@@ -58,6 +58,7 @@
 
 <div class="why-section" style="margin: 20px auto; max-width: 600px;">
     <div class="why-box" style="text-align: left;">
+        <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Enter a repeating number to see a quick meaning and guidance you can act on. Keep an eye on patterns and journal what shows up today.</p>
         <input type="text" id="numberInput" placeholder="Enter number (e.g., 111, 444)" 
                style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 20px; font-family: 'Poppins', sans-serif;">
         <button onclick="getMeaning()" class="contact-btn" style="width: 100%;">Get Meaning</button>
@@ -74,6 +75,17 @@
 
 <!-- ADVERTISEMENT SLOT 2 -->
 
+<div class="why-section" style="margin: 0 auto 40px; max-width: 600px;">
+    <div class="why-box" style="text-align:left; background: rgba(109,40,217,0.04); border:1px solid rgba(109,40,217,0.15);">
+        <h4 style="margin:0 0 8px; color:#6d28d9;">Related tools</h4>
+        <ul style="margin:0; padding-left:18px; color:#374151; line-height:1.6;">
+            <li><a href="../tools/manifestation.html" style="color:#6d28d9; text-decoration:none;">Manifestation Message</a></li>
+            <li><a href="../tools/guidance.html" style="color:#6d28d9; text-decoration:none;">Divine Guidance</a></li>
+            <li><a href="../tools/numerology.html" style="color:#6d28d9; text-decoration:none;">Name Numerology</a></li>
+        </ul>
+    </div>
+</div>
+
 
 <footer>
     (c) 2026 Divine Destiny by Qbytex
@@ -84,19 +96,19 @@
 <script src="../assets/js/share.js"></script>
 <script>
 const meanings_en = {
-    "111": "A new beginning is unfolding. Your thoughts are manifesting fast â€” stay positive.",
+    "111": "A new beginning is unfolding. Your thoughts are manifesting fast - stay positive.",
     "222": "You are aligned with divine timing. Balance and harmony are entering your life.",
     "333": "Ascended masters are guiding you. Trust your intuition and inner voice.",
     "444": "You are protected. Angels are surrounding you with strength and stability.",
     "555": "Major change is coming. Let go of the old and welcome transformation.",
-    "666": "Refocus your thoughts. You are spiritually supported â€” release fear.",
+    "666": "Refocus your thoughts. You are spiritually supported - release fear.",
     "777": "Miracles are entering your life. Divine blessings are aligning for you.",
     "888": "Financial abundance is on the way. Your hard work is paying off.",
     "999": "A chapter is closing. New spiritual growth is beginning for you.",
-    "1212": "Stay optimistic â€” your manifestations are very close.",
+    "1212": "Stay optimistic - your manifestations are very close.",
     "1234": "You are on the right path. Keep moving forward with confidence.",
     "1010": "You are awakening. The universe is opening new doors.",
-    "1111": "A portal has opened. Make a wish â€” your manifestation is powerful right now.",
+    "1111": "A portal has opened. Make a wish - your manifestation is powerful right now.",
     "2323": "Creative energy is flowing. Express yourself fearlessly.",
     "1919": "You are completing a soul cycle. Embrace the next stage of your destiny."
 };
@@ -126,10 +138,10 @@ function getMeaning() {
     const meanings = lang === 'en' ? meanings_en : meanings_hi;
 
     if (meanings[num]) {
-        resultBox.innerHTML = `<b>${num}</b> â€” ${meanings[num]}`;
+        resultBox.innerHTML = `<b>${num}</b> - ${meanings[num]}`;
     } else {
         const notFoundMsg = lang === 'en' 
-            ? `No direct meaning found for <b>${num}</b> â€” but trust this: angels are trying to connect with you. Stay aware of signs.`
+            ? `No direct meaning found for <b>${num}</b> - but trust this: angels are trying to connect with you. Stay aware of signs.`
             : `<b>${num}</b> à¤•à¥‡ à¤²à¤¿à¤ à¤•à¥‹à¤ˆ à¤¸à¥€à¤§à¤¾ à¤…à¤°à¥à¤¥ à¤¨à¤¹à¥€à¤‚ à¤®à¤¿à¤²à¤¾ - à¤²à¥‡à¤•à¤¿à¤¨ à¤µà¤¿à¤¶à¥à¤µà¤¾à¤¸ à¤°à¤–à¥‡à¤‚: à¤¸à¥à¤µà¤°à¥à¤—à¤¦à¥‚à¤¤ à¤†à¤ªà¤¸à¥‡ à¤œà¥à¤¡à¤¼à¤¨à¥‡ à¤•à¥€ à¤•à¥‹à¤¶à¤¿à¤¶ à¤•à¤° à¤°à¤¹à¥‡ à¤¹à¥ˆà¤‚à¥¤ à¤¸à¤‚à¤•à¥‡à¤¤à¥‹à¤‚ à¤•à¥‡ à¤ªà¥à¤°à¤¤à¤¿ à¤œà¤¾à¤—à¤°à¥‚à¤• à¤°à¤¹à¥‡à¤‚à¥¤`;
         resultBox.innerHTML = notFoundMsg;
     }
@@ -139,6 +151,43 @@ function getMeaning() {
 </script>
 
 <script src="../assets/js/cookie-consent.js"></script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.qbytex.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.qbytex.com/index.html#tools"},
+        {"@type": "ListItem", "position": 3, "name": "Angel Number", "item": "https://www.qbytex.com/tools/angel.html"}
+    ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Which angel numbers can I look up?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can enter any repeating or significant number such as 111, 333, 1212, 2323, or a custom pattern you keep seeing."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What should I do after seeing an angel number?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Note where and when it appears, stay positive, and take one small aligned action. Use the meaning as gentle guidance, not as fixed fate."
+            }
+        }
+    ]
+}
+</script>
 </body>
 </html>
 
