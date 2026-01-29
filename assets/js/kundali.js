@@ -109,14 +109,27 @@ function generateKundali() {
                 // Prefer the library's Body enum when available.
                 const body = (Astronomy.Body && Astronomy.Body[p]) ? Astronomy.Body[p] : p;
 
-                let tropical;
-                try {
-                    // Some builds accept Astronomy.Time.
-                    tropical = Astronomy.Ecliptic(body, astroTime);
-                } catch (timeCallError) {
-                    // Fallback: other builds expect a plain Date and will internally convert.
-                    tropical = Astronomy.Ecliptic(body, date);
+                // IMPORTANT: In our bundled astronomy.min.js, Astronomy.Ecliptic() takes a VECTOR,
+                // not (body, time). So we must first obtain a geocentric vector for the body.
+                let vec;
+                if (body === 'Moon' || (Astronomy.Body && body === Astronomy.Body.Moon)) {
+                    if (typeof Astronomy.GeoMoon !== 'function') {
+                        throw new Error('Astronomy.GeoMoon is not available');
+                    }
+                    vec = Astronomy.GeoMoon(astroTime);
+                } else {
+                    if (typeof Astronomy.GeoVector !== 'function') {
+                        throw new Error('Astronomy.GeoVector is not available');
+                    }
+                    // aberration=true for apparent geocentric position
+                    vec = Astronomy.GeoVector(body, astroTime, true);
                 }
+
+                if (!vec || !vec.t || typeof vec.t.tt === 'undefined') {
+                    throw new Error(`Invalid vector returned for ${p}`);
+                }
+
+                const tropical = Astronomy.Ecliptic(vec);
                 
                 if (!tropical) {
                     throw new Error(`Astronomy.Ecliptic returned nothing for ${p}`);
