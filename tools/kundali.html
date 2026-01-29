@@ -174,10 +174,18 @@
                     <h4 style="margin-bottom: 15px;">Lagna Chart (North Indian)</h4>
                     <div style="margin-bottom:8px; color:#4c1d95; font-weight:600;">Ascendant: <span id="ascDisplay">--</span></div>
                     <canvas id="northChart" width="400" height="400" style="border: 2px solid #4c1d95; background: #fff; max-width:100%; height: auto;"></canvas>
+                    <div style="margin-top:10px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                        <button class="contact-btn" style="padding:10px 16px;" onclick="downloadChartPNG()">Download Chart PNG</button>
+                        <button class="contact-btn" style="padding:10px 16px;" onclick="copyTableCSV()">Copy Table CSV</button>
+                    </div>
                 </div>
 
                 <!-- Planetary Positions Table -->
                 <div>
+                    <div style="margin-bottom:12px; color:#4c1d95; font-weight:600;">
+                        <div>Day: <span id="weekdayDisplay">--</span></div>
+                        <div>Tithi/Paksha: <span id="tithiDisplay">--</span></div>
+                    </div>
                     <h4>Planetary Positions</h4>
                     <table class="planet-table">
                         <thead>

@@ -14,6 +14,7 @@ const DEG2RAD = Math.PI / 180;
 const RAD2DEG = 180 / Math.PI;
 const SEGMENT_NAK = 360 / 27; // 13°20'
 const SEGMENT_PADA = SEGMENT_NAK / 4; // 3°20'
+const WEEKDAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
 function normalizeDeg(val) {
     return ((val % 360) + 360) % 360;
@@ -73,6 +74,45 @@ function calcMeanNodes(date, ayanamsa) {
         rahuSid: normalizeDeg(rahu - ayanamsa),
         ketuSid: normalizeDeg(ketu - ayanamsa)
     };
+}
+
+function calcTithiPaksha(sunSid, moonSid) {
+    const diff = normalizeDeg(moonSid - sunSid);
+    const tithiNum = Math.floor(diff / 12) + 1; // 1..30
+    const paksha = tithiNum <= 15 ? 'Shukla' : 'Krishna';
+    const tithiName = `Tithi ${tithiNum}`;
+    return { tithiNum, paksha, label: `${tithiName} (${paksha})` };
+}
+
+function downloadChartPNG() {
+    try {
+        const canvas = document.getElementById('northChart');
+        const link = document.createElement('a');
+        link.download = 'kundali-chart.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    } catch (e) {
+        alert('Unable to download chart.');
+        console.error('Download chart failed', e);
+    }
+}
+
+function copyTableCSV() {
+    try {
+        const rows = Array.from(document.querySelectorAll('#planetBody tr')).map(tr =>
+            Array.from(tr.querySelectorAll('td')).map(td => td.innerText.replace(/,/g, ';')).join(',')
+        );
+        const header = ['Planet','Rashi (Sign)','Degrees','Nakshatra','Retrograde','House'].join(',');
+        const csv = [header, ...rows].join('\n');
+        navigator.clipboard.writeText(csv).then(() => {
+            alert('Planetary table copied as CSV');
+        }).catch(() => {
+            prompt('Copy CSV:', csv);
+        });
+    } catch (e) {
+        console.error('Copy CSV failed', e);
+        alert('Unable to copy CSV.');
+    }
 }
 
 function isRetrograde(body, astroTime, date) {
@@ -191,6 +231,8 @@ function generateKundali() {
     // 4. Calculate Planets
     const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
     const planetaryPositions = [];
+    let sunSid = null;
+    let moonSid = null;
     
     try {
         const astroTime = Astronomy.MakeTime(date);
@@ -243,6 +285,9 @@ function generateKundali() {
                 const nak = calcNakshatra(siderealLon);
                 const retro = isRetrograde(p, astroTime, date);
                 const house = ((Math.floor(normalizeDeg(siderealLon - ascendant.sidereal) / 30)) % 12) + 1;
+
+                if (p === 'Sun') sunSid = siderealLon;
+                if (p === 'Moon') moonSid = siderealLon;
                 
                 planetaryPositions.push({
                     name: p,
@@ -309,6 +354,15 @@ function generateKundali() {
         const ascLabel = document.getElementById('ascLabel');
         if (ascEl) ascEl.innerText = `${ascSign} ${ascDeg}°`;
         if (ascLabel) ascLabel.innerText = `Lagna (${ascSign})`;
+
+        // Tithi/Paksha and weekday
+        if (sunSid !== null && moonSid !== null) {
+            const tithi = calcTithiPaksha(sunSid, moonSid);
+            const tithiEl = document.getElementById('tithiDisplay');
+            if (tithiEl) tithiEl.innerText = tithi.label;
+        }
+        const weekdayEl = document.getElementById('weekdayDisplay');
+        if (weekdayEl) weekdayEl.innerText = WEEKDAYS[date.getDay()];
 
         const tbody = document.getElementById('planetBody');
         tbody.innerHTML = '';
