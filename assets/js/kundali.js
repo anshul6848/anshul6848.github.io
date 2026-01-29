@@ -54,6 +54,16 @@ const TITHI_NAMES = [
     "Ekadashi","Dwadashi","Trayodashi","Chaturdashi","Amavasya"
 ];
 
+function trackEvent(action, params = {}) {
+    try {
+        if (window.gtag) {
+            window.gtag('event', action, params);
+        }
+    } catch (e) {
+        console.warn('event track skipped', action, e);
+    }
+}
+
 const DASA_ORDER = ['Ketu','Venus','Sun','Moon','Mars','Rahu','Jupiter','Saturn','Mercury'];
 const DASA_YEARS = { Ketu: 7, Venus: 20, Sun: 6, Moon: 10, Mars: 7, Rahu: 18, Jupiter: 16, Saturn: 19, Mercury: 17 };
 
@@ -173,6 +183,7 @@ function downloadChartPNG() {
         link.download = 'kundali-chart.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
+        trackEvent('download_chart_png');
     } catch (e) {
         alert('Unable to download chart.');
         console.error('Download chart failed', e);
@@ -226,6 +237,7 @@ async function downloadKundaliPDF() {
             doc.addImage(interpData, 'PNG', 30, cursorY, interpWidth, interpHeight);
         }
 
+        trackEvent('download_kundali_pdf');
         doc.save('kundali-report.pdf');
     } catch (e) {
         alert('Unable to export PDF right now.');
@@ -242,6 +254,7 @@ function copyTableCSV() {
         const csv = [header, ...rows].join('\n');
         navigator.clipboard.writeText(csv).then(() => {
             alert('Planetary table copied as CSV');
+            trackEvent('copy_planet_csv');
         }).catch(() => {
             prompt('Copy CSV:', csv);
         });
@@ -257,6 +270,20 @@ function toggleKundaliLanguage() {
     window.location.href = target;
 }
 
+function copyShareLink() {
+    try {
+        const url = window.__shareUrlOverride || window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+            alert('Shareable link copied.');
+            trackEvent('share_link_copied');
+        }).catch(() => {
+            prompt('Copy link:', url);
+        });
+    } catch (e) {
+        console.warn('Share copy failed', e);
+    }
+}
+
 function computePanchangToday() {
     const lat = parseFloat(document.getElementById('latitude').value);
     const lon = parseFloat(document.getElementById('longitude').value);
@@ -264,6 +291,7 @@ function computePanchangToday() {
         alert('Please select a city first.');
         return;
     }
+    trackEvent('panchang_today_request');
     computePanchang(new Date(), lat, lon);
 }
 
@@ -295,6 +323,7 @@ function computePanchang(date, lat, lon) {
             weekday: WEEKDAYS[date.getDay()],
             date
         });
+        trackEvent('panchang_computed');
     } catch (e) {
         console.error('Panchang error', e);
         alert('Unable to fetch panchang right now.');
@@ -350,6 +379,7 @@ function generateMoonCalendar() {
         }
         window.__moonCalendarData = rows;
         renderMoonCalendar(rows);
+            trackEvent('moon_calendar_generated');
     } catch (e) {
         console.error('Moon calendar error', e);
         alert('Unable to generate moon calendar.');
@@ -378,6 +408,7 @@ function downloadMoonCalendarCSV() {
     link.download = 'moon-calendar.csv';
     link.click();
     URL.revokeObjectURL(link.href);
+    trackEvent('moon_calendar_download_csv');
 }
 
 function computeMahadashaTimeline(birthDate, moonSid) {
@@ -424,6 +455,7 @@ function renderMahadasha(timeline) {
         const end = item.end.toLocaleDateString();
         return `<tr><td>${item.lord}</td><td>${start}</td><td>${end}</td><td>${item.years.toFixed(1)} yrs</td></tr>`;
     }).join('');
+    trackEvent('mahadasha_rendered');
 }
 
 function isRetrograde(body, astroTime, date) {
@@ -723,10 +755,12 @@ function generateKundali() {
 
         document.getElementById('result').style.display = 'block';
         document.getElementById('result').scrollIntoView({behavior: 'smooth'});
+        trackEvent('generate_kundali_success');
         
     } catch(e) {
         console.error(e);
         alert("An error occurred while generating the chart: " + e.message);
+        trackEvent('generate_kundali_error', { error: e.message });
     }
 }
 

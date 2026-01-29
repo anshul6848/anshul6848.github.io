@@ -30,6 +30,14 @@ const compatibilityNotes = [
     { maxDiff: 9, text: "Opposite currents; respect differences." }
 ];
 
+function trackEvent(action, params = {}) {
+    try {
+        if (window.gtag) window.gtag('event', action, params);
+    } catch (e) {
+        console.warn('track skip', action, e);
+    }
+}
+
 function handleEnter(e) {
     if (e.key === 'Enter') calculateNumerology();
 }
@@ -59,6 +67,7 @@ function calculateNumerology() {
         resultDiv.style.display = 'block';
         resultDiv.scrollIntoView({ behavior: 'smooth' });
     }
+    trackEvent('numerology_name_calculated', { number: reduced });
 }
 
 function calcNameNumber(name) {
@@ -114,6 +123,7 @@ function calculateCompatibility() {
 
     const note = compatibilityNotes.find(n => lifeDiff <= n.maxDiff)?.text || compatibilityNotes[compatibilityNotes.length - 1].text;
     renderCompatibility({ score, lifeA, lifeB, nameNumA, nameNumB, note });
+    trackEvent('numerology_compatibility', { score, life_diff: lifeDiff, name_diff: nameDiff });
 }
 
 function renderCompatibility(info) {
