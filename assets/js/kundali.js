@@ -188,6 +188,7 @@ async function downloadKundaliPDF() {
 
         const chartCanvas = document.getElementById('northChart');
         const tableEl = document.querySelector('.planet-table');
+        const interpEl = document.querySelector('.interpretation-panel');
         if (!chartCanvas || !tableEl) {
             throw new Error('Chart or table not found');
         }
@@ -211,6 +212,19 @@ async function downloadKundaliPDF() {
         const tableWidth = pageWidth - 60;
         const tableHeight = (tableCanvas.height * tableWidth) / tableCanvas.width;
         doc.addImage(tableData, 'PNG', 30, cursorY, tableWidth, tableHeight);
+        cursorY += tableHeight + 20;
+
+        if (interpEl) {
+            const interpCanvas = await html2canvas(interpEl, { scale: 2 });
+            const interpData = interpCanvas.toDataURL('image/png');
+            const interpWidth = pageWidth - 60;
+            const interpHeight = (interpCanvas.height * interpWidth) / interpCanvas.width;
+            if (cursorY + interpHeight > doc.internal.pageSize.getHeight() - 40) {
+                doc.addPage();
+                cursorY = 40;
+            }
+            doc.addImage(interpData, 'PNG', 30, cursorY, interpWidth, interpHeight);
+        }
 
         doc.save('kundali-report.pdf');
     } catch (e) {
@@ -780,17 +794,16 @@ function drawNorthIndianChart(planets, ascendant) {
         const ascText = ascendant ? SIGNS[Math.floor(ascendant.sidereal / 30)] : 'Ascendant';
         listEl.innerHTML = '';
 
-        planets.forEach((p) => {
-            const base = getPlanetBase(p.name);
-            const signText = SIGN_TRAITS[p.sign] || `${p.sign} emphasizes distinct lessons.`;
-            const houseText = HOUSE_THEMES[p.house] || `House ${p.house} themes add context.`;
-            const planetTone = PLANET_TONES[base] ? `${PLANET_TONES[base]}.` : '';
-            const para = document.createElement('p');
-            para.className = 'interp-line';
-            const nakSnippet = p.nakshatra ? ` Nakshatra: ${p.nakshatra}.` : '';
-            para.textContent = `${base} in ${p.sign} (House ${p.house}): ${planetTone} ${signText} ${houseText}${nakSnippet}`.trim();
-            listEl.appendChild(para);
-        });
+        planets
+            .slice()
+            .sort((a, b) => a.house - b.house || a.name.localeCompare(b.name))
+            .forEach((p) => {
+                const line = formatPlanetInterpretation(p);
+                const para = document.createElement('p');
+                para.className = 'interp-line';
+                para.textContent = line;
+                listEl.appendChild(para);
+            });
 
         const ascEl = document.getElementById('ascInterpret');
         if (ascEl) {
@@ -799,8 +812,8 @@ function drawNorthIndianChart(planets, ascendant) {
 
         const tithiBox = document.getElementById('tithiInterpret');
         if (tithiBox && tithiInfo) {
-            const suffix = tithiInfo.paksha === 'Shukla' ? 'growing moon favors building.' : 'waning moon favors release.';
-            tithiBox.innerText = `${tithiInfo.name} (${tithiInfo.paksha} Paksha): ${tithiInfo.meaning} The ${suffix}`;
+            const suffix = tithiInfo.paksha === 'Shukla' ? 'Growing moon favors building.' : 'Waning moon favors release.';
+            tithiBox.innerText = `${tithiInfo.name} (${tithiInfo.paksha} Paksha): ${tithiInfo.meaning} ${suffix}`;
         }
     }
 
@@ -809,4 +822,13 @@ function drawNorthIndianChart(planets, ascendant) {
         if (name.startsWith('Rahu')) return 'Rahu';
         if (name.startsWith('Ketu')) return 'Ketu';
         return name.split(' ')[0];
+    }
+
+    function formatPlanetInterpretation(p) {
+        const base = getPlanetBase(p.name);
+        const tone = PLANET_TONES[base] ? `${PLANET_TONES[base]}.` : '';
+        const signText = SIGN_TRAITS[p.sign] || `${p.sign} brings its own lessons.`;
+        const houseText = HOUSE_THEMES[p.house] || `House ${p.house}.`;
+        const nakText = p.nakshatra ? `Nakshatra: ${p.nakshatra}.` : '';
+        return `${base} — ${tone} In ${p.sign}: ${signText} In House ${p.house}: ${houseText} ${nakText}`.trim();
     }
