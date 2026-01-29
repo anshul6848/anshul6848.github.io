@@ -78,6 +78,9 @@
 <script src="../assets/js/language.js"></script>
 <script src="../assets/js/share.js"></script>
 <script>
+window.__shareTextOverride = "Find your Personal Year theme and action cue in seconds.";
+window.__shareUrlOverride = "https://www.qbytex.com/tools/personal-year.html";
+
 const personalYearMeanings = {
     1: { theme: "New beginnings and leadership", cue: "Start the project, plant the flag." },
     2: { theme: "Partnerships and patience", cue: "Collaborate, listen, and refine." },
@@ -122,6 +125,8 @@ function calculatePersonalYear() {
         <p style="margin:6px 0; color:#4b5563; font-size:14px;">Tip: Re-check each January or when you plan the year.</p>
     `;
     resultBox.style.display = 'block';
+    window.__shareTextOverride = `My Personal Year is ${sum} (${info.theme}). Check yours: https://www.qbytex.com/tools/personal-year.html`;
+    window.__shareUrlOverride = "https://www.qbytex.com/tools/personal-year.html";
 }
 </script>
 
