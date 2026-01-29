@@ -83,6 +83,7 @@
             <li><a href="../tools/numerology.html" style="color:#db2777; text-decoration:none;">Name Numerology</a></li>
             <li><a href="../tools/lifepath.html" style="color:#db2777; text-decoration:none;">Life Path Number</a></li>
             <li><a href="../tools/angel.html" style="color:#db2777; text-decoration:none;">Angel Number Meaning</a></li>
+            <li><a href="../tools/personal-year.html" style="color:#db2777; text-decoration:none;">Personal Year</a></li>
         </ul>
     </div>
 </div>
@@ -102,8 +103,8 @@ function calculateLove() {
     const name2 = document.getElementById("name2").value.trim().toLowerCase();
     const resultBox = document.getElementById("result");
 
-    if (!name1 || !name2) {
-        alert("Please enter both names.");
+    if (!name1 || !name2 || name1.length < 2 || name2.length < 2) {
+        alert("Please enter both names with at least 2 letters.");
         return;
     }
 
@@ -130,6 +131,9 @@ function calculateLove() {
     `;
     resultBox.style.display = "block";
 }
+
+window.__shareTextOverride = "I tried the Love Compatibility on Divine Destiny. For a deeper read, pair it with Life Path and Personal Year: https://www.qbytex.com/tools/personal-year.html";
+window.__shareUrlOverride = "https://www.qbytex.com/tools/love.html";
 </script>
 
 <script src="../assets/js/cookie-consent.js"></script>

@@ -114,6 +114,9 @@
         <div class="result-title">Your Chaldean Number</div>
         <div class="result-number" id="finalNumber">0</div>
         <p class="result-desc" id="numberMeaning"></p>
+        <div class="share-container" style="text-align:center; margin-top:12px;">
+            <button class="share-btn" onclick="shareTool()"><span class="icon">📤</span> Share this result</button>
+        </div>
     </div>
 
     <div class="compat-card">
@@ -162,8 +165,14 @@
 </footer>
 
 <script src="../assets/js/particles.js"></script>
+<script src="../assets/js/share.js"></script>
 <script src="../assets/js/numerology.js"></script>
 <script src="../assets/js/cookie-consent.js"></script>
+
+<script>
+window.__shareTextOverride = "I checked my Name Numerology on Divine Destiny. Pair it with your Personal Year and Life Path: https://www.qbytex.com/tools/personal-year.html";
+window.__shareUrlOverride = "https://www.qbytex.com/tools/numerology.html";
+</script>
 
 <script type="application/ld+json">
 {

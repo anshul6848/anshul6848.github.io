@@ -59,8 +59,14 @@
 <div class="why-section" style="margin: 20px auto; max-width: 600px;">
     <div class="why-box" style="text-align: left;">
         <p style="margin-top:0; color:#374151; font-size:15px; line-height:1.6;">Enter a repeating number to see a quick meaning and guidance you can act on. Keep an eye on patterns and journal what shows up today.</p>
-        <input type="text" id="numberInput" placeholder="Enter number (e.g., 111, 444)" 
-               style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 20px; font-family: 'Poppins', sans-serif;">
+         <input type="text" id="numberInput" placeholder="Enter number (e.g., 111, 444)" 
+             style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 12px; font-family: 'Poppins', sans-serif;">
+         <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+             <button class="contact-btn" style="padding:8px 12px;" onclick="prefillAngel('111')">111</button>
+             <button class="contact-btn" style="padding:8px 12px;" onclick="prefillAngel('222')">222</button>
+             <button class="contact-btn" style="padding:8px 12px;" onclick="prefillAngel('444')">444</button>
+             <button class="contact-btn" style="padding:8px 12px;" onclick="prefillAngel('1111')">1111</button>
+         </div>
         <button onclick="getMeaning()" class="contact-btn" style="width: 100%;">Get Meaning</button>
         
         <div id="result" style="display:none; margin-top: 30px; padding: 20px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); font-weight: 500;"></div>
@@ -82,6 +88,7 @@
             <li><a href="../tools/manifestation.html" style="color:#6d28d9; text-decoration:none;">Manifestation Message</a></li>
             <li><a href="../tools/guidance.html" style="color:#6d28d9; text-decoration:none;">Divine Guidance</a></li>
             <li><a href="../tools/numerology.html" style="color:#6d28d9; text-decoration:none;">Name Numerology</a></li>
+            <li><a href="../tools/personal-year.html" style="color:#6d28d9; text-decoration:none;">Personal Year</a></li>
         </ul>
     </div>
 </div>
@@ -132,10 +139,16 @@ const meanings_hi = {
 };
 
 function getMeaning() {
-    const num = document.getElementById("numberInput").value.trim();
+    const raw = document.getElementById("numberInput").value.trim();
+    const num = raw.replace(/\D/g, '');
     const resultBox = document.getElementById("result");
     const lang = localStorage.getItem('divine_lang') || 'en';
     const meanings = lang === 'en' ? meanings_en : meanings_hi;
+
+    if (!num) {
+        alert('Please enter a number pattern.');
+        return;
+    }
 
     if (meanings[num]) {
         resultBox.innerHTML = `<b>${num}</b> - ${meanings[num]}`;
@@ -148,6 +161,14 @@ function getMeaning() {
 
     resultBox.style.display = "block";
 }
+
+function prefillAngel(val) {
+    document.getElementById("numberInput").value = val;
+    getMeaning();
+}
+
+window.__shareTextOverride = "I looked up an angel number on Divine Destiny. Check your Personal Year next: https://www.qbytex.com/tools/personal-year.html";
+window.__shareUrlOverride = "https://www.qbytex.com/tools/angel.html";
 </script>
 
 <script src="../assets/js/cookie-consent.js"></script>

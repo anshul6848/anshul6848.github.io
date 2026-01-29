@@ -43,7 +43,8 @@ function handleEnter(e) {
 }
 
 function calculateNumerology() {
-    const name = document.getElementById('nameInput').value.toUpperCase().trim();
+    const raw = document.getElementById('nameInput').value;
+    const name = raw.toUpperCase().replace(/[^A-Z\s]/g, '').replace(/\s+/g, ' ').trim();
     if (!name) {
         alert("Please enter a name");
         return;
@@ -96,8 +97,10 @@ function lifePathFromDOB(dobStr) {
 }
 
 function calculateCompatibility() {
-    const nameA = document.getElementById('compNameA').value.trim().toUpperCase();
-    const nameB = document.getElementById('compNameB').value.trim().toUpperCase();
+    const rawA = document.getElementById('compNameA').value;
+    const rawB = document.getElementById('compNameB').value;
+    const nameA = rawA.toUpperCase().replace(/[^A-Z\s]/g, '').replace(/\s+/g, ' ').trim();
+    const nameB = rawB.toUpperCase().replace(/[^A-Z\s]/g, '').replace(/\s+/g, ' ').trim();
     const dobA = document.getElementById('compDobA').value;
     const dobB = document.getElementById('compDobB').value;
 
