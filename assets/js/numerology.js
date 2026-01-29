@@ -22,39 +22,54 @@ const numberMeanings = {
     9: "HUMANITARIAN: You are compassionate, selfless, and wise. You view the world broadly and wish to make it a better place."
 };
 
+const compatibilityNotes = [
+    { maxDiff: 0, text: "Deeply aligned; you share core drives." },
+    { maxDiff: 1, text: "Strong harmony with complementary strengths." },
+    { maxDiff: 2, text: "Balanced duo; small adjustments create flow." },
+    { maxDiff: 3, text: "Mixed; clarity and patience improve sync." },
+    { maxDiff: 9, text: "Opposite currents; respect differences." }
+];
+
+function handleEnter(e) {
+    if (e.key === 'Enter') calculateNumerology();
+}
+
 function calculateNumerology() {
     const name = document.getElementById('nameInput').value.toUpperCase().trim();
-    
     if (!name) {
         alert("Please enter a name");
         return;
     }
 
+    const total = calcNameNumber(name);
+    if (total === 0) {
+        alert("Please enter a valid name using letters.");
+        return;
+    }
+
+    const reduced = reduceNumber(total);
+    const resultDiv = document.getElementById('result');
+    const numberEl = document.getElementById('destinyNumber') || document.getElementById('finalNumber');
+    const meaningEl = document.getElementById('destinyMeaning') || document.getElementById('numberMeaning');
+
+    if (numberEl) numberEl.innerText = reduced;
+    if (meaningEl) meaningEl.innerText = numberMeanings[reduced] || "A unique vibration of potential.";
+
+    if (resultDiv) {
+        resultDiv.style.display = 'block';
+        resultDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function calcNameNumber(name) {
     let total = 0;
-    
-    // Sum up the letters
     for (let i = 0; i < name.length; i++) {
         const char = name[i];
         if (chaldeanTable[char]) {
             total += chaldeanTable[char];
         }
     }
-    
-    if (total === 0) {
-        alert("Please enter a valid name using letters.");
-        return;
-    }
-
-    // Reduce to single digit (unless master number, but for MVP keep it simple 1-9)
-    let reduced = reduceNumber(total);
-
-    // Show Result
-    const resultDiv = document.getElementById('result');
-    document.getElementById('destinyNumber').innerText = reduced;
-    document.getElementById('destinyMeaning').innerText = numberMeanings[reduced];
-    
-    resultDiv.style.display = 'block';
-    resultDiv.scrollIntoView({behavior: 'smooth'});
+    return total;
 }
 
 function reduceNumber(num) {
@@ -62,4 +77,53 @@ function reduceNumber(num) {
         num = num.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
     }
     return num;
+}
+
+function lifePathFromDOB(dobStr) {
+    if (!dobStr) return null;
+    const digits = dobStr.replace(/\D/g, '');
+    if (!digits) return null;
+    return reduceNumber(parseInt(digits, 10));
+}
+
+function calculateCompatibility() {
+    const nameA = document.getElementById('compNameA').value.trim().toUpperCase();
+    const nameB = document.getElementById('compNameB').value.trim().toUpperCase();
+    const dobA = document.getElementById('compDobA').value;
+    const dobB = document.getElementById('compDobB').value;
+
+    if (!nameA || !nameB || !dobA || !dobB) {
+        alert('Please fill both names and birth dates.');
+        return;
+    }
+
+    const nameNumA = reduceNumber(calcNameNumber(nameA));
+    const nameNumB = reduceNumber(calcNameNumber(nameB));
+    const lifeA = lifePathFromDOB(dobA);
+    const lifeB = lifePathFromDOB(dobB);
+
+    if (lifeA === null || lifeB === null) {
+        alert('Enter valid birth dates.');
+        return;
+    }
+
+    const lifeDiff = Math.abs(lifeA - lifeB);
+    const nameDiff = Math.abs(nameNumA - nameNumB);
+    let score = 90 - (lifeDiff * 8) - (nameDiff * 4);
+    score = Math.max(5, Math.min(98, Math.round(score)));
+
+    const note = compatibilityNotes.find(n => lifeDiff <= n.maxDiff)?.text || compatibilityNotes[compatibilityNotes.length - 1].text;
+    renderCompatibility({ score, lifeA, lifeB, nameNumA, nameNumB, note });
+}
+
+function renderCompatibility(info) {
+    const box = document.getElementById('compResult');
+    const scoreEl = document.getElementById('compScore');
+    const detailEl = document.getElementById('compDetail');
+    if (!box || !scoreEl || !detailEl) return;
+
+    scoreEl.innerText = `${info.score}%`;
+    detailEl.innerText = `Life Paths ${info.lifeA} & ${info.lifeB}; Names ${info.nameNumA} & ${info.nameNumB}. ${info.note}`;
+    box.style.display = 'block';
+    box.scrollIntoView({ behavior: 'smooth' });
 }

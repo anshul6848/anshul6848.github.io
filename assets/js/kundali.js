@@ -9,6 +9,87 @@ const NAKSHATRAS = [
     "Mula","Purva Ashadha","Uttara Ashadha","Shravana","Dhanishta","Shatabhisha","Purva Bhadrapada","Uttara Bhadrapada","Revati"
 ];
 
+// Light interpretations (short, friendly)
+const SIGN_TRAITS = {
+    "Aries": "Bold, initiates quickly, wants action now.",
+    "Taurus": "Steady, practical, values comfort and stability.",
+    "Gemini": "Curious, communicative, loves learning and sharing.",
+    "Cancer": "Nurturing, intuitive, protects what feels like home.",
+    "Leo": "Expressive, confident, seeks to shine and inspire.",
+    "Virgo": "Analytical, helpful, improves systems and details.",
+    "Libra": "Diplomatic, partnership-oriented, seeks balance.",
+    "Scorpio": "Intense, investigative, transforms through depth.",
+    "Sagittarius": "Visionary, adventurous, explores big ideas.",
+    "Capricorn": "Strategic, disciplined, builds lasting results.",
+    "Aquarius": "Inventive, future-minded, values community change.",
+    "Pisces": "Empathic, imaginative, flows with subtle currents."
+};
+
+const HOUSE_THEMES = {
+    1: "Self, vitality, personal drive.",
+    2: "Resources, values, possessions.",
+    3: "Communication, siblings, skills.",
+    4: "Home, roots, emotional base.",
+    5: "Creativity, romance, expression.",
+    6: "Health, routines, service.",
+    7: "Partnerships, agreements, visibility.",
+    8: "Depth work, shared assets, rebirth.",
+    9: "Beliefs, learning, journeys.",
+    10: "Career, reputation, leadership.",
+    11: "Allies, community, gains.",
+    12: "Rest, intuition, release."
+};
+
+const PLANET_TONES = {
+    "Sun": "Identity and leadership", "Moon": "Emotions and intuition", "Mercury": "Thinking and communication",
+    "Venus": "Connection and harmony", "Mars": "Drive and courage", "Jupiter": "Wisdom and growth",
+    "Saturn": "Structure and discipline", "Uranus": "Innovation and change", "Neptune": "Imagination and faith",
+    "Rahu": "Desire and worldly focus", "Ketu": "Release and spirituality"
+};
+
+const TITHI_NAMES = [
+    "Pratipada","Dwitiya","Tritiya","Chaturthi","Panchami","Shashthi","Saptami","Ashtami","Navami","Dashami",
+    "Ekadashi","Dwadashi","Trayodashi","Chaturdashi","Purnima",
+    "Pratipada","Dwitiya","Tritiya","Chaturthi","Panchami","Shashthi","Saptami","Ashtami","Navami","Dashami",
+    "Ekadashi","Dwadashi","Trayodashi","Chaturdashi","Amavasya"
+];
+
+const DASA_ORDER = ['Ketu','Venus','Sun','Moon','Mars','Rahu','Jupiter','Saturn','Mercury'];
+const DASA_YEARS = { Ketu: 7, Venus: 20, Sun: 6, Moon: 10, Mars: 7, Rahu: 18, Jupiter: 16, Saturn: 19, Mercury: 17 };
+
+const TITHI_MEANINGS = [
+    "Fresh starts and intention setting.",
+    "Cooperation, pairing up, steadying plans.",
+    "Momentum, skill-building, creative flow.",
+    "Problem-solving and breakthroughs.",
+    "Learning, adaptability, refining ideas.",
+    "Organization, discipline, practical steps.",
+    "Visibility, vitality, showing your work.",
+    "Tests of balance and courage.",
+    "Determination to clear obstacles.",
+    "Planning, delegation, responsible action.",
+    "Clarity, focus, lightening what is heavy.",
+    "Integration, gentle purification.",
+    "Agreements, harmony, collaborative wins.",
+    "Release, intensity, preparing to conclude.",
+    "Fullness, gratitude, honoring peak energy.",
+    "Reset, humility, tending foundations.",
+    "Stability, rebuilding, patient progress.",
+    "Revisiting choices, flexible course-correction.",
+    "Mending, simplifying, removing friction.",
+    "Care, healing, conscious nourishment.",
+    "Maintenance, steady work, wellness routines.",
+    "Balanced relating, feedback, perspective.",
+    "Inner work, releasing attachments.",
+    "Sorting truths from noise.",
+    "Faith, pilgrimage, reframing beliefs.",
+    "Leadership, duty, honoring commitments.",
+    "Community, friends, mutual aid.",
+    "Quiet reflection, closing loops.",
+    "Deep release, forgiveness, surrender.",
+    "Seed time, rest, inner renewal."
+];
+
 // Helpers
 const DEG2RAD = Math.PI / 180;
 const RAD2DEG = 180 / Math.PI;
@@ -80,8 +161,9 @@ function calcTithiPaksha(sunSid, moonSid) {
     const diff = normalizeDeg(moonSid - sunSid);
     const tithiNum = Math.floor(diff / 12) + 1; // 1..30
     const paksha = tithiNum <= 15 ? 'Shukla' : 'Krishna';
-    const tithiName = `Tithi ${tithiNum}`;
-    return { tithiNum, paksha, label: `${tithiName} (${paksha})` };
+    const name = TITHI_NAMES[tithiNum - 1] || `Tithi ${tithiNum}`;
+    const meaning = TITHI_MEANINGS[tithiNum - 1] || '';
+    return { tithiNum, paksha, name, label: `${name} (${paksha})`, meaning };
 }
 
 function downloadChartPNG() {
@@ -94,6 +176,46 @@ function downloadChartPNG() {
     } catch (e) {
         alert('Unable to download chart.');
         console.error('Download chart failed', e);
+    }
+}
+
+async function downloadKundaliPDF() {
+    try {
+        const { jsPDF } = window.jspdf || {};
+        if (!jsPDF || typeof html2canvas !== 'function') {
+            throw new Error('PDF dependencies not loaded');
+        }
+
+        const chartCanvas = document.getElementById('northChart');
+        const tableEl = document.querySelector('.planet-table');
+        if (!chartCanvas || !tableEl) {
+            throw new Error('Chart or table not found');
+        }
+
+        const doc = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+        const pageWidth = doc.internal.pageSize.getWidth();
+        let cursorY = 48;
+
+        doc.setFontSize(16);
+        doc.text('Kundali Report', pageWidth / 2, cursorY, { align: 'center' });
+        cursorY += 18;
+
+        const chartData = chartCanvas.toDataURL('image/png');
+        const chartWidth = Math.min(pageWidth - 80, 360);
+        const chartHeight = chartWidth;
+        doc.addImage(chartData, 'PNG', (pageWidth - chartWidth) / 2, cursorY, chartWidth, chartHeight);
+        cursorY += chartHeight + 20;
+
+        const tableCanvas = await html2canvas(tableEl, { scale: 2 });
+        const tableData = tableCanvas.toDataURL('image/png');
+        const tableWidth = pageWidth - 60;
+        const tableHeight = (tableCanvas.height * tableWidth) / tableCanvas.width;
+        doc.addImage(tableData, 'PNG', 30, cursorY, tableWidth, tableHeight);
+
+        doc.save('kundali-report.pdf');
+    } catch (e) {
+        alert('Unable to export PDF right now.');
+        console.error('PDF export failed', e);
     }
 }
 
@@ -113,6 +235,181 @@ function copyTableCSV() {
         console.error('Copy CSV failed', e);
         alert('Unable to copy CSV.');
     }
+}
+
+function toggleKundaliLanguage() {
+    const current = document.documentElement.lang === 'hi' ? 'hi' : 'en';
+    const target = current === 'hi' ? 'kundali.html' : 'kundali-hi.html';
+    window.location.href = target;
+}
+
+function computePanchangToday() {
+    const lat = parseFloat(document.getElementById('latitude').value);
+    const lon = parseFloat(document.getElementById('longitude').value);
+    if (isNaN(lat) || isNaN(lon)) {
+        alert('Please select a city first.');
+        return;
+    }
+    computePanchang(new Date(), lat, lon);
+}
+
+function computePanchang(date, lat, lon) {
+    try {
+        if (typeof Astronomy === 'undefined') throw new Error('Astronomy not loaded');
+
+        const ayanamsa = calculateLahiriAyanamsa(date);
+        const astroTime = Astronomy.MakeTime(date);
+        if (!astroTime) throw new Error('Time object failed');
+
+        const sunVec = Astronomy.GeoVector('Sun', astroTime, true);
+        const moonVec = Astronomy.GeoMoon(astroTime);
+        const sunLonTrop = Astronomy.Ecliptic(sunVec).elon;
+        const moonLonTrop = Astronomy.Ecliptic(moonVec).elon;
+
+        const sunSid = normalizeDeg(sunLonTrop - ayanamsa);
+        const moonSid = normalizeDeg(moonLonTrop - ayanamsa);
+
+        const tithi = calcTithiPaksha(sunSid, moonSid);
+        const nak = calcNakshatra(moonSid);
+        const moonPhaseAngle = normalizeDeg(moonLonTrop - sunLonTrop);
+        const phaseLabel = describePhase(moonPhaseAngle);
+
+        updatePanchangPanel({
+            tithi,
+            nak,
+            phaseLabel,
+            weekday: WEEKDAYS[date.getDay()],
+            date
+        });
+    } catch (e) {
+        console.error('Panchang error', e);
+        alert('Unable to fetch panchang right now.');
+    }
+}
+
+function describePhase(angle) {
+    if (angle < 10 || angle > 350) return 'New Moon';
+    if (angle < 80) return 'Waxing Crescent';
+    if (angle < 100) return 'First Quarter';
+    if (angle < 170) return 'Waxing Gibbous';
+    if (angle < 190) return 'Full Moon';
+    if (angle < 260) return 'Waning Gibbous';
+    if (angle < 280) return 'Last Quarter';
+    if (angle < 350) return 'Waning Crescent';
+    return 'Moon Phase';
+}
+
+function updatePanchangPanel(info) {
+    const box = document.getElementById('panchangPanel');
+    if (!box) return;
+    box.style.display = 'block';
+
+    const dateStr = info.date ? info.date.toLocaleDateString() : '';
+    const tithiEl = document.getElementById('panchangTithi');
+    const nakEl = document.getElementById('panchangNakshatra');
+    const phaseEl = document.getElementById('panchangMoonPhase');
+    const weekdayEl = document.getElementById('panchangWeekday');
+    const dateEl = document.getElementById('panchangDate');
+
+    if (tithiEl && info.tithi) tithiEl.innerText = `${info.tithi.label}${info.tithi.meaning ? ' — ' + info.tithi.meaning : ''}`;
+    if (nakEl && info.nak) nakEl.innerText = `${info.nak.name} (Pada ${info.nak.pada})`;
+    if (phaseEl && info.phaseLabel) phaseEl.innerText = info.phaseLabel;
+    if (weekdayEl && info.weekday) weekdayEl.innerText = info.weekday;
+    if (dateEl && dateStr) dateEl.innerText = dateStr;
+}
+
+function generateMoonCalendar() {
+    try {
+        if (typeof Astronomy === 'undefined') throw new Error('Astronomy not loaded');
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const rows = [];
+        for (let i = 0; i < 30; i++) {
+            const d = new Date(today.getTime() + i * 24 * 3600 * 1000);
+            const astroTime = Astronomy.MakeTime(d);
+            const sunLon = Astronomy.Ecliptic(Astronomy.GeoVector('Sun', astroTime, true)).elon;
+            const moonLon = Astronomy.Ecliptic(Astronomy.GeoMoon(astroTime)).elon;
+            const angle = normalizeDeg(moonLon - sunLon);
+            const phase = describePhase(angle);
+            const illum = Math.round((1 - Math.cos(angle * DEG2RAD)) * 50 * 10) / 10; // 0-100%
+            rows.push({ date: d.toLocaleDateString(), phase, illum });
+        }
+        window.__moonCalendarData = rows;
+        renderMoonCalendar(rows);
+    } catch (e) {
+        console.error('Moon calendar error', e);
+        alert('Unable to generate moon calendar.');
+    }
+}
+
+function renderMoonCalendar(rows) {
+    const panel = document.getElementById('moonCalendarPanel');
+    const body = document.getElementById('moonCalendarBody');
+    if (!panel || !body) return;
+    panel.style.display = 'block';
+    body.innerHTML = rows.map(r => `<tr><td>${r.date}</td><td>${r.phase}</td><td>${r.illum}%</td></tr>`).join('');
+}
+
+function downloadMoonCalendarCSV() {
+    const rows = window.__moonCalendarData || [];
+    if (!rows.length) {
+        alert('Generate the moon calendar first.');
+        return;
+    }
+    const header = ['Date','Phase','Illumination%'];
+    const csv = [header.join(','), ...rows.map(r => `${r.date},${r.phase},${r.illum}`)].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'moon-calendar.csv';
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+
+function computeMahadashaTimeline(birthDate, moonSid) {
+    if (isNaN(birthDate)) return [];
+    const idx = Math.floor(normalizeDeg(moonSid) / SEGMENT_NAK);
+    const lord = DASA_ORDER[idx % 9];
+    const fraction = (normalizeDeg(moonSid) % SEGMENT_NAK) / SEGMENT_NAK;
+    const remainingYears = DASA_YEARS[lord] * (1 - fraction);
+    const timeline = [];
+
+    let start = new Date(birthDate.getTime());
+    let end = addYearsFraction(start, remainingYears);
+    timeline.push({ lord, start, end, years: remainingYears });
+
+    let cursorIndex = (idx + 1) % 9;
+    start = end;
+    for (let i = 0; i < 8; i++) {
+        const l = DASA_ORDER[cursorIndex];
+        const yrs = DASA_YEARS[l];
+        end = addYearsFraction(start, yrs);
+        timeline.push({ lord: l, start, end, years: yrs });
+        start = end;
+        cursorIndex = (cursorIndex + 1) % 9;
+    }
+    return timeline;
+}
+
+function addYearsFraction(date, years) {
+    const ms = years * 365.25 * 24 * 3600 * 1000;
+    return new Date(date.getTime() + ms);
+}
+
+function renderMahadasha(timeline) {
+    const panel = document.getElementById('mahadashaPanel');
+    const body = document.getElementById('mahadashaBody');
+    if (!panel || !body) return;
+    if (!timeline || !timeline.length) {
+        panel.style.display = 'none';
+        return;
+    }
+    panel.style.display = 'block';
+    body.innerHTML = timeline.map(item => {
+        const start = item.start.toLocaleDateString();
+        const end = item.end.toLocaleDateString();
+        return `<tr><td>${item.lord}</td><td>${start}</td><td>${end}</td><td>${item.years.toFixed(1)} yrs</td></tr>`;
+    }).join('');
 }
 
 function isRetrograde(body, astroTime, date) {
@@ -356,13 +653,20 @@ function generateKundali() {
         if (ascLabel) ascLabel.innerText = `Lagna (${ascSign})`;
 
         // Tithi/Paksha and weekday
+        let tithiInfo = null;
         if (sunSid !== null && moonSid !== null) {
-            const tithi = calcTithiPaksha(sunSid, moonSid);
+            tithiInfo = calcTithiPaksha(sunSid, moonSid);
             const tithiEl = document.getElementById('tithiDisplay');
-            if (tithiEl) tithiEl.innerText = tithi.label;
+            if (tithiEl) tithiEl.innerText = tithiInfo.label;
+            const tithiMeaningEl = document.getElementById('tithiMeaning');
+            if (tithiMeaningEl && tithiInfo.meaning) {
+                tithiMeaningEl.innerText = `${tithiInfo.name}: ${tithiInfo.meaning}`;
+            }
         }
         const weekdayEl = document.getElementById('weekdayDisplay');
         if (weekdayEl) weekdayEl.innerText = WEEKDAYS[date.getDay()];
+
+        const mahadashaTimeline = (moonSid !== null) ? computeMahadashaTimeline(date, moonSid) : [];
 
         const tbody = document.getElementById('planetBody');
         tbody.innerHTML = '';
@@ -380,6 +684,12 @@ function generateKundali() {
 
         // 4. Draw Chart
         drawNorthIndianChart(planetaryPositions, ascendant);
+
+        // 5. Interpretations
+        renderInterpretations(planetaryPositions, ascendant, tithiInfo);
+
+        // 6. Mahadasha timeline
+        renderMahadasha(mahadashaTimeline);
 
         // Override share link with filled inputs so users can share this chart state
         try {
@@ -462,3 +772,41 @@ function drawNorthIndianChart(planets, ascendant) {
     // Just listing planets in center for MVP visual proof
     // Real mapping requires House calculation
 }
+
+    function renderInterpretations(planets, ascendant, tithiInfo) {
+        const listEl = document.getElementById('planetInterpretations');
+        if (!listEl) return;
+
+        const ascText = ascendant ? SIGNS[Math.floor(ascendant.sidereal / 30)] : 'Ascendant';
+        listEl.innerHTML = '';
+
+        planets.forEach((p) => {
+            const base = getPlanetBase(p.name);
+            const signText = SIGN_TRAITS[p.sign] || `${p.sign} emphasizes distinct lessons.`;
+            const houseText = HOUSE_THEMES[p.house] || `House ${p.house} themes add context.`;
+            const planetTone = PLANET_TONES[base] ? `${PLANET_TONES[base]}.` : '';
+            const para = document.createElement('p');
+            para.className = 'interp-line';
+            const nakSnippet = p.nakshatra ? ` Nakshatra: ${p.nakshatra}.` : '';
+            para.textContent = `${base} in ${p.sign} (House ${p.house}): ${planetTone} ${signText} ${houseText}${nakSnippet}`.trim();
+            listEl.appendChild(para);
+        });
+
+        const ascEl = document.getElementById('ascInterpret');
+        if (ascEl) {
+            ascEl.innerText = `Ascendant in ${ascText}: Your default style of moving through life and the filter others notice first.`;
+        }
+
+        const tithiBox = document.getElementById('tithiInterpret');
+        if (tithiBox && tithiInfo) {
+            const suffix = tithiInfo.paksha === 'Shukla' ? 'growing moon favors building.' : 'waning moon favors release.';
+            tithiBox.innerText = `${tithiInfo.name} (${tithiInfo.paksha} Paksha): ${tithiInfo.meaning} The ${suffix}`;
+        }
+    }
+
+    function getPlanetBase(name) {
+        if (!name) return '';
+        if (name.startsWith('Rahu')) return 'Rahu';
+        if (name.startsWith('Ketu')) return 'Ketu';
+        return name.split(' ')[0];
+    }

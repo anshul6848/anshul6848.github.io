@@ -66,7 +66,32 @@ const translations = {
         contact_ph_email: "Your Email",
         contact_ph_msg: "Your Message",
         contact_btn: "Send Message",
-        footer_text: "© 2026 Divine Destiny by Qbytex"
+        footer_text: "© 2026 Divine Destiny by Qbytex",
+
+        // Kundali page
+        kundali_title: "Free Kundali Generator",
+        kundali_desc: "Get your Vedic Birth Chart instantly. 100% Private.",
+        kundali_form_title: "Enter Birth Details",
+        kundali_label_name: "Your Name",
+        kundali_label_dob: "Date of Birth",
+        kundali_label_tob: "Time of Birth",
+        kundali_label_city: "Birth City",
+        kundali_btn_generate: "Generate Chart",
+        kundali_heading_lagna: "Lagna Chart (North Indian)",
+        kundali_heading_positions: "Planetary Positions",
+        kundali_heading_interp: "Interpretations",
+        kundali_heading_panchang: "Daily Panchang (Today)",
+        kundali_panchang_note: "Requires a selected city for accurate coordinates.",
+        kundali_btn_panchang: "Get Today's Panchang",
+        kundali_heading_mooncal: "Moon Phase Calendar (Next 30 Days)",
+        kundali_btn_mooncal: "Generate Moon Calendar",
+        kundali_heading_mahadasha: "Mahadasha Timeline",
+        kundali_btn_pdf: "Download PDF",
+        kundali_btn_png: "Download Chart PNG",
+        kundali_btn_csv: "Copy Table CSV",
+        kundali_btn_share: "Share this Tool",
+        kundali_mooncal_download: "Download Calendar CSV",
+        kundali_mahadasha_note: "Based on birth Moon nakshatra (Lahiri)."
     },
     hi: {
         nav_home: "होम",
@@ -135,7 +160,32 @@ const translations = {
         contact_ph_email: "आपका ईमेल",
         contact_ph_msg: "आपका संदेश",
         contact_btn: "संदेश भेजें",
-        footer_text: "© 2026 Divine Destiny by Qbytex"
+        footer_text: "© 2026 Divine Destiny by Qbytex",
+
+        // Kundali page
+        kundali_title: "मुफ्त कुंडली जनरेटर",
+        kundali_desc: "अपनी वैदिक जन्म कुंडली तुरंत पाएं। 100% निजी।",
+        kundali_form_title: "जन्म विवरण दर्ज करें",
+        kundali_label_name: "आपका नाम",
+        kundali_label_dob: "जन्म तिथि",
+        kundali_label_tob: "जन्म समय",
+        kundali_label_city: "जन्म शहर",
+        kundali_btn_generate: "कुंडली बनाएं",
+        kundali_heading_lagna: "लग्न कुंडली (उत्तर भारतीय)",
+        kundali_heading_positions: "ग्रह स्थिति",
+        kundali_heading_interp: "संक्षिप्त व्याख्या",
+        kundali_heading_panchang: "दैनिक पंचांग (आज)",
+        kundali_panchang_note: "सटीक समन्वय के लिए शहर चुनें और फिर देखें।",
+        kundali_btn_panchang: "आज का पंचांग देखें",
+        kundali_heading_mooncal: "चंद्र चरण कैलेंडर (अगले 30 दिन)",
+        kundali_btn_mooncal: "कैलेंडर बनाएं",
+        kundali_heading_mahadasha: "महादशा टाइमलाइन",
+        kundali_btn_pdf: "PDF डाउनलोड",
+        kundali_btn_png: "चार्ट PNG डाउनलोड",
+        kundali_btn_csv: "टेबल CSV कॉपी करें",
+        kundali_btn_share: "इस टूल को साझा करें",
+        kundali_mooncal_download: "कैलेंडर CSV डाउनलोड",
+        kundali_mahadasha_note: "जन्म चंद्र नक्षत्र (लहीरी) आधारित।"
     }
 };
 

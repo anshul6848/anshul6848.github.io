@@ -105,6 +105,34 @@
         <div class="result-number" id="finalNumber">0</div>
         <p class="result-desc" id="numberMeaning"></p>
     </div>
+
+    <div class="compat-card">
+        <h3 style="margin-top:0;">Compatibility Calculator</h3>
+        <p style="margin:6px 0 12px; color:#4b5563;">Enter both names and birth dates for a quick numerology compatibility score.</p>
+        <div class="compat-grid">
+            <div>
+                <label for="compNameA" style="display:block; font-weight:600; color:#4c1d95; margin-bottom:6px;">Your Name</label>
+                <input type="text" id="compNameA" placeholder="Name A" style="width:100%; padding:12px; border:1px solid rgba(124,58,237,0.2); border-radius:10px;">
+            </div>
+            <div>
+                <label for="compNameB" style="display:block; font-weight:600; color:#4c1d95; margin-bottom:6px;">Partner's Name</label>
+                <input type="text" id="compNameB" placeholder="Name B" style="width:100%; padding:12px; border:1px solid rgba(124,58,237,0.2); border-radius:10px;">
+            </div>
+            <div>
+                <label for="compDobA" style="display:block; font-weight:600; color:#4c1d95; margin-bottom:6px;">Your Date of Birth</label>
+                <input type="date" id="compDobA" style="width:100%; padding:12px; border:1px solid rgba(124,58,237,0.2); border-radius:10px;">
+            </div>
+            <div>
+                <label for="compDobB" style="display:block; font-weight:600; color:#4c1d95; margin-bottom:6px;">Partner's Date of Birth</label>
+                <input type="date" id="compDobB" style="width:100%; padding:12px; border:1px solid rgba(124,58,237,0.2); border-radius:10px;">
+            </div>
+        </div>
+        <button class="contact-btn" onclick="calculateCompatibility()" style="width:100%;">Calculate Compatibility</button>
+        <div class="compat-result" id="compResult">
+            <div style="font-size:22px; font-weight:700; color:#7c3aed;" id="compScore">--</div>
+            <div id="compDetail">--</div>
+        </div>
+    </div>
 </div>
 
 <footer>
@@ -114,63 +142,7 @@
 </footer>
 
 <script src="../assets/js/particles.js"></script>
-<script>
-    // Chaldean Numerology Map
-    const chaldeanMap = {
-        'a': 1, 'i': 1, 'j': 1, 'q': 1, 'y': 1,
-        'b': 2, 'k': 2, 'r': 2,
-        'c': 3, 'g': 3, 'l': 3, 's': 3,
-        'd': 4, 'm': 4, 't': 4,
-        'e': 5, 'h': 5, 'n': 5, 'x': 5,
-        'u': 6, 'v': 6, 'w': 6,
-        'o': 7, 'z': 7,
-        'f': 8, 'p': 8
-    };
-
-    const meanings = {
-        1: "The Leader. Independent, ambitious, and original. You are a natural born pioneer.",
-        2: "The Diplomat. Cooperative, sensitive, and balanced. You thrive in partnerships.",
-        3: "The Communicator. Creative, expressive, and joyful. You bring light to others.",
-        4: "The Builder. Practical, disciplined, and reliable. You build solid foundations.",
-        5: "The Adventurer. Dynamic, free-spirited, and versatile. You love change and travel.",
-        6: "The Nurturer. Responsible, caring, and harmonious. You are the glue of your family.",
-        7: "The Seeker. Analytical, spiritual, and intuitive. You seek deep truths.",
-        8: "The Powerhouse. Ambitious, efficient, and material-focused. You manifest success.",
-        9: "The Humanitarian. Compassionate, selfless, and generous. You care for the world."
-    };
-
-    function handleEnter(e) {
-        if (e.key === 'Enter') calculateNumerology();
-    }
-
-    function calculateNumerology() {
-        const name = document.getElementById('nameInput').value.toLowerCase().trim();
-        if(!name) return;
-
-        let sum = 0;
-        for (let char of name) {
-            if (chaldeanMap[char]) {
-                sum += chaldeanMap[char];
-            }
-        }
-
-        // Reduce to single digit
-        let finalNumber = sum;
-        while (finalNumber > 9) {
-            finalNumber = finalNumber.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
-        }
-
-        // Display Result
-        const resultBox = document.getElementById('result');
-        const numberDisplay = document.getElementById('finalNumber');
-        const meaningDisplay = document.getElementById('numberMeaning');
-
-        numberDisplay.innerText = finalNumber;
-        meaningDisplay.innerText = meanings[finalNumber] || "A unique vibration of potential.";
-        
-        resultBox.style.display = 'block';
-    }
-</script>
+<script src="../assets/js/numerology.js"></script>
 <script src="../assets/js/cookie-consent.js"></script>
 </body>
 </html>
